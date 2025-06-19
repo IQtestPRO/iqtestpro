@@ -61,7 +61,7 @@ const sampleQuestionsData: PreviewQuestion[] = [
   {
     id: 1,
     title: "Raciocínio Espacial",
-    subtitle: "Padrões Visuais - Novato",
+    subtitle: "Padrões Visuais",
     category: "Análise Visual",
     icon: <Eye className="w-10 h-10 text-white" />,
     backgroundPattern: (
@@ -76,8 +76,7 @@ const sampleQuestionsData: PreviewQuestion[] = [
         </div>
       </div>
     ),
-    description:
-      "Teste básico de padrões visuais e sequências simples. Perfeito para iniciantes que querem descobrir suas habilidades espaciais fundamentais.",
+    description: "Identifique sequências e complete matrizes visuais com padrões geométricos avançados.",
     difficulty: "Básico",
     difficultyLevel: 1,
     timeEstimate: "15 min",
@@ -93,19 +92,18 @@ const sampleQuestionsData: PreviewQuestion[] = [
     questions: 15,
     timeLimit: 15,
     features: [
-      "15 questões de padrões visuais básicos",
-      "Relatório de inteligência espacial",
-      "Badge de conquista 'Explorador Visual'",
-      "Análise de habilidades visuais",
-      "Suporte 24/7 via chat",
+      "15 questões de padrões visuais",
+      "Feedback detalhado por questão",
+      "Certificado digital personalizado",
+      "Comparação com outros usuários",
     ],
-    mainBenefits: ["Relatório de Inteligência Espacial", "Badge de Conquista Novato"],
+    mainBenefits: ["15 questões especializadas", "Feedback detalhado"],
     extraBenefits: 2,
   },
   {
     id: 2,
     title: "Raciocínio Lógico",
-    subtitle: "Quebra-cabeças - Pro",
+    subtitle: "Quebra-cabeças Lógicos",
     category: "Análise Dedutiva",
     icon: <Brain className="w-10 h-10 text-white" />,
     backgroundPattern: (
@@ -115,8 +113,7 @@ const sampleQuestionsData: PreviewQuestion[] = [
         </div>
       </div>
     ),
-    description:
-      "Desafios lógicos intermediários com silogismos e deduções complexas. Ideal para quem quer elevar seu raciocínio ao próximo nível.",
+    description: "Resolva problemas lógicos complexos usando raciocínio dedutivo e indutivo avançado.",
     difficulty: "Intermediário",
     difficultyLevel: 2,
     timeEstimate: "25 min",
@@ -132,20 +129,19 @@ const sampleQuestionsData: PreviewQuestion[] = [
     questions: 20,
     timeLimit: 25,
     features: [
-      "20 questões de lógica intermediária",
-      "Relatório de inteligência lógica",
-      "Badge de conquista 'Mestre da Lógica'",
-      "Análise de habilidades dedutivas",
-      "Suporte premium 24/7",
+      "20 questões de lógica avançada",
+      "Análise de performance detalhada",
+      "Dicas personalizadas de melhoria",
+      "Certificado premium validado",
       "Acesso ao ranking global",
     ],
-    mainBenefits: ["Relatório de Inteligência Lógica", "Badge de Conquista Pro"],
+    mainBenefits: ["20 questões avançadas", "Análise de performance"],
     extraBenefits: 3,
   },
   {
     id: 3,
     title: "Inteligência Fluida",
-    subtitle: "Raciocínio Abstrato - Elite",
+    subtitle: "Raciocínio Abstrato",
     category: "Cognição Avançada",
     icon: <Puzzle className="w-10 h-10 text-white" />,
     backgroundPattern: (
@@ -156,8 +152,7 @@ const sampleQuestionsData: PreviewQuestion[] = [
         </div>
       </div>
     ),
-    description:
-      "Teste avançado de inteligência pura e raciocínio abstrato. Para quem busca desafios de alto nível cognitivo e análise profissional.",
+    description: "Navegue por desafios abstratos complexos que testam sua capacidade de raciocínio puro.",
     difficulty: "Avançado",
     difficultyLevel: 3,
     timeEstimate: "35 min",
@@ -173,21 +168,20 @@ const sampleQuestionsData: PreviewQuestion[] = [
     questions: 25,
     timeLimit: 35,
     features: [
-      "25 questões de alta complexidade abstrata",
+      "25 questões de alta complexidade",
       "Relatório psicométrico completo",
-      "Badge de conquista 'Gênio Abstrato'",
-      "Análise de habilidades cognitivas avançadas",
-      "Suporte VIP 24/7",
-      "Consultoria personalizada (15min)",
+      "Análise de pontos fortes e fracos",
       "Certificado profissional reconhecido",
+      "Consultoria personalizada (15min)",
+      "Acesso vitalício aos resultados",
     ],
-    mainBenefits: ["Relatório Psicométrico Completo", "Badge de Conquista Elite"],
+    mainBenefits: ["25 questões complexas", "Relatório psicométrico"],
     extraBenefits: 4,
   },
   {
     id: 4,
     title: "Avaliação Completa",
-    subtitle: "Teste Multidimensional - Lenda",
+    subtitle: "Teste Expert",
     category: "Análise Multidimensional",
     icon: <Crown className="w-10 h-10 text-white" />,
     backgroundPattern: (
@@ -198,8 +192,7 @@ const sampleQuestionsData: PreviewQuestion[] = [
         </div>
       </div>
     ),
-    description:
-      "Avaliação completa e definitiva de todas as dimensões da inteligência. O teste mais abrangente para análise profissional completa.",
+    description: "Avaliação completa de todas as dimensões da inteligência com análise profissional detalhada.",
     difficulty: "Expert",
     difficultyLevel: 4,
     timeEstimate: "60 min",
@@ -215,16 +208,14 @@ const sampleQuestionsData: PreviewQuestion[] = [
     questions: 50,
     timeLimit: 60,
     features: [
-      "50 questões multidisciplinares completas",
-      "Relatório psicométrico master completo",
-      "Badge de conquista 'Lenda Cognitiva'",
+      "50 questões multidisciplinares",
+      "Relatório psicométrico completo",
       "Análise de 8 tipos de inteligência",
-      "Suporte VIP exclusivo 24/7",
+      "Certificado profissional reconhecido",
       "Consultoria personalizada (30min)",
-      "Certificado profissional internacional",
       "Plano de desenvolvimento cognitivo",
     ],
-    mainBenefits: ["Relatório Master Completo", "Badge de Conquista Lenda"],
+    mainBenefits: ["50 questões multidisciplinares", "Relatório completo"],
     extraBenefits: 4,
   },
 ]
@@ -696,100 +687,37 @@ export default function ChooseTestLevelSection() {
                 <div className="space-y-3">
                   <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
                     {question.id === 1 &&
-                      "🏆 MISSÃO NOVATO: Desperte seu potencial espacial! Teste básico com 15 questões de padrões visuais simples. Ganhe seu primeiro badge e relatório de inteligência espacial. Perfeito para começar sua jornada cognitiva!"}
+                      "Domine padrões visuais e desbloqueie sua inteligência espacial! Perfeito para iniciantes prontos para evoluir suas habilidades cognitivas e dominar desafios de reconhecimento de padrões."}
                     {question.id === 2 &&
-                      "⚡ DESAFIO PRO: Evolua para o próximo nível! 20 questões de lógica intermediária com silogismos e deduções. Conquiste o badge 'Mestre da Lógica' e acesse o ranking global de jogadores!"}
+                      "Conquiste quebra-cabeças lógicos complexos e torne-se um campeão do raciocínio! Avance seus poderes dedutivos e supere todos os desafios que aparecerem no seu caminho."}
                     {question.id === 3 &&
-                      "🎯 MISSÃO ELITE: Domine a inteligência abstrata! 25 questões de alta complexidade para mentes avançadas. Relatório psicométrico completo + consultoria personalizada + certificado profissional!"}
+                      "Libere sua inteligência pura e enfrente desafios abstratos como um profissional! Esta missão de nível elite levará seus limites cognitivos ao status lendário."}
                     {question.id === 4 &&
-                      "👑 RAID LENDÁRIO: Conquiste todas as dimensões! 50 questões multidisciplinares completas. Análise de 8 tipos de inteligência + plano de desenvolvimento + status de Lenda Cognitiva!"}
+                      "Complete o raid de inteligência definitivo! Enfrente todas as dimensões cognitivas e emerja como o mestre supremo da mente com destreza analítica incomparável."}
                   </p>
 
                   {/* Preview de benefícios gaming */}
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-slate-800/50 to-slate-700/50 rounded-lg p-3 border border-slate-600/30">
                     <p className="text-[0.65rem] sm:text-xs text-cyan-400 font-black mb-2 uppercase tracking-wider">
-                      🎮 LOOT GARANTIDO:
+                      🎮 RECOMPENSAS DA MISSÃO:
                     </p>
                     <div className="grid grid-cols-2 gap-2 text-xs text-slate-300">
-                      {question.id === 1 && (
-                        <>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2"></div>
-                            Relatório de Inteligência
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></div>
-                            Badge Explorador Visual
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></div>
-                            Análise de Habilidades
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-2"></div>
-                            Suporte 24/7
-                          </div>
-                        </>
-                      )}
-                      {question.id === 2 && (
-                        <>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2"></div>
-                            Relatório Lógico
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></div>
-                            Badge Mestre Lógica
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></div>
-                            Ranking Global
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-2"></div>
-                            Suporte Premium
-                          </div>
-                        </>
-                      )}
-                      {question.id === 3 && (
-                        <>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2"></div>
-                            Relatório Psicométrico
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></div>
-                            Badge Gênio Abstrato
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></div>
-                            Consultoria 15min
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-2"></div>
-                            Certificado Pro
-                          </div>
-                        </>
-                      )}
-                      {question.id === 4 && (
-                        <>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2"></div>
-                            Relatório Master
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></div>
-                            Badge Lenda
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></div>8 Inteligências
-                          </div>
-                          <div className="flex items-center">
-                            <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-2"></div>
-                            Plano Desenvolvimento
-                          </div>
-                        </>
-                      )}
+                      <div className="flex items-center">
+                        <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2"></div>
+                        Relatório de Inteligência
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></div>
+                        Badge de Conquista
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></div>
+                        Análise de Habilidades
+                      </div>
+                      <div className="flex items-center">
+                        <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-2"></div>
+                        Suporte 24/7
+                      </div>
                     </div>
                   </div>
                 </div>
