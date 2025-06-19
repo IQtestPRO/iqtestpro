@@ -1,0 +1,235 @@
+/* Background Neural Network para Site de Teste de QI */
+
+.neural-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 25%, #e2e8f0 50%, #f8fafc 75%, #ffffff 100%);
+}
+
+.neural-background::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.02) 0%, transparent 50%);
+  animation: neural-drift 20s ease-in-out infinite alternate;
+}
+
+.neural-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Conexões neurais sutis */
+  background-image: radial-gradient(circle at 15% 25%, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+    radial-gradient(circle at 85% 15%, rgba(139, 92, 246, 0.04) 1px, transparent 1px),
+    radial-gradient(circle at 25% 75%, rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+    radial-gradient(circle at 75% 85%, rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 45% 35%, rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 65% 65%, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+  background-size: 200px 200px, 250px 250px, 180px 180px, 220px 220px, 160px 160px, 190px 190px;
+  animation: neural-pulse 15s ease-in-out infinite;
+}
+
+/* Linhas de conexão neural sutis */
+.neural-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.neural-connections::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.1) 20%,
+    rgba(139, 92, 246, 0.08) 50%,
+    rgba(59, 130, 246, 0.1) 80%,
+    transparent 100%
+  );
+  transform: rotate(-15deg);
+  animation: neural-flow 12s ease-in-out infinite;
+}
+
+.neural-connections::after {
+  content: "";
+  position: absolute;
+  top: 60%;
+  left: 15%;
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.08) 30%,
+    rgba(99, 102, 241, 0.1) 60%,
+    transparent 100%
+  );
+  transform: rotate(12deg);
+  animation: neural-flow 18s ease-in-out infinite reverse;
+}
+
+/* Formas abstratas inspiradas em cérebro */
+.brain-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.brain-shapes::before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 300px;
+  height: 200px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(99, 102, 241, 0.02) 0%,
+    rgba(139, 92, 246, 0.01) 50%,
+    transparent 100%
+  );
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: brain-morph 25s ease-in-out infinite;
+}
+
+.brain-shapes::after {
+  content: "";
+  position: absolute;
+  bottom: 15%;
+  left: 8%;
+  width: 250px;
+  height: 180px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 130, 246, 0.02) 0%,
+    rgba(99, 102, 241, 0.01) 50%,
+    transparent 100%
+  );
+  border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%;
+  animation: brain-morph 20s ease-in-out infinite reverse;
+}
+
+/* Animações sutis */
+@keyframes neural-drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(-2%, -1%) rotate(1deg);
+  }
+}
+
+@keyframes neural-pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes neural-flow {
+  0% {
+    opacity: 0.3;
+    transform: translateX(-10px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0.3;
+    transform: translateX(10px);
+  }
+}
+
+@keyframes brain-morph {
+  0%,
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    border-radius: 50% 50% 40% 60% / 50% 40% 60% 50%;
+    transform: scale(1.05) rotate(1deg);
+  }
+  50% {
+    border-radius: 40% 60% 50% 50% / 40% 50% 50% 60%;
+    transform: scale(0.95) rotate(-1deg);
+  }
+  75% {
+    border-radius: 55% 45% 35% 65% / 55% 35% 65% 45%;
+    transform: scale(1.02) rotate(0.5deg);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .neural-background::before {
+    animation-duration: 15s;
+  }
+
+  .brain-shapes::before,
+  .brain-shapes::after {
+    width: 200px;
+    height: 150px;
+  }
+
+  .neural-connections::before,
+  .neural-connections::after {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .brain-shapes::before,
+  .brain-shapes::after {
+    width: 150px;
+    height: 120px;
+  }
+
+  .neural-background::after {
+    background-size: 120px 120px, 140px 140px, 100px 100px, 130px 130px, 90px 90px, 110px 110px;
+  }
+}
+
+/* Garantir que não interfira com o conteúdo */
+.neural-background,
+.neural-connections,
+.brain-shapes {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Overlay sutil para garantir legibilidade */
+.content-overlay {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(0.5px);
+}

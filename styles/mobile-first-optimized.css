@@ -1,0 +1,324 @@
+/* MOBILE-FIRST DESIGN SYSTEM */
+
+/* Base Mobile (320px+) */
+.mobile-payment-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: flex-end;
+  padding: 0;
+}
+
+.mobile-payment-container {
+  width: 100%;
+  max-height: 95vh;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Header Mobile */
+.mobile-payment-header {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  padding: 1rem;
+  color: white;
+}
+
+.payment-icon-mobile {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Body Scrollável */
+.mobile-payment-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem;
+  padding-bottom: 0;
+}
+
+/* Seção de Preço */
+.mobile-price-section {
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid #e2e8f0;
+}
+
+.mobile-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Métodos de Pagamento Mobile */
+.mobile-payment-methods {
+  margin-bottom: 1.5rem;
+}
+
+.section-title-mobile {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.payment-methods-grid-mobile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.payment-method-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  transition: all 0.2s ease;
+  min-height: 80px;
+  touch-action: manipulation;
+}
+
+.payment-method-mobile:active {
+  transform: scale(0.98);
+}
+
+.payment-method-mobile.active {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Formulário Mobile */
+.mobile-form-section {
+  margin-bottom: 1.5rem;
+}
+
+.mobile-form-group {
+  margin-bottom: 1rem;
+}
+
+.mobile-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.mobile-form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.mobile-form-input {
+  width: 100%;
+  font-size: 16px !important; /* Previne zoom no iOS */
+  line-height: 1.5;
+  padding: 12px 16px;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  transition: all 0.2s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+}
+
+.mobile-form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.mobile-form-input::placeholder {
+  color: #9ca3af;
+  font-size: 16px;
+}
+
+/* PIX Section */
+.mobile-pix-section {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  border: 2px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 2rem 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.pix-benefits {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  color: #166534;
+  font-weight: 500;
+}
+
+/* Segurança */
+.mobile-security-section {
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+/* Footer Fixo */
+.mobile-payment-footer {
+  padding: 1rem;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.mobile-payment-button {
+  width: 100%;
+  height: 56px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  touch-action: manipulation;
+  transition: all 0.2s ease;
+}
+
+.mobile-payment-button:active {
+  transform: scale(0.98);
+}
+
+.mobile-payment-button:disabled {
+  opacity: 0.6;
+  transform: none;
+}
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+  .mobile-payment-overlay {
+    align-items: center;
+    padding: 2rem;
+  }
+
+  .mobile-payment-container {
+    max-width: 480px;
+    margin: 0 auto;
+    border-radius: 20px;
+    max-height: 90vh;
+  }
+
+  .mobile-form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .mobile-payment-container {
+    max-width: 520px;
+  }
+
+  .mobile-payment-body {
+    padding: 2rem;
+  }
+
+  .mobile-payment-footer {
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* Correções específicas para iOS */
+@supports (-webkit-touch-callout: none) {
+  .mobile-form-input {
+    font-size: 16px !important;
+    transform: translateZ(0);
+  }
+
+  .mobile-payment-container {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Correções para Android */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .mobile-form-input {
+    font-size: 16px !important;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .mobile-form-input {
+    border-width: 3px;
+  }
+
+  .payment-method-mobile {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mobile-payment-container {
+    animation: none;
+  }
+
+  .mobile-payment-button,
+  .payment-method-mobile {
+    transition: none;
+  }
+}
+
+/* Landscape orientation */
+@media (orientation: landscape) and (max-height: 500px) {
+  .mobile-payment-container {
+    max-height: 95vh;
+  }
+
+  .mobile-payment-body {
+    padding: 0.75rem;
+  }
+
+  .mobile-price-section {
+    padding: 1rem;
+  }
+}
