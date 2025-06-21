@@ -1,0 +1,65 @@
+{
+  "userProgress": {
+    "userId": "string",
+    "sessionId": "string",
+    "quizId": "number",
+    "startTime": "ISO8601",
+    "endTime": "ISO8601",
+    "status": "enum[not_started, in_progress, completed, abandoned]",
+    "currentQuestion": "number",
+    "totalQuestions": "number",
+    "timeSpent": "number",
+    "answers": [
+      {
+        "questionId": "string",
+        "userAnswer": "any",
+        "correctAnswer": "any",
+        "isCorrect": "boolean",
+        "timeSpent": "number",
+        "difficulty": "string",
+        "cognitiveArea": "string",
+        "confidence": "number",
+        "attempts": "number"
+      }
+    ],
+    "scores": {
+      "overall": "number",
+      "byCategory": {
+        "spatial_reasoning": "number",
+        "logical_reasoning": "number",
+        "abstract_reasoning": "number",
+        "verbal_intelligence": "number",
+        "numerical_intelligence": "number",
+        "working_memory": "number",
+        "processing_speed": "number"
+      },
+      "percentile": "number",
+      "iqEstimate": "number"
+    },
+    "analytics": {
+      "averageTimePerQuestion": "number",
+      "accuracyRate": "number",
+      "difficultyProgression": "array",
+      "cognitiveStrengths": "array",
+      "improvementAreas": "array",
+      "comparisonData": {
+        "globalAverage": "number",
+        "ageGroupAverage": "number",
+        "educationLevelAverage": "number"
+      }
+    },
+    "feedback": {
+      "overallFeedback": "string",
+      "categoryFeedback": "object",
+      "recommendations": "array",
+      "nextSteps": "array"
+    },
+    "certification": {
+      "eligible": "boolean",
+      "level": "string",
+      "certificateId": "string",
+      "issuedDate": "ISO8601",
+      "validUntil": "ISO8601"
+    }
+  }
+}

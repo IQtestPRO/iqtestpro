@@ -1,0 +1,279 @@
+{
+  "quizLevels": {
+    "1": {
+      "id": 1,
+      "title": "Raciocínio Espacial",
+      "subtitle": "Padrões Visuais",
+      "category": "Análise Visual",
+      "difficulty": "Básico",
+      "difficultyLevel": 1,
+      "questions": 15,
+      "timeLimit": 15,
+      "price": 14.9,
+      "originalPrice": 24.9,
+      "specializedMode": true,
+      "detailedFeedback": true,
+      "comprehensiveAssessment": true,
+      "cognitiveAreas": ["spatial_reasoning", "pattern_recognition", "visual_processing"],
+      "questionTypes": [
+        {
+          "type": "matrix_completion",
+          "count": 8,
+          "difficulty": "basic",
+          "timePerQuestion": 60
+        },
+        {
+          "type": "pattern_sequence",
+          "count": 4,
+          "difficulty": "basic",
+          "timePerQuestion": 45
+        },
+        {
+          "type": "spatial_rotation",
+          "count": 3,
+          "difficulty": "intermediate",
+          "timePerQuestion": 75
+        }
+      ],
+      "feedbackCategories": [
+        "spatial_intelligence",
+        "pattern_recognition_speed",
+        "visual_processing_accuracy",
+        "geometric_reasoning"
+      ],
+      "certificationLevel": "basic",
+      "reportSections": ["overall_score", "cognitive_profile", "strengths_weaknesses", "improvement_recommendations"]
+    },
+    "2": {
+      "id": 2,
+      "title": "Raciocínio Lógico",
+      "subtitle": "Quebra-cabeças Lógicos",
+      "category": "Análise Dedutiva",
+      "difficulty": "Intermediário",
+      "difficultyLevel": 2,
+      "questions": 20,
+      "timeLimit": 25,
+      "price": 19.9,
+      "originalPrice": 34.9,
+      "specializedMode": true,
+      "detailedFeedback": true,
+      "comprehensiveAssessment": true,
+      "cognitiveAreas": ["logical_reasoning", "deductive_thinking", "problem_solving"],
+      "questionTypes": [
+        {
+          "type": "syllogistic_reasoning",
+          "count": 6,
+          "difficulty": "intermediate",
+          "timePerQuestion": 90
+        },
+        {
+          "type": "logical_sequences",
+          "count": 5,
+          "difficulty": "intermediate",
+          "timePerQuestion": 75
+        },
+        {
+          "type": "conditional_reasoning",
+          "count": 5,
+          "difficulty": "advanced",
+          "timePerQuestion": 105
+        },
+        {
+          "type": "analytical_puzzles",
+          "count": 4,
+          "difficulty": "advanced",
+          "timePerQuestion": 120
+        }
+      ],
+      "feedbackCategories": [
+        "deductive_reasoning",
+        "inductive_reasoning",
+        "logical_consistency",
+        "problem_solving_strategy"
+      ],
+      "certificationLevel": "intermediate",
+      "reportSections": [
+        "overall_score",
+        "cognitive_profile",
+        "reasoning_analysis",
+        "logic_patterns",
+        "improvement_recommendations",
+        "comparative_analysis"
+      ]
+    },
+    "3": {
+      "id": 3,
+      "title": "Inteligência Fluida",
+      "subtitle": "Raciocínio Abstrato",
+      "category": "Cognição Avançada",
+      "difficulty": "Avançado",
+      "difficultyLevel": 3,
+      "questions": 25,
+      "timeLimit": 35,
+      "price": 39.9,
+      "originalPrice": 79.9,
+      "specializedMode": true,
+      "detailedFeedback": true,
+      "comprehensiveAssessment": true,
+      "cognitiveAreas": ["fluid_intelligence", "abstract_reasoning", "cognitive_flexibility"],
+      "questionTypes": [
+        {
+          "type": "abstract_matrices",
+          "count": 8,
+          "difficulty": "advanced",
+          "timePerQuestion": 90
+        },
+        {
+          "type": "non_verbal_reasoning",
+          "count": 6,
+          "difficulty": "advanced",
+          "timePerQuestion": 85
+        },
+        {
+          "type": "cognitive_flexibility",
+          "count": 5,
+          "difficulty": "expert",
+          "timePerQuestion": 100
+        },
+        {
+          "type": "pattern_abstraction",
+          "count": 4,
+          "difficulty": "expert",
+          "timePerQuestion": 110
+        },
+        {
+          "type": "rule_inference",
+          "count": 2,
+          "difficulty": "expert",
+          "timePerQuestion": 150
+        }
+      ],
+      "feedbackCategories": [
+        "fluid_intelligence_score",
+        "abstract_thinking_ability",
+        "cognitive_flexibility_index",
+        "pattern_recognition_advanced",
+        "processing_speed"
+      ],
+      "certificationLevel": "advanced",
+      "reportSections": [
+        "overall_score",
+        "cognitive_profile",
+        "intelligence_breakdown",
+        "cognitive_strengths",
+        "development_areas",
+        "professional_recommendations",
+        "comparative_analysis",
+        "consultation_summary"
+      ]
+    },
+    "4": {
+      "id": 4,
+      "title": "Avaliação Completa",
+      "subtitle": "Teste Expert",
+      "category": "Análise Multidimensional",
+      "difficulty": "Expert",
+      "difficultyLevel": 4,
+      "questions": 50,
+      "timeLimit": 60,
+      "price": 59.9,
+      "originalPrice": 99.9,
+      "specializedMode": true,
+      "detailedFeedback": true,
+      "comprehensiveAssessment": true,
+      "cognitiveAreas": [
+        "verbal_intelligence",
+        "numerical_intelligence",
+        "spatial_intelligence",
+        "logical_reasoning",
+        "working_memory",
+        "processing_speed",
+        "fluid_intelligence",
+        "crystallized_intelligence"
+      ],
+      "questionTypes": [
+        {
+          "type": "verbal_comprehension",
+          "count": 8,
+          "difficulty": "expert",
+          "timePerQuestion": 75
+        },
+        {
+          "type": "numerical_reasoning",
+          "count": 8,
+          "difficulty": "expert",
+          "timePerQuestion": 80
+        },
+        {
+          "type": "spatial_visualization",
+          "count": 8,
+          "difficulty": "expert",
+          "timePerQuestion": 70
+        },
+        {
+          "type": "logical_analysis",
+          "count": 8,
+          "difficulty": "expert",
+          "timePerQuestion": 90
+        },
+        {
+          "type": "working_memory",
+          "count": 6,
+          "difficulty": "expert",
+          "timePerQuestion": 60
+        },
+        {
+          "type": "processing_speed",
+          "count": 6,
+          "difficulty": "expert",
+          "timePerQuestion": 45
+        },
+        {
+          "type": "abstract_reasoning",
+          "count": 4,
+          "difficulty": "expert",
+          "timePerQuestion": 120
+        },
+        {
+          "type": "cognitive_integration",
+          "count": 4,
+          "difficulty": "expert",
+          "timePerQuestion": 150
+        }
+      ],
+      "feedbackCategories": [
+        "overall_iq_score",
+        "verbal_intelligence",
+        "performance_intelligence",
+        "working_memory_index",
+        "processing_speed_index",
+        "cognitive_profile_analysis",
+        "intelligence_distribution",
+        "cognitive_efficiency"
+      ],
+      "certificationLevel": "expert",
+      "reportSections": [
+        "executive_summary",
+        "overall_score",
+        "intelligence_profile",
+        "cognitive_abilities_breakdown",
+        "strengths_analysis",
+        "development_opportunities",
+        "professional_implications",
+        "career_recommendations",
+        "cognitive_development_plan",
+        "comparative_analysis",
+        "consultation_notes"
+      ]
+    }
+  },
+  "globalSettings": {
+    "adaptiveTesting": true,
+    "realTimeAnalytics": true,
+    "detailedReporting": true,
+    "certificateGeneration": true,
+    "consultationIncluded": [3, 4],
+    "guaranteeDays": 7,
+    "supportLevel": "premium"
+  }
+}

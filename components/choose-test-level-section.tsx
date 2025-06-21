@@ -288,7 +288,23 @@ export default function ChooseTestLevelSection() {
         const accessInfo = checkPremiumAccess()
 
         if (accessInfo.hasAccess) {
-          // Se já tem acesso, ir direto para o quiz
+          // Se já tem acesso, ir direto para o quiz especializado
+          // Store quiz configuration for specialized experience
+          localStorage.setItem(
+            "selectedQuizConfig",
+            JSON.stringify({
+              id: question.id,
+              title: question.title,
+              questions: question.questions,
+              timeLimit: question.timeLimit,
+              features: question.features,
+              difficulty: question.difficulty,
+              specializedMode: true,
+              detailedFeedback: true,
+              comprehensiveAssessment: true,
+            }),
+          )
+
           router.push(`/quiz/${question.id}`)
           return
         }
@@ -296,31 +312,40 @@ export default function ChooseTestLevelSection() {
         // Check if payment context is available
         if (!openPaymentModal) {
           console.error("Payment context not available")
-          // Fallback to direct navigation to payment page
-          router.push(`/payment?testId=${question.id}`)
+          // Fallback with quiz promise parameters
+          router.push(
+            `/payment?testId=${question.id}&questions=${question.questions}&feedback=detailed&assessment=comprehensive`,
+          )
           return
         }
 
-        // Se não tem acesso, abrir modal de pagamento
+        // Se não tem acesso, abrir modal de pagamento com quiz promises
         const levelData = {
           id: question.id,
           title: question.title,
           price: question.price,
           originalPrice: question.originalPrice,
+          questions: question.questions,
+          timeLimit: question.timeLimit,
+          features: question.features,
+          specializedQuestions: true,
+          detailedFeedback: true,
+          comprehensiveAssessment: true,
+          postPaymentRedirect: `/quiz/${question.id}`,
         }
 
         openPaymentModal(`Começar ${question.title}`, `test-level-${question.id}`, levelData)
       } catch (error) {
         console.error("Error starting test:", error)
-        // Fallback navigation
-        router.push(`/payment?testId=${question.id}`)
+        // Enhanced fallback with quiz specifications
+        router.push(`/payment?testId=${question.id}&questions=${question.questions}&specialized=true&feedback=detailed`)
       }
     },
     [router, openPaymentModal],
   )
 
   const handleActualPurchase = useCallback(
-    (paymentMethod: string) => {
+    (paymentMethod: string, paymentData: any) => {
       try {
         setShowPaymentModal(false)
 
@@ -328,16 +353,49 @@ export default function ChooseTestLevelSection() {
           const purchaseData = {
             ...selectedLevelForPayment,
             paymentMethod,
+            paymentData,
             purchaseDate: new Date().toISOString(),
             paymentConfirmed: true,
+            quizAccess: true,
+            specializedQuestions: true,
+            detailedFeedback: true,
+            comprehensiveAssessment: true,
           }
 
+          // Store purchase data and unlock access
           localStorage.setItem("purchasedTest", JSON.stringify(purchaseData))
           localStorage.setItem("testPaid", "true")
+          localStorage.setItem("allQuizzesUnlocked", "true")
+          localStorage.setItem("premiumAccess", "true")
 
+          // Store quiz configuration for specialized experience
+          localStorage.setItem(
+            "selectedQuizConfig",
+            JSON.stringify({
+              id: selectedLevelForPayment.id,
+              title: selectedLevelForPayment.title,
+              questions: selectedLevelForPayment.questions,
+              timeLimit: selectedLevelForPayment.timeLimit,
+              features: selectedLevelForPayment.features,
+              difficulty: selectedLevelForPayment.difficulty,
+              specializedMode: true,
+              detailedFeedback: true,
+              comprehensiveAssessment: true,
+              purchaseConfirmed: true,
+            }),
+          )
+
+          // Show success notification
           setTimeout(() => {
-            router.push(`/test/${selectedLevelForPayment.id}`)
+            alert(
+              `✅ Pagamento confirmado! Redirecionando para seu quiz de ${selectedLevelForPayment.questions} questões especializadas...`,
+            )
           }, 500)
+
+          // Redirect to specialized quiz
+          setTimeout(() => {
+            router.push(`/quiz/${selectedLevelForPayment.id}`)
+          }, 1500)
         }
       } catch (error) {
         console.error("Error processing purchase:", error)
@@ -945,11 +1003,14 @@ export default function ChooseTestLevelSection() {
                     <span className="relative flex items-center justify-center">
                       <span className="hidden sm:inline">
                         {premiumAccess.allUnlocked
-                          ? "ACESSAR QUIZ"
-                          : (question.id === 1 && "INICIAR MISSÃO") ||
-                            (question.id === 2 && "ACEITAR DESAFIO") ||
-                            (question.id === 3 && "COMEÇAR MISSÃO") ||
-                            (question.id === 4 && "ENTRAR NO RAID")}
+                          ? "ACESSAR QUIZ COMPLETO"
+                          : question.id === 1
+                            ? "INICIAR MISSÃO • 15 QUESTÕES"
+                            : question.id === 2
+                              ? "ACEITAR DESAFIO • 20 QUESTÕES"
+                              : question.id === 3
+                                ? "COMEÇAR MISSÃO • 25 QUESTÕES"
+                                : "ENTRAR NO RAID • 50 QUESTÕES"}
                       </span>
                       <span className="sm:hidden">{premiumAccess.allUnlocked ? "ACESSAR" : "COMEÇAR"}</span>
                       <ChevronRight className="w-5 h-5 ml-2 animate-bounce" />

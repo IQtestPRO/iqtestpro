@@ -1,0 +1,117 @@
+{
+  "eventTypes": {
+    "quiz_started": {
+      "category": "quiz_interaction",
+      "properties": {
+        "quiz_id": "number",
+        "quiz_type": "string",
+        "user_id": "string",
+        "session_id": "string",
+        "timestamp": "ISO8601",
+        "device_type": "string",
+        "utm_source": "string",
+        "utm_campaign": "string"
+      }
+    },
+    "question_answered": {
+      "category": "quiz_interaction",
+      "properties": {
+        "question_id": "string",
+        "quiz_id": "number",
+        "user_answer": "any",
+        "is_correct": "boolean",
+        "time_spent": "number",
+        "question_type": "string",
+        "difficulty": "string",
+        "attempts": "number",
+        "confidence_level": "number"
+      }
+    },
+    "quiz_completed": {
+      "category": "quiz_interaction",
+      "properties": {
+        "quiz_id": "number",
+        "total_score": "number",
+        "completion_time": "number",
+        "accuracy_rate": "number",
+        "questions_answered": "number",
+        "questions_skipped": "number",
+        "iq_estimate": "number"
+      }
+    },
+    "payment_initiated": {
+      "category": "conversion",
+      "properties": {
+        "plan_id": "number",
+        "plan_name": "string",
+        "price": "number",
+        "payment_method": "string",
+        "utm_source": "string",
+        "utm_campaign": "string",
+        "referrer": "string"
+      }
+    },
+    "payment_completed": {
+      "category": "conversion",
+      "properties": {
+        "transaction_id": "string",
+        "plan_id": "number",
+        "amount_paid": "number",
+        "payment_method": "string",
+        "processing_time": "number",
+        "success": "boolean"
+      }
+    },
+    "certificate_generated": {
+      "category": "achievement",
+      "properties": {
+        "certificate_id": "string",
+        "quiz_id": "number",
+        "score": "number",
+        "level": "string",
+        "generation_time": "number"
+      }
+    },
+    "page_view": {
+      "category": "navigation",
+      "properties": {
+        "page_path": "string",
+        "page_title": "string",
+        "referrer": "string",
+        "load_time": "number",
+        "scroll_depth": "number",
+        "time_on_page": "number"
+      }
+    },
+    "button_click": {
+      "category": "interaction",
+      "properties": {
+        "button_text": "string",
+        "button_id": "string",
+        "page_path": "string",
+        "position": "string",
+        "context": "string"
+      }
+    },
+    "form_submission": {
+      "category": "interaction",
+      "properties": {
+        "form_name": "string",
+        "form_id": "string",
+        "fields_completed": "number",
+        "completion_time": "number",
+        "success": "boolean",
+        "errors": "array"
+      }
+    }
+  },
+  "trackingConfiguration": {
+    "batchSize": 10,
+    "flushInterval": 30000,
+    "retryAttempts": 3,
+    "debugMode": false,
+    "localStorageKey": "iq_test_analytics",
+    "maxStoredEvents": 1000,
+    "dataRetentionDays": 30
+  }
+}

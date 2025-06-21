@@ -1,0 +1,187 @@
+{
+  "plans": {
+    "basic": {
+      "id": 1,
+      "name": "Raciocínio Espacial",
+      "tier": "basic",
+      "price": 14.9,
+      "originalPrice": 24.9,
+      "discount": 40,
+      "currency": "BRL",
+      "features": [
+        "15 questões especializadas",
+        "Feedback detalhado por questão",
+        "Certificado digital personalizado",
+        "Comparação com outros usuários",
+        "Suporte por email",
+        "Acesso por 30 dias"
+      ],
+      "bonusCredits": 200,
+      "bonusValue": 50.0,
+      "guaranteeDays": 7,
+      "supportLevel": "standard",
+      "certificationType": "basic",
+      "reportPages": 5,
+      "consultationMinutes": 0,
+      "accessDuration": 30,
+      "paymentMethods": ["credit_card", "pix", "digital_wallet"],
+      "analytics": {
+        "conversionRate": 0.94,
+        "satisfactionRate": 0.98,
+        "completionRate": 0.89
+      }
+    },
+    "intermediate": {
+      "id": 2,
+      "name": "Raciocínio Lógico",
+      "tier": "intermediate",
+      "price": 19.9,
+      "originalPrice": 34.9,
+      "discount": 43,
+      "currency": "BRL",
+      "features": [
+        "20 questões de lógica avançada",
+        "Análise de performance detalhada",
+        "Dicas personalizadas de melhoria",
+        "Certificado premium validado",
+        "Acesso ao ranking global",
+        "Suporte prioritário",
+        "Acesso por 60 dias"
+      ],
+      "bonusCredits": 300,
+      "bonusValue": 75.0,
+      "guaranteeDays": 7,
+      "supportLevel": "priority",
+      "certificationType": "premium",
+      "reportPages": 8,
+      "consultationMinutes": 0,
+      "accessDuration": 60,
+      "paymentMethods": ["credit_card", "pix", "digital_wallet", "bank_transfer"],
+      "analytics": {
+        "conversionRate": 0.96,
+        "satisfactionRate": 0.97,
+        "completionRate": 0.92
+      }
+    },
+    "advanced": {
+      "id": 3,
+      "name": "Inteligência Fluida",
+      "tier": "advanced",
+      "price": 39.9,
+      "originalPrice": 79.9,
+      "discount": 50,
+      "currency": "BRL",
+      "features": [
+        "25 questões de alta complexidade",
+        "Relatório psicométrico completo",
+        "Análise de pontos fortes e fracos",
+        "Certificado profissional reconhecido",
+        "Consultoria personalizada (15min)",
+        "Acesso vitalício aos resultados",
+        "Suporte premium 24/7"
+      ],
+      "bonusCredits": 400,
+      "bonusValue": 100.0,
+      "guaranteeDays": 14,
+      "supportLevel": "premium",
+      "certificationType": "professional",
+      "reportPages": 12,
+      "consultationMinutes": 15,
+      "accessDuration": -1,
+      "paymentMethods": ["credit_card", "pix", "digital_wallet", "bank_transfer", "installments"],
+      "analytics": {
+        "conversionRate": 0.99,
+        "satisfactionRate": 0.99,
+        "completionRate": 0.95
+      }
+    },
+    "expert": {
+      "id": 4,
+      "name": "Avaliação Completa",
+      "tier": "expert",
+      "price": 59.9,
+      "originalPrice": 99.9,
+      "discount": 40,
+      "currency": "BRL",
+      "features": [
+        "50 questões multidisciplinares",
+        "Relatório psicométrico completo",
+        "Análise de 8 tipos de inteligência",
+        "Certificado profissional reconhecido",
+        "Consultoria personalizada (30min)",
+        "Plano de desenvolvimento cognitivo",
+        "Acesso vitalício premium",
+        "Suporte VIP dedicado"
+      ],
+      "bonusCredits": 500,
+      "bonusValue": 125.0,
+      "guaranteeDays": 14,
+      "supportLevel": "vip",
+      "certificationType": "expert",
+      "reportPages": 20,
+      "consultationMinutes": 30,
+      "accessDuration": -1,
+      "paymentMethods": ["credit_card", "pix", "digital_wallet", "bank_transfer", "installments", "corporate"],
+      "analytics": {
+        "conversionRate": 1.0,
+        "satisfactionRate": 1.0,
+        "completionRate": 0.98
+      }
+    }
+  },
+  "paymentMethods": {
+    "credit_card": {
+      "name": "Cartão de Crédito",
+      "icon": "credit-card",
+      "processingTime": "Imediato",
+      "fees": 0,
+      "installments": true,
+      "maxInstallments": 12,
+      "minInstallmentValue": 10.0
+    },
+    "pix": {
+      "name": "PIX",
+      "icon": "pix",
+      "processingTime": "Imediato",
+      "fees": 0,
+      "installments": false,
+      "discount": 0.05
+    },
+    "digital_wallet": {
+      "name": "Carteira Digital",
+      "icon": "wallet",
+      "processingTime": "Imediato",
+      "fees": 0,
+      "installments": false,
+      "providers": ["PayPal", "PagSeguro", "Mercado Pago"]
+    },
+    "bank_transfer": {
+      "name": "Transferência Bancária",
+      "icon": "bank",
+      "processingTime": "1-2 dias úteis",
+      "fees": 0,
+      "installments": false,
+      "discount": 0.03
+    }
+  },
+  "promotions": {
+    "firstTime": {
+      "name": "Primeira Compra",
+      "discount": 0.15,
+      "code": "PRIMEIRO15",
+      "validUntil": "2024-12-31"
+    },
+    "bundle": {
+      "name": "Pacote Completo",
+      "discount": 0.25,
+      "code": "COMPLETO25",
+      "minItems": 2
+    },
+    "student": {
+      "name": "Desconto Estudante",
+      "discount": 0.2,
+      "code": "ESTUDANTE20",
+      "requiresVerification": true
+    }
+  }
+}

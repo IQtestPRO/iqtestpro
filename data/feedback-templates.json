@@ -1,0 +1,128 @@
+{
+  "feedbackTemplates": {
+    "spatial_reasoning": {
+      "high_performance": {
+        "title": "Excelente Raciocínio Espacial",
+        "description": "Você demonstrou habilidades excepcionais em visualização espacial e reconhecimento de padrões.",
+        "strengths": [
+          "Rápida identificação de padrões visuais",
+          "Excelente capacidade de rotação mental",
+          "Forte percepção de relações espaciais"
+        ],
+        "recommendations": [
+          "Considere carreiras em arquitetura, engenharia ou design",
+          "Explore atividades como quebra-cabeças 3D e jogos espaciais",
+          "Desenvolva habilidades em software de modelagem 3D"
+        ]
+      },
+      "average_performance": {
+        "title": "Bom Raciocínio Espacial",
+        "description": "Suas habilidades espaciais estão dentro da média, com potencial para desenvolvimento.",
+        "strengths": ["Compreensão básica de relações espaciais", "Capacidade adequada de visualização"],
+        "recommendations": [
+          "Pratique com quebra-cabeças e jogos de construção",
+          "Exercite a visualização mental regularmente",
+          "Considere cursos de desenho técnico ou geometria"
+        ]
+      },
+      "low_performance": {
+        "title": "Área de Desenvolvimento: Raciocínio Espacial",
+        "description": "Há oportunidades significativas para melhorar suas habilidades espaciais.",
+        "strengths": ["Potencial para crescimento identificado", "Outras áreas cognitivas podem compensar"],
+        "recommendations": [
+          "Dedique tempo regular a exercícios de visualização",
+          "Use aplicativos de treinamento espacial",
+          "Pratique atividades como origami e construção com blocos"
+        ]
+      }
+    },
+    "logical_reasoning": {
+      "high_performance": {
+        "title": "Raciocínio Lógico Excepcional",
+        "description": "Você possui habilidades lógicas superiores, demonstrando excelente capacidade analítica.",
+        "strengths": [
+          "Análise lógica precisa e eficiente",
+          "Excelente capacidade de dedução",
+          "Forte pensamento crítico"
+        ],
+        "recommendations": [
+          "Considere carreiras em ciências, direito ou análise de dados",
+          "Explore filosofia e lógica formal",
+          "Participe de debates e competições de raciocínio"
+        ]
+      },
+      "average_performance": {
+        "title": "Raciocínio Lógico Adequado",
+        "description": "Suas habilidades lógicas são sólidas, com espaço para refinamento.",
+        "strengths": ["Compreensão básica de princípios lógicos", "Capacidade de seguir argumentos estruturados"],
+        "recommendations": [
+          "Pratique com quebra-cabeças lógicos",
+          "Estude princípios básicos de lógica",
+          "Exercite o pensamento crítico diariamente"
+        ]
+      }
+    },
+    "abstract_reasoning": {
+      "high_performance": {
+        "title": "Inteligência Fluida Superior",
+        "description": "Você demonstra capacidade excepcional de raciocínio abstrato e flexibilidade cognitiva.",
+        "strengths": [
+          "Excelente capacidade de abstração",
+          "Forte flexibilidade mental",
+          "Habilidade superior de reconhecimento de padrões complexos"
+        ],
+        "recommendations": [
+          "Explore áreas que exigem inovação e criatividade",
+          "Considere pesquisa científica ou desenvolvimento de produtos",
+          "Mantenha-se desafiado com problemas complexos"
+        ]
+      }
+    },
+    "overall_assessment": {
+      "genius_level": {
+        "title": "Inteligência Excepcional",
+        "description": "Você demonstra capacidades cognitivas no percentil superior, indicando inteligência excepcional.",
+        "iq_range": "140+",
+        "percentile": "99+",
+        "recommendations": [
+          "Busque desafios intelectuais constantes",
+          "Considere contribuições em áreas de alta complexidade",
+          "Explore oportunidades de liderança intelectual"
+        ]
+      },
+      "superior": {
+        "title": "Inteligência Superior",
+        "description": "Suas capacidades cognitivas estão significativamente acima da média.",
+        "iq_range": "120-139",
+        "percentile": "90-98",
+        "recommendations": [
+          "Aproveite seu potencial em áreas desafiadoras",
+          "Busque educação avançada em áreas de interesse",
+          "Considere mentoria para outros"
+        ]
+      },
+      "above_average": {
+        "title": "Inteligência Acima da Média",
+        "description": "Você demonstra capacidades cognitivas sólidas, acima da média populacional.",
+        "iq_range": "110-119",
+        "percentile": "75-89",
+        "recommendations": [
+          "Continue desenvolvendo suas forças cognitivas",
+          "Explore áreas que aproveitem seus pontos fortes",
+          "Mantenha-se intelectualmente ativo"
+        ]
+      },
+      "average": {
+        "title": "Inteligência na Média",
+        "description": "Suas capacidades cognitivas estão dentro da faixa média esperada.",
+        "iq_range": "90-109",
+        "percentile": "25-74",
+        "recommendations": [
+          "Foque no desenvolvimento de áreas específicas",
+          "Pratique regularmente exercícios cognitivos",
+          "Identifique e desenvolva seus pontos fortes únicos"
+        ]
+      }
+    }
+  }
+}

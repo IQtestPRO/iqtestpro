@@ -1,0 +1,182 @@
+{
+  "spatialReasoning": {
+    "matrixCompletion": [
+      {
+        "id": "sp_mc_001",
+        "type": "matrix_completion",
+        "difficulty": "basic",
+        "timeLimit": 60,
+        "question": "Complete a matriz 3x3 identificando o padrão nas formas geométricas",
+        "description": "Analise as relações entre as formas em cada linha e coluna para determinar a peça faltante",
+        "cognitiveArea": "spatial_reasoning",
+        "skills": ["pattern_recognition", "spatial_visualization", "logical_analysis"],
+        "feedbackPoints": [
+          "Análise de padrões horizontais e verticais",
+          "Reconhecimento de transformações geométricas",
+          "Aplicação de regras espaciais consistentes"
+        ]
+      },
+      {
+        "id": "sp_mc_002",
+        "type": "matrix_completion",
+        "difficulty": "basic",
+        "timeLimit": 60,
+        "question": "Identifique a peça que completa a sequência de rotações",
+        "description": "As formas seguem um padrão de rotação específico em cada posição da matriz",
+        "cognitiveArea": "spatial_reasoning",
+        "skills": ["rotation_understanding", "sequential_thinking", "spatial_memory"],
+        "feedbackPoints": [
+          "Compreensão de rotações geométricas",
+          "Rastreamento de sequências espaciais",
+          "Aplicação consistente de transformações"
+        ]
+      }
+    ],
+    "patternSequence": [
+      {
+        "id": "sp_ps_001",
+        "type": "pattern_sequence",
+        "difficulty": "basic",
+        "timeLimit": 45,
+        "question": "Determine o próximo elemento na sequência de padrões",
+        "description": "Cada elemento segue uma progressão lógica baseada em propriedades visuais",
+        "cognitiveArea": "pattern_recognition",
+        "skills": ["sequence_analysis", "visual_processing", "predictive_reasoning"],
+        "feedbackPoints": [
+          "Identificação de padrões progressivos",
+          "Análise de propriedades visuais",
+          "Predição baseada em regras identificadas"
+        ]
+      }
+    ]
+  },
+  "logicalReasoning": {
+    "syllogisticReasoning": [
+      {
+        "id": "lr_sr_001",
+        "type": "syllogistic_reasoning",
+        "difficulty": "intermediate",
+        "timeLimit": 90,
+        "question": "Todos os A são B. Alguns B são C. Portanto:",
+        "options": ["Todos os A são C", "Alguns A são C", "Nenhum A é C", "Não é possível determinar"],
+        "correctAnswer": 3,
+        "explanation": "A partir das premissas dadas, não podemos estabelecer uma relação definitiva entre A e C",
+        "cognitiveArea": "deductive_reasoning",
+        "skills": ["logical_analysis", "premise_evaluation", "conclusion_validity"],
+        "feedbackPoints": [
+          "Análise cuidadosa de premissas lógicas",
+          "Identificação de conclusões válidas vs inválidas",
+          "Reconhecimento de limitações lógicas"
+        ]
+      }
+    ],
+    "conditionalReasoning": [
+      {
+        "id": "lr_cr_001",
+        "type": "conditional_reasoning",
+        "difficulty": "advanced",
+        "timeLimit": 105,
+        "question": "Se P então Q. Se Q então R. P é verdadeiro. Qual das seguintes é necessariamente verdadeira?",
+        "options": ["R é verdadeiro", "R é falso", "Q pode ser falso", "P pode ser falso"],
+        "correctAnswer": 0,
+        "explanation": "Pela regra de transitividade e modus ponens: P→Q, Q→R, P ∴ R",
+        "cognitiveArea": "logical_reasoning",
+        "skills": ["conditional_logic", "transitive_reasoning", "logical_chains"],
+        "feedbackPoints": [
+          "Compreensão de implicações condicionais",
+          "Aplicação de regras de inferência",
+          "Construção de cadeias lógicas válidas"
+        ]
+      }
+    ]
+  },
+  "abstractReasoning": {
+    "abstractMatrices": [
+      {
+        "id": "ar_am_001",
+        "type": "abstract_matrices",
+        "difficulty": "advanced",
+        "timeLimit": 90,
+        "question": "Complete a matriz identificando a relação abstrata entre os elementos",
+        "description": "Os elementos seguem regras de transformação não-verbais complexas",
+        "cognitiveArea": "fluid_intelligence",
+        "skills": ["abstract_thinking", "rule_inference", "non_verbal_reasoning"],
+        "feedbackPoints": [
+          "Identificação de regras abstratas",
+          "Raciocínio independente de conhecimento prévio",
+          "Flexibilidade cognitiva na resolução"
+        ]
+      }
+    ],
+    "cognitiveFlexibility": [
+      {
+        "id": "ar_cf_001",
+        "type": "cognitive_flexibility",
+        "difficulty": "expert",
+        "timeLimit": 100,
+        "question": "Adapte sua estratégia de resolução conforme as regras mudam",
+        "description": "O padrão de solução muda dinamicamente, exigindo adaptação cognitiva",
+        "cognitiveArea": "cognitive_flexibility",
+        "skills": ["strategy_adaptation", "rule_switching", "mental_flexibility"],
+        "feedbackPoints": [
+          "Capacidade de mudança de estratégia",
+          "Adaptação a novas regras rapidamente",
+          "Flexibilidade mental sob pressão"
+        ]
+      }
+    ]
+  },
+  "comprehensiveAssessment": {
+    "verbalComprehension": [
+      {
+        "id": "ca_vc_001",
+        "type": "verbal_comprehension",
+        "difficulty": "expert",
+        "timeLimit": 75,
+        "question": "Analise o texto e identifique a inferência mais apropriada",
+        "description": "Texto complexo requerendo compreensão profunda e inferência lógica",
+        "cognitiveArea": "verbal_intelligence",
+        "skills": ["reading_comprehension", "inference_making", "verbal_reasoning"],
+        "feedbackPoints": [
+          "Compreensão de textos complexos",
+          "Capacidade de inferência verbal",
+          "Análise crítica de informações"
+        ]
+      }
+    ],
+    "numericalReasoning": [
+      {
+        "id": "ca_nr_001",
+        "type": "numerical_reasoning",
+        "difficulty": "expert",
+        "timeLimit": 80,
+        "question": "Resolva o problema matemático aplicando múltiplos conceitos",
+        "description": "Problema que integra álgebra, geometria e análise estatística",
+        "cognitiveArea": "numerical_intelligence",
+        "skills": ["mathematical_reasoning", "quantitative_analysis", "problem_solving"],
+        "feedbackPoints": [
+          "Aplicação de conceitos matemáticos",
+          "Raciocínio quantitativo avançado",
+          "Integração de múltiplas áreas matemáticas"
+        ]
+      }
+    ],
+    "workingMemory": [
+      {
+        "id": "ca_wm_001",
+        "type": "working_memory",
+        "difficulty": "expert",
+        "timeLimit": 60,
+        "question": "Mantenha e manipule múltiplas informações simultaneamente",
+        "description": "Tarefa que exige armazenamento e processamento ativo de informações",
+        "cognitiveArea": "working_memory",
+        "skills": ["information_retention", "mental_manipulation", "cognitive_control"],
+        "feedbackPoints": [
+          "Capacidade de memória de trabalho",
+          "Manipulação mental de informações",
+          "Controle executivo cognitivo"
+        ]
+      }
+    ]
+  }
+}
