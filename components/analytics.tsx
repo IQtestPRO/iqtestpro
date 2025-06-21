@@ -1,22 +1,27 @@
 "use client"
 
-import { usePathname, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
+import { usePageTracking } from "@/hooks/use-analytics"
+import UTMHandler from "@/lib/utm-handler"
 
 export function Analytics() {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
+  // Automatic page tracking
+  usePageTracking()
 
   useEffect(() => {
-    // Path change analytics tracking
-    const url = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`
+    // Initialize UTM tracking on mount
+    const utmData = UTMHandler.parseCurrentUTM()
+    if (utmData) {
+      UTMHandler.updateAttribution(utmData)
+      console.log("UTM parameters detected and stored:", utmData)
+    }
 
-    // This is where you would normally send analytics data
-    // For example with Google Analytics:
-    // window.gtag('config', 'GA-MEASUREMENT-ID', { page_path: url })
-
-    console.log(`Page view tracked: ${url}`)
-  }, [pathname, searchParams])
+    // Track initial page load
+    if (typeof window !== "undefined") {
+      const loadTime = performance.now()
+      console.log(`Page loaded in ${loadTime.toFixed(2)}ms`)
+    }
+  }, [])
 
   return null
 }
