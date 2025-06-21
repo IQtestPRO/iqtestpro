@@ -8,12 +8,11 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ['images.unsplash.com', 'via.placeholder.com', 'picsum.photos'],
+    domains: ['images.unsplash.com', 'via.placeholder.com'],
     formats: ['image/webp', 'image/avif'],
   },
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
@@ -21,7 +20,7 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   swcMinify: true,
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -31,24 +30,10 @@ const nextConfig = {
         tls: false,
       }
     }
-    
-    // Otimizar bundle size
-    config.optimization = {
-      ...config.optimization,
-      splitChunks: {
-        chunks: 'all',
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: 'vendors',
-            chunks: 'all',
-          },
-        },
-      },
-    }
-    
     return config
   },
+  output: 'standalone',
+  trailingSlash: false,
 }
 
 export default nextConfig
