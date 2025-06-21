@@ -37,7 +37,7 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
-      {/* Background Pattern */}
+      {/* Background Pattern - Updated to remove GIF dependency */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
         <div
@@ -50,11 +50,15 @@ export default function HeroSection() {
         ></div>
       </div>
 
-      {/* Grid Pattern */}
+      {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="grid grid-cols-12 gap-4 h-full">
           {Array.from({ length: 144 }).map((_, i) => (
-            <div key={i} className="border border-white/20"></div>
+            <div
+              key={i}
+              className="border border-white/20 animate-pulse"
+              style={{ animationDelay: `${i * 0.01}s` }}
+            ></div>
           ))}
         </div>
       </div>
