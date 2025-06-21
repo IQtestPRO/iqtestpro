@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "build-check": "tsx scripts/build-check.ts",
     "dev": "next dev",
     "lint": "next lint",
+    "pre-deploy": "npm run type-check && npm run build-check && npm run build",
     "start": "next start",
     "type-check": "tsc --noEmit"
   },
@@ -40,14 +42,17 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "autoprefixer": "^10.4.0",
+    "child_process": "latest",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "latest",
     "embla-carousel-react": "latest",
+    "fs": "latest",
     "input-otp": "latest",
     "lucide-react": "^0.454.0",
     "next": "15.2.4",
     "next-themes": "latest",
+    "path": "latest",
     "postcss": "^8.4.0",
     "react": "^19",
     "react-day-picker": "latest",
@@ -70,6 +75,11 @@
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
     "postcss": "^8.5",
+    "tsx": "^4.0.0",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }

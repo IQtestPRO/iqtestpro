@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false, // Mudado para detectar erros
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false, // Mudado para detectar erros
   },
   images: {
     unoptimized: true,
@@ -22,6 +22,22 @@ const nextConfig = {
   compress: true,
   swcMinify: true,
   reactStrictMode: true,
+  // Configurações para evitar problemas de build
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      }
+    }
+    return config
+  },
+  // Otimizações de memória
+  env: {
+    NODE_OPTIONS: '--max-old-space-size=4096'
+  }
 }
 
 export default nextConfig
