@@ -1001,18 +1001,8 @@ export default function ChooseTestLevelSection() {
                   >
                     <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     <span className="relative flex items-center justify-center">
-                      <span className="hidden sm:inline">
-                        {premiumAccess.allUnlocked
-                          ? "ACESSAR QUIZ COMPLETO"
-                          : question.id === 1
-                            ? "INICIAR MISSÃO • 15 QUESTÕES"
-                            : question.id === 2
-                              ? "ACEITAR DESAFIO • 20 QUESTÕES"
-                              : question.id === 3
-                                ? "COMEÇAR MISSÃO • 25 QUESTÕES"
-                                : "ENTRAR NO RAID • 50 QUESTÕES"}
-                      </span>
-                      <span className="sm:hidden">{premiumAccess.allUnlocked ? "ACESSAR" : "COMEÇAR"}</span>
+                      <span className="hidden sm:inline">INICIAR MISSÃO</span>
+                      <span className="sm:hidden">INICIAR</span>
                       <ChevronRight className="w-5 h-5 ml-2 animate-bounce" />
                     </span>
                   </Button>
