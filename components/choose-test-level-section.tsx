@@ -25,6 +25,10 @@ import {
   Cpu,
   Gift,
   BarChart3,
+  DollarSign,
+  Clock,
+  Users,
+  Percent,
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import type React from "react"
@@ -225,12 +229,22 @@ const sampleQuestionsData: PreviewQuestion[] = [
 ]
 
 function checkPremiumAccess() {
-  // Lógica para verificar o acesso premium do usuário
-  // Pode verificar um token no localStorage, um cookie, etc.
-  const hasAccess = localStorage.getItem("premiumAccess") === "true"
-  const allUnlocked = localStorage.getItem("allTestsUnlocked") === "true"
+  // Only run on client side
+  if (typeof window === "undefined") {
+    return { hasAccess: false, allUnlocked: false }
+  }
 
-  return { hasAccess, allUnlocked }
+  try {
+    // Lógica para verificar o acesso premium do usuário
+    // Pode verificar um token no localStorage, um cookie, etc.
+    const hasAccess = localStorage.getItem("premiumAccess") === "true"
+    const allUnlocked = localStorage.getItem("allTestsUnlocked") === "true"
+
+    return { hasAccess, allUnlocked }
+  } catch (error) {
+    console.error("Error checking premium access:", error)
+    return { hasAccess: false, allUnlocked: false }
+  }
 }
 
 export default function ChooseTestLevelSection() {
@@ -259,6 +273,9 @@ export default function ChooseTestLevelSection() {
       duration: "10-15 min",
       questions: 30,
       accuracy: 85,
+      price: 14.9,
+      originalPrice: 29.9,
+      monthlyPrice: 4.97,
       icon: Brain,
       color: "from-green-500 to-emerald-500",
       bgGradient: "from-green-50 to-emerald-50",
@@ -270,6 +287,7 @@ export default function ChooseTestLevelSection() {
       route: "/test/beginner",
       badge: "INICIANTE",
       badgeColor: "from-green-400 to-emerald-500",
+      savings: "50% OFF",
     },
     {
       id: "intermediate",
@@ -279,6 +297,9 @@ export default function ChooseTestLevelSection() {
       duration: "15-20 min",
       questions: 45,
       accuracy: 92,
+      price: 24.9,
+      originalPrice: 49.9,
+      monthlyPrice: 8.3,
       icon: Target,
       color: "from-blue-500 to-cyan-500",
       bgGradient: "from-blue-50 to-cyan-50",
@@ -296,6 +317,7 @@ export default function ChooseTestLevelSection() {
       popular: true,
       badge: "MAIS ESCOLHIDO",
       badgeColor: "from-yellow-400 to-orange-500",
+      savings: "50% OFF",
     },
     {
       id: "advanced",
@@ -305,6 +327,9 @@ export default function ChooseTestLevelSection() {
       duration: "25-30 min",
       questions: 60,
       accuracy: 98,
+      price: 39.9,
+      originalPrice: 79.9,
+      monthlyPrice: 13.3,
       icon: Trophy,
       color: "from-purple-500 to-pink-500",
       bgGradient: "from-purple-50 to-pink-50",
@@ -321,6 +346,7 @@ export default function ChooseTestLevelSection() {
       route: "/test/advanced",
       badge: "PREMIUM",
       badgeColor: "from-purple-400 to-pink-500",
+      savings: "50% OFF",
     },
   ]
 
@@ -348,8 +374,11 @@ export default function ChooseTestLevelSection() {
   }, [])
 
   useEffect(() => {
-    const accessInfo = checkPremiumAccess()
-    setPremiumAccess(accessInfo)
+    // Only check access after component mounts (client-side)
+    if (typeof window !== "undefined") {
+      const accessInfo = checkPremiumAccess()
+      setPremiumAccess(accessInfo)
+    }
   }, [])
 
   const handleViewDetailsClick = useCallback((question: PreviewQuestion) => {
@@ -363,6 +392,11 @@ export default function ChooseTestLevelSection() {
   const handleStartTestClick = useCallback(
     (question: PreviewQuestion) => {
       try {
+        // Only proceed if we're on the client side
+        if (typeof window === "undefined") {
+          return
+        }
+
         // Verificar se já tem acesso premium
         const accessInfo = checkPremiumAccess()
 
@@ -664,126 +698,273 @@ export default function ChooseTestLevelSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          {subscriptionLevels.map((level, index) => {
-            const IconComponent = level.icon
-            const isSelected = selectedLevel === level.id
+        {/* Ideal Subscription Highlight Section */}
+        <div className="mb-20">
+          <div className="text-center mb-12">
+            <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-8 py-4 mb-6 text-lg font-bold rounded-full shadow-lg">
+              <Star className="w-5 h-5 mr-2" />
+              ASSINATURA IDEAL
+            </Badge>
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Recomendação Personalizada</h3>
+            <p className="text-lg text-blue-200 max-w-2xl mx-auto">
+              Baseado em milhares de usuários, esta é a assinatura mais equilibrada e completa
+            </p>
+          </div>
 
-            return (
-              <Card
-                key={level.id}
-                className={`relative overflow-hidden transition-all duration-500 cursor-pointer group hover:scale-105 ${
-                  level.popular
-                    ? "ring-4 ring-blue-400/50 shadow-2xl shadow-blue-500/25"
-                    : "hover:shadow-2xl hover:shadow-white/10"
-                } ${
-                  isSelected ? "ring-4 ring-purple-400/50 scale-105" : ""
-                } bg-white/10 backdrop-blur-lg border-white/20`}
-                onClick={() => setSelectedLevel(level.id)}
-              >
-                {/* Badge */}
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
-                  <Badge
-                    className={`bg-gradient-to-r ${level.badgeColor} text-black px-4 py-2 font-bold shadow-lg flex items-center justify-center`}
-                  >
-                    {level.popular ? (
-                      <Star className="w-4 h-4 mr-1" />
-                    ) : level.id === "advanced" ? (
-                      <Trophy className="w-4 h-4 mr-1" />
-                    ) : (
-                      <Target className="w-4 h-4 mr-1" />
-                    )}
-                    {level.badge}
-                  </Badge>
+          {/* Featured Subscription Card */}
+          <div className="max-w-4xl mx-auto">
+            <Card className="relative overflow-hidden bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-lg border-2 border-yellow-400/50 shadow-2xl shadow-yellow-500/25 transform hover:scale-105 transition-all duration-500">
+              {/* Glow Effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 opacity-50"></div>
+
+              {/* Featured Badge */}
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
+                <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-3 font-bold shadow-lg flex items-center justify-center text-lg">
+                  <Star className="w-5 h-5 mr-2" />
+                  MAIS ESCOLHIDO
+                </Badge>
+              </div>
+
+              <div className="relative z-10 p-8 md:p-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                  {/* Left Side - Info */}
+                  <div className="text-center lg:text-left">
+                    <div className="flex justify-center lg:justify-start mb-6">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-2xl">
+                        <Target className="w-12 h-12 text-white" />
+                      </div>
+                    </div>
+
+                    <h4 className="text-3xl md:text-4xl font-bold text-white mb-4">Assinatura Intermediária</h4>
+                    <p className="text-xl text-blue-200 mb-6">Assinatura padrão completa com precisão científica</p>
+
+                    {/* Key Features */}
+                    <div className="space-y-3 mb-8">
+                      <div className="flex items-center justify-center lg:justify-start gap-3">
+                        <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
+                        <span className="text-white font-medium">45 questões variadas e balanceadas</span>
+                      </div>
+                      <div className="flex items-center justify-center lg:justify-start gap-3">
+                        <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
+                        <span className="text-white font-medium">Análise de múltiplas habilidades</span>
+                      </div>
+                      <div className="flex items-center justify-center lg:justify-start gap-3">
+                        <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
+                        <span className="text-white font-medium">Certificado digital reconhecido</span>
+                      </div>
+                    </div>
+
+                    {/* Stats */}
+                    <div className="grid grid-cols-3 gap-4 mb-8">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-white">92%</div>
+                        <div className="text-sm text-blue-200">Precisão</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-white">15-20</div>
+                        <div className="text-sm text-blue-200">Minutos</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-white">78%</div>
+                        <div className="text-sm text-blue-200">Escolhem</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right Side - Pricing */}
+                  <div className="text-center">
+                    <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                      {/* Pricing */}
+                      <div className="mb-6">
+                        <div className="flex items-center justify-center gap-2 mb-2">
+                          <Badge className="bg-red-500 text-white px-3 py-1 text-sm font-bold">
+                            <Percent className="w-3 h-3 mr-1" />
+                            50% OFF
+                          </Badge>
+                        </div>
+                        <div className="text-lg text-blue-200 line-through mb-1">De R$ 49,90</div>
+                        <div className="text-5xl font-black text-white mb-2">
+                          R$ 24<span className="text-2xl">,90</span>
+                        </div>
+                        <div className="text-blue-200 mb-4">ou 3x de R$ 8,30 sem juros</div>
+                      </div>
+
+                      {/* Value Props */}
+                      <div className="space-y-3 mb-8">
+                        <div className="flex items-center justify-center gap-2 text-sm text-green-400">
+                          <DollarSign className="w-4 h-4" />
+                          <span>Melhor custo-benefício</span>
+                        </div>
+                        <div className="flex items-center justify-center gap-2 text-sm text-blue-300">
+                          <Users className="w-4 h-4" />
+                          <span>Escolhido por 78% dos usuários</span>
+                        </div>
+                        <div className="flex items-center justify-center gap-2 text-sm text-purple-300">
+                          <Clock className="w-4 h-4" />
+                          <span>Acesso imediato após pagamento</span>
+                        </div>
+                      </div>
+
+                      {/* CTA Button */}
+                      <Button
+                        onClick={() => router.push("/test/intermediate")}
+                        className="w-full py-4 text-lg font-bold rounded-xl bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                      >
+                        <Star className="w-5 h-5 mr-2" />
+                        Começar Assinatura Ideal
+                      </Button>
+
+                      <p className="text-xs text-blue-300 mt-3">⚡ Ativação instantânea • 🔒 Pagamento seguro</p>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </Card>
+          </div>
+        </div>
 
-                {/* Animated Background */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${level.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}
-                />
+        {/* All Subscription Plans */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">Todas as Assinaturas Disponíveis</h3>
+            <p className="text-lg text-blue-200 max-w-2xl mx-auto">
+              Compare todos os planos e escolha o que melhor se adapta ao seu perfil
+            </p>
+          </div>
 
-                <CardHeader className="relative z-10 text-center pb-6 pt-8">
-                  <div
-                    className={`w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br ${level.color} flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    <IconComponent className="w-10 h-10 text-white" />
-                  </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {subscriptionLevels.map((level, index) => {
+              const IconComponent = level.icon
+              const isSelected = selectedLevel === level.id
 
-                  <CardTitle className="text-2xl font-bold mb-2 text-white text-center">{level.name}</CardTitle>
-                  <p className="text-blue-200 mb-4 text-center">{level.subtitle}</p>
-
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-white">{level.questions}</div>
-                      <div className="text-xs text-blue-200">Questões</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-white">{level.duration}</div>
-                      <div className="text-xs text-blue-200">Duração</div>
-                    </div>
-                  </div>
-
-                  {/* Accuracy */}
-                  <div className="mb-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-blue-200">Precisão</span>
-                      <span className="text-sm font-bold text-white">{level.accuracy}%</span>
-                    </div>
-                    <Progress value={level.accuracy} className="h-2 bg-white/20" />
-                  </div>
-
-                  <div className="flex justify-center">
+              return (
+                <Card
+                  key={level.id}
+                  className={`relative overflow-hidden transition-all duration-500 cursor-pointer group hover:scale-105 ${
+                    level.popular
+                      ? "ring-4 ring-blue-400/50 shadow-2xl shadow-blue-500/25"
+                      : "hover:shadow-2xl hover:shadow-white/10"
+                  } ${
+                    isSelected ? "ring-4 ring-purple-400/50 scale-105" : ""
+                  } bg-white/10 backdrop-blur-lg border-white/20`}
+                  onClick={() => setSelectedLevel(level.id)}
+                >
+                  {/* Badge */}
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
                     <Badge
-                      variant="outline"
-                      className={`border-2 ${level.difficulty === "Fácil" ? "border-green-400 text-green-400" : level.difficulty === "Médio" ? "border-blue-400 text-blue-400" : "border-purple-400 text-purple-400"} bg-transparent`}
+                      className={`bg-gradient-to-r ${level.badgeColor} text-black px-4 py-2 font-bold shadow-lg flex items-center justify-center`}
                     >
-                      {level.difficulty}
+                      {level.popular ? (
+                        <Star className="w-4 h-4 mr-1" />
+                      ) : level.id === "advanced" ? (
+                        <Trophy className="w-4 h-4 mr-1" />
+                      ) : (
+                        <Target className="w-4 h-4 mr-1" />
+                      )}
+                      {level.badge}
                     </Badge>
                   </div>
-                </CardHeader>
 
-                <CardContent className="relative z-10 space-y-6">
-                  <p className="text-blue-100 text-center text-sm leading-relaxed">{level.description}</p>
+                  {/* Animated Background */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${level.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}
+                  />
 
-                  {/* Features */}
-                  <ul className="space-y-3">
-                    {level.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                        <span className="text-sm text-blue-100">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Additional Info */}
-                  <div className="bg-white/5 rounded-lg p-4 space-y-2">
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs text-blue-200">Público-alvo:</span>
-                      <span className="text-xs text-white font-medium">{level.targetAudience}</span>
+                  <CardHeader className="relative z-10 text-center pb-6 pt-8">
+                    <div
+                      className={`w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br ${level.color} flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300`}
+                    >
+                      <IconComponent className="w-10 h-10 text-white" />
                     </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs text-blue-200">QI médio:</span>
-                      <span className="text-xs text-white font-medium">{level.averageScore}</span>
+
+                    <CardTitle className="text-2xl font-bold mb-2 text-white text-center">{level.name}</CardTitle>
+                    <p className="text-blue-200 mb-4 text-center">{level.subtitle}</p>
+
+                    {/* Pricing Section */}
+                    <div className="bg-white/5 rounded-lg p-4 mb-6">
+                      <div className="flex items-center justify-center gap-2 mb-2">
+                        <Badge className="bg-red-500 text-white px-2 py-1 text-xs font-bold">{level.savings}</Badge>
+                      </div>
+                      <div className="text-sm text-blue-300 line-through mb-1">
+                        De R$ {level.originalPrice?.toFixed(2)}
+                      </div>
+                      <div className="text-3xl font-black text-white mb-1">R$ {level.price.toFixed(2)}</div>
+                      <div className="text-xs text-blue-200">ou 3x de R$ {level.monthlyPrice.toFixed(2)}</div>
                     </div>
+
+                    {/* Stats Grid */}
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-white">{level.questions}</div>
+                        <div className="text-xs text-blue-200">Questões</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-white">{level.duration}</div>
+                        <div className="text-xs text-blue-200">Duração</div>
+                      </div>
+                    </div>
+
+                    {/* Accuracy */}
+                    <div className="mb-4">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm text-blue-200">Precisão</span>
+                        <span className="text-sm font-bold text-white">{level.accuracy}%</span>
+                      </div>
+                      <Progress value={level.accuracy} className="h-2 bg-white/20" />
+                    </div>
+
+                    <div className="flex justify-center">
+                      <Badge
+                        variant="outline"
+                        className={`border-2 ${level.difficulty === "Fácil" ? "border-green-400 text-green-400" : level.difficulty === "Médio" ? "border-blue-400 text-blue-400" : "border-purple-400 text-purple-400"} bg-transparent`}
+                      >
+                        {level.difficulty}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+
+                  <CardContent className="relative z-10 space-y-6">
+                    <p className="text-blue-100 text-center text-sm leading-relaxed">{level.description}</p>
+
+                    {/* Features */}
+                    <ul className="space-y-3">
+                      {level.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-center gap-3">
+                          <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+                          <span className="text-sm text-blue-100">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Additional Info */}
+                    <div className="bg-white/5 rounded-lg p-4 space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-blue-200">Público-alvo:</span>
+                        <span className="text-xs text-white font-medium">{level.targetAudience}</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs text-blue-200">QI médio:</span>
+                        <span className="text-xs text-white font-medium">{level.averageScore}</span>
+                      </div>
+                    </div>
+
+                    <Button
+                      onClick={() => router.push(level.route)}
+                      className={`w-full py-3 font-bold rounded-xl transition-all duration-300 bg-gradient-to-r ${level.color} hover:shadow-lg text-white group-hover:scale-105`}
+                    >
+                      Começar Assinatura {level.name}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                  </CardContent>
+
+                  {/* Decorative Corner */}
+                  <div className="absolute top-4 right-4 opacity-30">
+                    <Award className="w-6 h-6 text-white" />
                   </div>
-
-                  <Button
-                    onClick={() => router.push(level.route)}
-                    className={`w-full py-3 font-bold rounded-xl transition-all duration-300 bg-gradient-to-r ${level.color} hover:shadow-lg text-white group-hover:scale-105`}
-                  >
-                    Começar Assinatura {level.name}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </CardContent>
-
-                {/* Decorative Corner */}
-                <div className="absolute top-4 right-4 opacity-30">
-                  <Award className="w-6 h-6 text-white" />
-                </div>
-              </Card>
-            )
-          })}
+                </Card>
+              )
+            })}
+          </div>
         </div>
 
         {/* Bottom CTA */}
