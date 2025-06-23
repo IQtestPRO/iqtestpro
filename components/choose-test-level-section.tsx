@@ -1,33 +1,37 @@
 "use client"
 
-import type React from "react"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Progress } from "@/components/ui/progress"
 import {
-  Eye,
   Brain,
-  Puzzle,
   Target,
-  Crown,
+  Zap,
   Star,
   Trophy,
-  ChevronRight,
+  ArrowRight,
   CheckCircle,
-  Zap,
+  Sparkles,
+  TrendingUp,
   Award,
-  Clock,
-  BarChart3,
+  Eye,
+  Puzzle,
+  Crown,
+  Lock,
   Layers,
   Network,
   Cpu,
-  Sparkles,
   Gift,
-  Lock,
+  BarChart3,
 } from "lucide-react"
+import { useRouter } from "next/navigation"
+import type React from "react"
 import { QuestionTypeModal } from "@/components/question-type-modal"
 import { PremiumPaymentModal } from "@/components/premium-payment-modal"
-import { Button } from "@/components/ui/button"
 import { useInteractivePopups } from "@/components/interactive-preview-popups"
-import { useState, useEffect, useCallback } from "react"
-import { useRouter } from "next/navigation"
+import { useEffect, useCallback } from "react"
 import { usePayment } from "@/contexts/payment-context"
 
 interface PreviewQuestion {
@@ -181,7 +185,7 @@ const sampleQuestionsData: PreviewQuestion[] = [
   {
     id: 4,
     title: "Avaliação Completa",
-    subtitle: "Teste Expert",
+    subtitle: "Assinatura Expert",
     category: "Análise Multidimensional",
     icon: <Crown className="w-10 h-10 text-white" />,
     backgroundPattern: (
@@ -231,6 +235,7 @@ function checkPremiumAccess() {
 
 export default function ChooseTestLevelSection() {
   const router = useRouter()
+  const [selectedLevel, setSelectedLevel] = useState<string | null>(null)
   const { openPopup } = useInteractivePopups()
   const [selectedQuestionForDetails, setSelectedQuestionForDetails] = useState<PreviewQuestion | null>(null)
   const [showPaymentModal, setShowPaymentModal] = useState(false)
@@ -244,6 +249,80 @@ export default function ChooseTestLevelSection() {
   const paymentContext = usePayment()
   const { openPaymentModal } = paymentContext || { openPaymentModal: () => {} }
   const [premiumAccess, setPremiumAccess] = useState(checkPremiumAccess())
+
+  const subscriptionLevels = [
+    {
+      id: "beginner",
+      name: "Iniciante",
+      subtitle: "Primeira assinatura de QI",
+      difficulty: "Fácil",
+      duration: "10-15 min",
+      questions: 30,
+      accuracy: 85,
+      icon: Brain,
+      color: "from-green-500 to-emerald-500",
+      bgGradient: "from-green-50 to-emerald-50",
+      darkBgGradient: "from-green-900/20 to-emerald-900/20",
+      description: "Para quem nunca teve uma assinatura de QI",
+      features: ["Questões básicas de lógica", "Explicações detalhadas", "Resultado imediato", "Dicas de melhoria"],
+      targetAudience: "Estudantes e curiosos",
+      averageScore: "95-115",
+      route: "/test/beginner",
+      badge: "INICIANTE",
+      badgeColor: "from-green-400 to-emerald-500",
+    },
+    {
+      id: "intermediate",
+      name: "Intermediário",
+      subtitle: "Assinatura padrão completa",
+      difficulty: "Médio",
+      duration: "15-20 min",
+      questions: 45,
+      accuracy: 92,
+      icon: Target,
+      color: "from-blue-500 to-cyan-500",
+      bgGradient: "from-blue-50 to-cyan-50",
+      darkBgGradient: "from-blue-900/20 to-cyan-900/20",
+      description: "Assinatura completa com precisão científica",
+      features: [
+        "Questões variadas e balanceadas",
+        "Análise de múltiplas habilidades",
+        "Comparação com população",
+        "Certificado digital",
+      ],
+      targetAudience: "Profissionais e acadêmicos",
+      averageScore: "85-130",
+      route: "/test/intermediate",
+      popular: true,
+      badge: "MAIS ESCOLHIDO",
+      badgeColor: "from-yellow-400 to-orange-500",
+    },
+    {
+      id: "advanced",
+      name: "Avançado",
+      subtitle: "Máximo desafio mental",
+      difficulty: "Difícil",
+      duration: "25-30 min",
+      questions: 60,
+      accuracy: 98,
+      icon: Trophy,
+      color: "from-purple-500 to-pink-500",
+      bgGradient: "from-purple-50 to-pink-50",
+      darkBgGradient: "from-purple-900/20 to-pink-900/20",
+      description: "Para mentes excepcionais que buscam precisão máxima",
+      features: [
+        "Questões de alta complexidade",
+        "Análise psicométrica completa",
+        "Relatório detalhado PDF",
+        "Consultoria personalizada",
+      ],
+      targetAudience: "Superdotados e especialistas",
+      averageScore: "100-160+",
+      route: "/test/advanced",
+      badge: "PREMIUM",
+      badgeColor: "from-purple-400 to-pink-500",
+    },
+  ]
 
   const isUserPremium = () => {
     // const { user } = useAuth(); // Example: if your user object had a plan
@@ -559,518 +638,207 @@ export default function ChooseTestLevelSection() {
   }
 
   return (
-    <section className="py-12 sm:py-16 md:py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-blue-950/30">
-      <div className="container mx-auto max-w-screen-xl px-4 relative z-10">
-        {/* Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl mb-6">
-            <Brain className="w-8 h-8 text-white" />
-          </div>
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent">
-            Avaliação Cognitiva Científica
+    <section className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-16">
+          <Badge className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 mb-6 text-sm font-bold">
+            <Sparkles className="w-4 h-4 mr-2" />
+            ESCOLHA SEU NÍVEL
+          </Badge>
+
+          <h2 className="text-4xl md:text-6xl font-black mb-6 text-white text-center">
+            Qual é a Sua
+            <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block">
+              Assinatura Ideal?
+            </span>
           </h2>
-          <p className="text-slate-600 dark:text-slate-300 max-w-3xl mx-auto text-base sm:text-lg leading-relaxed">
-            Testes psicométricos validados cientificamente para medir diferentes aspectos da inteligência humana com
-            precisão profissional.
+
+          <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+            Escolha o nível de dificuldade que melhor se adapta ao seu perfil e experiência
           </p>
         </div>
 
-        {/* Premium Plans Button */}
-        <div className="text-center mb-8">
-          <Button
-            onClick={() => setShowPremiumPlansModal(true)}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-6 py-2.5 text-sm sm:px-8 sm:py-3 sm:text-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-          >
-            <Crown className="w-5 h-5 mr-2" />
-            Ver Todos os Planos Premium
-          </Button>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {subscriptionLevels.map((level, index) => {
+            const IconComponent = level.icon
+            const isSelected = selectedLevel === level.id
 
-        {/* Enhanced Gaming-style cards grid with persuasive previews */}
-        {/* Grade de Cards Estilo Gaming Aprimorada com Previews Persuasivas */}
-        <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-10">
-          {sampleQuestionsData.map((question, index) => (
-            <div
-              key={question.id}
-              className="group relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl shadow-2xl hover:shadow-[0_0_50px_rgba(59,130,246,0.3)] transition-all duration-700 transform hover:-translate-y-4 hover:scale-[1.02] border border-slate-700/50 overflow-hidden animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.15}s` }}
-            >
-              {/* Badge de Conquista Gaming */}
-              <div className="absolute top-2 left-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black px-3 py-1 rounded-full text-xs font-bold animate-pulse">
-                  {question.id === 1 && "🏆 MISSÃO INICIANTE - Desperte Seu Potencial!"}
-                  {question.id === 2 && "⚡ DESAFIO POWER-UP - Evolua Sua Mente!"}
-                  {question.id === 3 && "🎯 MISSÃO ELITE - Domine Sua Inteligência!"}
-                  {question.id === 4 && "👑 RAID LENDÁRIO - Conquiste Todas as Dimensões!"}
-                </div>
-              </div>
-
-              {/* Badge de XP Gaming */}
-              <div className="absolute top-4 left-4 z-25 opacity-0 group-hover:opacity-100 transition-all duration-500 transform -translate-y-2 group-hover:translate-y-0">
-                <div className="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-4 py-2 rounded-xl shadow-lg">
-                  <div className="text-center">
-                    <div className="text-lg font-black">
-                      {question.id === 1 && "+500 XP"}
-                      {question.id === 2 && "+750 XP"}
-                      {question.id === 3 && "+1200 XP"}
-                      {question.id === 4 && "+2000 XP"}
-                    </div>
-                    <div className="text-xs opacity-90">Pontos de Inteligência</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Efeito de brilho estilo gaming */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              {/* Brilho da borda animado */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 opacity-0 group-hover:opacity-20 blur-sm transition-all duration-500" />
-
-              {/* Header com gradiente gaming e padrão de fundo */}
-              <div className={`relative h-32 sm:h-40 bg-gradient-to-br ${question.gradientClasses.bg} overflow-hidden`}>
-                {/* Padrão de grade gaming */}
-                <div className="absolute inset-0 opacity-20">
-                  <div className="grid grid-cols-8 gap-1 h-full p-4">
-                    {Array.from({ length: 32 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className={`rounded-sm ${i % 4 === 0 ? "bg-white animate-pulse" : "bg-white/30"}`}
-                        style={{ animationDelay: `${i * 0.1}s` }}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Efeito de partículas flutuantes */}
-                <div className="absolute inset-0">
-                  {Array.from({ length: 6 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute w-2 h-2 bg-white/40 rounded-full animate-float"
-                      style={{
-                        left: `${20 + i * 15}%`,
-                        top: `${30 + (i % 2) * 20}%`,
-                        animationDelay: `${i * 0.5}s`,
-                        animationDuration: `${3 + i * 0.5}s`,
-                      }}
-                    />
-                  ))}
-                </div>
-
-                {/* Badge de preço aprimorado com terminologia gaming */}
-                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-lg sm:rounded-xl blur-sm opacity-75" />
-                    <div className="relative bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg sm:rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 shadow-lg border border-emerald-400/50">
-                      {question.originalPrice && (
-                        <>
-                          <div className="text-xs text-white/80 line-through font-bold">
-                            R$ {question.originalPrice.toFixed(2)}
-                          </div>
-                          <div className="text-xs text-yellow-300 font-bold">
-                            ECONOMIZE R$ {(question.originalPrice - question.price).toFixed(2)}
-                          </div>
-                        </>
-                      )}
-                      <div className="text-base sm:text-lg font-black text-white drop-shadow-lg">
-                        R$ {question.price.toFixed(2)}
-                      </div>
-                      <div className="text-xs text-white/90 font-bold">DESBLOQUEIE AGORA</div>
-                      <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-ping" />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Ícone principal estilo gaming com efeitos aprimorados */}
-                <div className="absolute bottom-4 left-6 z-20">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-white/30 rounded-2xl blur-md" />
-                    <div className="relative flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-white/20 to-white/10 backdrop-blur-sm rounded-2xl border border-white/40 shadow-2xl group-hover:scale-110 transition-transform duration-300">
-                      <div className="relative">
-                        {question.icon}
-                        <div className="absolute inset-0 bg-white/20 rounded-full animate-ping" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Indicador de dificuldade aprimorado com termos gaming */}
-                <div className="absolute top-4 left-4 z-20">
-                  <div className="flex items-center space-x-1 bg-black/40 backdrop-blur-sm rounded-xl px-4 py-2 border border-white/20 group-hover:bg-black/60 transition-colors duration-300">
-                    <div className="flex space-x-1">{getDifficultyStars(question.difficultyLevel)}</div>
-                    <span className="text-white font-bold text-sm ml-2">NÍVEL {question.difficultyLevel}</span>
-                  </div>
-                </div>
-
-                {/* Badge de nível estilo gaming com terminologia gaming */}
-                <div className="absolute bottom-4 right-6 z-20">
-                  <div className="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg px-3 py-1 shadow-lg group-hover:scale-105 transition-transform duration-300">
-                    <span className="text-black font-black text-xs uppercase tracking-wider">
-                      {question.difficulty === "Básico" && "NOVATO"}
-                      {question.difficulty === "Intermediário" && "PRO"}
-                      {question.difficulty === "Avançado" && "ELITE"}
-                      {question.difficulty === "Expert" && "LENDA"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Conteúdo estilo gaming aprimorado */}
-              <div className="p-4 sm:p-6 space-y-4 sm:space-y-5 relative z-10">
-                {/* Título com tipografia gaming aprimorada */}
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <div
-                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${question.gradientClasses.badgeBg} ${question.gradientClasses.badgeText} border border-current/20`}
-                    >
-                      <div className="w-2 h-2 bg-current rounded-full mr-2 animate-pulse" />
-                      {question.category}
-                    </div>
-                    <div className="text-emerald-400 font-bold text-sm animate-bounce">
-                      +{question.extraBenefits} RECOMPENSAS ÉPICAS
-                    </div>
-                  </div>
-
-                  <h3 className="font-black text-xl sm:text-2xl text-white mb-1 sm:mb-2 tracking-tight group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300">
-                    {question.title}
-                  </h3>
-                  <p
-                    className={`text-base sm:text-lg font-bold ${question.gradientClasses.text} bg-gradient-to-r ${question.gradientClasses.accent} bg-clip-text text-transparent`}
-                  >
-                    {question.subtitle}
-                  </p>
-                </div>
-
-                {/* Descrição gaming aprimorada com linguagem gaming */}
-                <div className="space-y-3">
-                  <p className="text-slate-300 text-xs sm:text-sm leading-relaxed font-medium">
-                    {question.id === 1 &&
-                      "Domine padrões visuais e desbloqueie sua inteligência espacial! Perfeito para iniciantes prontos para evoluir suas habilidades cognitivas e dominar desafios de reconhecimento de padrões."}
-                    {question.id === 2 &&
-                      "Conquiste quebra-cabeças lógicos complexos e torne-se um campeão do raciocínio! Avance seus poderes dedutivos e supere todos os desafios que aparecerem no seu caminho."}
-                    {question.id === 3 &&
-                      "Libere sua inteligência pura e enfrente desafios abstratos como um profissional! Esta missão de nível elite levará seus limites cognitivos ao status lendário."}
-                    {question.id === 4 &&
-                      "Complete o raid de inteligência definitivo! Enfrente todas as dimensões cognitivas e emerja como o mestre supremo da mente com destreza analítica incomparável."}
-                  </p>
-
-                  {/* Preview de benefícios gaming */}
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-slate-800/50 to-slate-700/50 rounded-lg p-3 border border-slate-600/30">
-                    <p className="text-[0.65rem] sm:text-xs text-cyan-400 font-black mb-2 uppercase tracking-wider">
-                      🎮 RECOMPENSAS DA MISSÃO:
-                    </p>
-                    <div className="grid grid-cols-2 gap-2 text-xs text-slate-300">
-                      <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full mr-2"></div>
-                        Relatório de Inteligência
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></div>
-                        Badge de Conquista
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></div>
-                        Análise de Habilidades
-                      </div>
-                      <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full mr-2"></div>
-                        Suporte 24/7
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Grade de estatísticas gaming aprimorada */}
-                <div className="grid grid-cols-3 gap-4 py-4 border-t border-b border-slate-700/50">
-                  <div className="text-center group/stat">
-                    <div className="flex items-center justify-center mb-2 p-2 rounded-lg bg-slate-800/50 group-hover/stat:bg-slate-700/50 transition-colors">
-                      <Clock className="w-5 h-5 text-cyan-400" />
-                    </div>
-                    <div className="text-lg font-black text-white">{question.timeEstimate}</div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider font-bold">TEMPO DA MISSÃO</div>
-                  </div>
-                  <div className="text-center group/stat">
-                    <div className="flex items-center justify-center mb-2 p-2 rounded-lg bg-slate-800/50 group-hover/stat:bg-slate-700/50 transition-colors">
-                      <Award className="w-5 h-5 text-purple-400" />
-                    </div>
-                    <div className="text-lg font-black text-white">{question.questions}</div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider font-bold">DESAFIOS</div>
-                  </div>
-                  <div className="text-center group/stat">
-                    <div className="flex items-center justify-center mb-2 p-2 rounded-lg bg-slate-800/50 group-hover/stat:bg-slate-700/50 transition-colors">
-                      {getDifficultyIcon(question.difficulty)}
-                    </div>
-                    <div className="text-lg font-black text-white">
-                      {question.difficulty === "Básico" && "NOVATO"}
-                      {question.difficulty === "Intermediário" && "PRO"}
-                      {question.difficulty === "Avançado" && "ELITE"}
-                      {question.difficulty === "Expert" && "LENDA"}
-                    </div>
-                    <div className="text-xs text-slate-400 uppercase tracking-wider font-bold">RANK</div>
-                  </div>
-                </div>
-
-                {/* Benefícios gaming aprimorados com linguagem gaming */}
-                <div className="space-y-3">
-                  <p className="text-[0.65rem] sm:text-xs font-black text-cyan-400 uppercase tracking-widest">
-                    🏆 LOOT GARANTIDO:
-                  </p>
-                  {question.mainBenefits.map((benefit, idx) => (
-                    <div key={idx} className="flex items-center group/benefit">
-                      <div className="relative mr-3">
-                        <CheckCircle
-                          className={`w-5 h-5 ${question.gradientClasses.text} group-hover/benefit:scale-110 transition-transform`}
-                        />
-                        <div className="absolute inset-0 bg-current rounded-full opacity-20 animate-ping" />
-                      </div>
-                      <span className="text-slate-200 text-xs sm:font-medium">{benefit}</span>
-                    </div>
-                  ))}
-
-                  {/* Sistema de Saldo de Bônus Avançado */}
-                  {question.extraBenefits > 0 && (
-                    <div className="relative overflow-hidden">
-                      {/* Bonus Balance Display */}
-                      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-yellow-500/20 via-orange-500/20 to-red-500/20 rounded-lg border border-yellow-500/30 group-hover:border-yellow-400/50 transition-colors duration-300 mb-3">
-                        <div className="flex items-center">
-                          <div className="relative">
-                            <Sparkles className="w-6 h-6 text-yellow-400 mr-3 animate-spin" />
-                            <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                          </div>
-                          <div>
-                            <span className="text-yellow-300 font-bold block">
-                              🎁 +{question.extraBenefits} CRÉDITOS BÔNUS ÉPICOS!
-                            </span>
-                            <span className="text-yellow-200/80 text-xs">
-                              Valor de R$ {(question.extraBenefits * 25).toFixed(2)} • Expira em 7 dias
-                            </span>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-yellow-300 font-black text-lg">{question.extraBenefits * 100} PTS</div>
-                          <div className="text-yellow-200/70 text-xs">Saldo Disponível</div>
-                        </div>
-                      </div>
-
-                      {/* Bonus Types & Rewards */}
-                      <div className="grid grid-cols-2 gap-2 mb-3">
-                        <div className="bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-lg p-3 border border-emerald-500/30">
-                          <div className="flex items-center mb-2">
-                            <Trophy className="w-4 h-4 text-emerald-400 mr-2" />
-                            <span className="text-emerald-300 font-bold text-xs">BÔNUS XP</span>
-                          </div>
-                          <div className="text-emerald-200 text-xs">
-                            +{question.extraBenefits * 50} XP extras ao completar
-                          </div>
-                        </div>
-                        <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-lg p-3 border border-purple-500/30">
-                          <div className="flex items-center mb-2">
-                            <Crown className="w-4 h-4 text-purple-400 mr-2" />
-                            <span className="text-purple-300 font-bold text-xs">BÔNUS VIP</span>
-                          </div>
-                          <div className="text-purple-200 text-xs">
-                            Acesso premium por {question.extraBenefits} dias
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Bonus Transaction History Preview */}
-                      <div className="bg-slate-800/50 rounded-lg p-3 border border-slate-600/30">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-slate-300 font-bold text-xs uppercase tracking-wider">
-                            💰 Histórico de Bônus
-                          </span>
-                          <span className="text-cyan-400 text-xs cursor-pointer hover:text-cyan-300">Ver Todos</span>
-                        </div>
-                        <div className="space-y-1">
-                          <div className="flex justify-between items-center text-xs">
-                            <span className="text-slate-400">Bônus de Cadastro</span>
-                            <span className="text-emerald-400 font-bold">+100 PTS</span>
-                          </div>
-                          <div className="flex justify-between items-center text-xs">
-                            <span className="text-slate-400">Missão Completada</span>
-                            <span className="text-blue-400 font-bold">+{question.extraBenefits * 25} PTS</span>
-                          </div>
-                          <div className="flex justify-between items-center text-xs">
-                            <span className="text-slate-400">Streak de 3 dias</span>
-                            <span className="text-purple-400 font-bold">+75 PTS</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Bonus Redemption Options */}
-                      <div className="mt-3 grid grid-cols-3 gap-2">
-                        <button
-                          onClick={() => handleBonusActionClick("resgatar", "Resgatar Bônus")}
-                          className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white text-xs font-bold py-2 px-3 rounded-lg transition-all duration-300 hover:scale-105"
-                        >
-                          RESGATAR
-                        </button>
-                        <button
-                          onClick={() => handleBonusActionClick("transferir", "Transferir Bônus")}
-                          className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-bold py-2 px-3 rounded-lg transition-all duration-300 hover:scale-105"
-                        >
-                          TRANSFERIR
-                        </button>
-                        <button
-                          onClick={() => handleBonusActionClick("trocar", "Trocar Bônus")}
-                          className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold py-2 px-3 rounded-lg transition-all duration-300 hover:scale-105"
-                        >
-                          TROCAR
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Botões de ação gaming aprimorados com CTAs convincentes */}
-                <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 pt-6 relative">
-                  <div className="relative flex-1">
-                    <Button
-                      variant="outline"
-                      className="w-full bg-slate-800/50 border-slate-600 hover:border-slate-500 text-slate-200 hover:text-white font-bold uppercase tracking-wider text-sm backdrop-blur-sm hover:bg-slate-700/50 transition-all duration-300 group-hover:scale-105 min-h-[48px] touch-manipulation"
-                      onClick={() => setActiveDetailPopup(activeDetailPopup === question.id ? null : question.id)}
-                    >
-                      <Eye className="w-4 h-4 mr-2" />
-                      PREVIEW DA MISSÃO
-                    </Button>
-
-                    {/* Popup positioning for mobile */}
-                    {activeDetailPopup === question.id && (
-                      <div className="absolute bottom-full left-0 right-0 mb-2 z-50 animate-fade-in-up">
-                        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-xl shadow-2xl border border-slate-600/50 p-4 backdrop-blur-sm max-h-80 overflow-y-auto mx-2 sm:mx-0">
-                          <div className="flex items-center space-x-2 mb-3">
-                            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                            <span className="text-emerald-400 font-bold text-xs uppercase tracking-wider">
-                              {getPersuasiveDetails(question.id).badge}
-                            </span>
-                            <div className="ml-auto bg-gradient-to-r from-emerald-500 to-cyan-500 text-white px-2 py-1 rounded-lg text-xs font-bold">
-                              {getPersuasiveDetails(question.id).stats} Taxa de Vitória
-                            </div>
-                          </div>
-
-                          <h4 className="font-black text-white text-sm mb-3">🎯 Por Que Escolher Esta Missão?</h4>
-
-                          <div className="space-y-2 mb-3">
-                            {getPersuasiveDetails(question.id).reasons.map((reason, idx) => (
-                              <p key={idx} className="text-xs text-slate-300 flex items-start">
-                                <span className="text-emerald-400 mr-2 flex-shrink-0">⚡</span>
-                                {reason
-                                  .replace("✓ ", "")
-                                  .replace("94%", "94% taxa de sucesso")
-                                  .replace("96%", "96% taxa de conclusão")
-                                  .replace("Ideal para iniciantes", "Perfeito para jogadores iniciantes")
-                                  .replace("Análise intermediária completa", "Análise completa de nível intermediário")
-                                  .replace(
-                                    "Nível profissional - usado por psicólogos",
-                                    "Nível profissional - usado por especialistas",
-                                  )
-                                  .replace(
-                                    "Avaliação completa - padrão internacional",
-                                    "Avaliação completa - padrão mundial",
-                                  )}
-                              </p>
-                            ))}
-                          </div>
-
-                          <div className="pt-3 border-t border-slate-600/50">
-                            <p className="text-xs text-slate-400 italic">
-                              "🏆 {getPersuasiveDetails(question.id).testimonial}" - Jogador Verificado
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Ponteiro da seta */}
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2">
-                          <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-800"></div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  {premiumAccess.allUnlocked && (
-                    <div className="absolute top-2 right-2 z-30">
-                      <div className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-bold flex items-center">
-                        <CheckCircle className="w-3 h-3 mr-1" />
-                        DESBLOQUEADO
-                      </div>
-                    </div>
-                  )}
-                  <Button
-                    className={`flex-1 relative overflow-hidden bg-gradient-to-r ${question.gradientClasses.accent} hover:scale-105 transition-all duration-300 text-white font-black uppercase tracking-wider text-sm shadow-2xl hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] group-hover:animate-pulse min-h-[48px] touch-manipulation`}
-                    onClick={() => handleStartTestClick(question)}
-                  >
-                    <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                    <span className="relative flex items-center justify-center">
-                      <span className="hidden sm:inline">INICIAR MISSÃO</span>
-                      <span className="sm:hidden">INICIAR</span>
-                      <ChevronRight className="w-5 h-5 ml-2 animate-bounce" />
-                    </span>
-                  </Button>
-                </div>
-
-                {/* Indicadores de confiança gaming */}
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 pt-4 border-t border-slate-700/30">
-                  <div className="flex items-center justify-center space-x-4 text-xs text-slate-400">
-                    <div className="flex items-center">
-                      <div className="w-2 h-2 bg-green-400 rounded-full mr-1 animate-pulse"></div>
-                      Pagamento Seguro
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full mr-1 animate-pulse"></div>
-                      Garantia de 7 Dias
-                    </div>
-                    <div className="flex items-center">
-                      <div className="w-2 h-2 bg-purple-400 rounded-full mr-1 animate-pulse"></div>
-                      Suporte da Guilda 24/7
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Destaque inferior estilo gaming aprimorado com indicador de progresso */}
-              <div
-                className={`h-2 bg-gradient-to-r ${question.gradientClasses.accent} opacity-60 group-hover:opacity-100 transition-opacity duration-300 relative overflow-hidden`}
+            return (
+              <Card
+                key={level.id}
+                className={`relative overflow-hidden transition-all duration-500 cursor-pointer group hover:scale-105 ${
+                  level.popular
+                    ? "ring-4 ring-blue-400/50 shadow-2xl shadow-blue-500/25"
+                    : "hover:shadow-2xl hover:shadow-white/10"
+                } ${
+                  isSelected ? "ring-4 ring-purple-400/50 scale-105" : ""
+                } bg-white/10 backdrop-blur-lg border-white/20`}
+                onClick={() => setSelectedLevel(level.id)}
               >
-                <div className="h-full bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-              </div>
-            </div>
-          ))}
+                {/* Badge */}
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-20">
+                  <Badge
+                    className={`bg-gradient-to-r ${level.badgeColor} text-black px-4 py-2 font-bold shadow-lg flex items-center justify-center`}
+                  >
+                    {level.popular ? (
+                      <Star className="w-4 h-4 mr-1" />
+                    ) : level.id === "advanced" ? (
+                      <Trophy className="w-4 h-4 mr-1" />
+                    ) : (
+                      <Target className="w-4 h-4 mr-1" />
+                    )}
+                    {level.badge}
+                  </Badge>
+                </div>
+
+                {/* Animated Background */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${level.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}
+                />
+
+                <CardHeader className="relative z-10 text-center pb-6 pt-8">
+                  <div
+                    className={`w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br ${level.color} flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <IconComponent className="w-10 h-10 text-white" />
+                  </div>
+
+                  <CardTitle className="text-2xl font-bold mb-2 text-white text-center">{level.name}</CardTitle>
+                  <p className="text-blue-200 mb-4 text-center">{level.subtitle}</p>
+
+                  {/* Stats Grid */}
+                  <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white">{level.questions}</div>
+                      <div className="text-xs text-blue-200">Questões</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-white">{level.duration}</div>
+                      <div className="text-xs text-blue-200">Duração</div>
+                    </div>
+                  </div>
+
+                  {/* Accuracy */}
+                  <div className="mb-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm text-blue-200">Precisão</span>
+                      <span className="text-sm font-bold text-white">{level.accuracy}%</span>
+                    </div>
+                    <Progress value={level.accuracy} className="h-2 bg-white/20" />
+                  </div>
+
+                  <div className="flex justify-center">
+                    <Badge
+                      variant="outline"
+                      className={`border-2 ${level.difficulty === "Fácil" ? "border-green-400 text-green-400" : level.difficulty === "Médio" ? "border-blue-400 text-blue-400" : "border-purple-400 text-purple-400"} bg-transparent`}
+                    >
+                      {level.difficulty}
+                    </Badge>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="relative z-10 space-y-6">
+                  <p className="text-blue-100 text-center text-sm leading-relaxed">{level.description}</p>
+
+                  {/* Features */}
+                  <ul className="space-y-3">
+                    {level.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+                        <span className="text-sm text-blue-100">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Additional Info */}
+                  <div className="bg-white/5 rounded-lg p-4 space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-blue-200">Público-alvo:</span>
+                      <span className="text-xs text-white font-medium">{level.targetAudience}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-blue-200">QI médio:</span>
+                      <span className="text-xs text-white font-medium">{level.averageScore}</span>
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={() => router.push(level.route)}
+                    className={`w-full py-3 font-bold rounded-xl transition-all duration-300 bg-gradient-to-r ${level.color} hover:shadow-lg text-white group-hover:scale-105`}
+                  >
+                    Começar Assinatura {level.name}
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </CardContent>
+
+                {/* Decorative Corner */}
+                <div className="absolute top-4 right-4 opacity-30">
+                  <Award className="w-6 h-6 text-white" />
+                </div>
+              </Card>
+            )
+          })}
         </div>
 
-        {/* Credibility section */}
+        {/* Bottom CTA */}
         <div className="mt-16 text-center">
-          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg px-4 py-6 sm:px-8 sm:py-8 border border-slate-200/50 dark:border-slate-700/50 flex flex-col items-center space-y-6">
-            {/* Existing credibility items wrapper - now centered */}
-            <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:items-center sm:justify-center sm:space-x-4 md:space-x-6">
-              <div className="flex items-center space-x-2 justify-center sm:justify-start">
-                <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
-                <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
-                  Validação Científica
-                </span>
-              </div>
-              <div className="flex items-center space-x-2 justify-center sm:justify-start">
-                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
-                  Precisão Psicométrica
-                </span>
-              </div>
-              <div className="flex items-center space-x-2 justify-center sm:justify-start">
-                <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-                <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
-                  Certificação Profissional
-                </span>
-              </div>
+          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-4xl mx-auto border border-white/20">
+            <h3 className="text-2xl font-bold text-white mb-4 text-center">Não sabe qual escolher?</h3>
+            <p className="text-blue-200 mb-6 text-center">
+              Comece com a assinatura Intermediária - é a mais equilibrada e usada por 78% dos nossos usuários
+            </p>
+            <div className="flex justify-center">
+              <Button
+                onClick={() => router.push("/test/intermediate")}
+                size="lg"
+                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 font-bold rounded-full"
+              >
+                <TrendingUp className="w-5 h-5 mr-2" />
+                Começar Assinatura Recomendada
+              </Button>
             </div>
-            {/* New Button to open premium link popup */}
-            <Button
-              onClick={() => setShowGoToPremiumPopup(true)}
-              className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
-            >
-              <Gift className="w-5 h-5 mr-2" />
-              Explore Nossos Planos Premium
-            </Button>
           </div>
+        </div>
+      </div>
+
+      {/* Credibility section */}
+      <div className="mt-16 text-center">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg px-4 py-6 sm:px-8 sm:py-8 border border-slate-200/50 dark:border-slate-700/50 flex flex-col items-center space-y-6">
+          {/* Existing credibility items wrapper - now centered */}
+          <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:items-center sm:justify-center sm:space-x-4 md:space-x-6">
+            <div className="flex items-center space-x-2 justify-center sm:justify-start">
+              <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
+              <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+                Validação Científica
+              </span>
+            </div>
+            <div className="flex items-center space-x-2 justify-center sm:justify-start">
+              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
+              <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+                Precisão Psicométrica
+              </span>
+            </div>
+            <div className="flex items-center space-x-2 justify-center sm:justify-start">
+              <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+              <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+                Certificação Profissional
+              </span>
+            </div>
+          </div>
+          {/* New Button to open premium link popup */}
+          <Button
+            onClick={() => setShowGoToPremiumPopup(true)}
+            className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+          >
+            <Gift className="w-5 h-5 mr-2" />
+            Explore Nossos Planos Premium
+          </Button>
         </div>
       </div>
 
