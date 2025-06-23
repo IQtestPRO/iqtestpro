@@ -21,9 +21,27 @@ import "../styles/dynamic-background.css"
 import { PremiumUnlockNotification } from "@/components/premium-unlock-notification"
 
 export const metadata: Metadata = {
-  title: "v0 App",
-  description: "Created with v0",
-  generator: "v0.dev",
+  title: "IQ Test Pro - Teste de QI Científico Online",
+  description: "Teste de QI profissional e científico online. Avalie sua inteligência com precisão científica.",
+  generator: "IQ Test Pro",
+  keywords: "teste de qi, iq test, inteligência, teste científico, avaliação cognitiva",
+  authors: [{ name: "IQ Test Pro" }],
+  creator: "IQ Test Pro",
+  publisher: "IQ Test Pro",
+  robots: "index, follow",
+  openGraph: {
+    title: "IQ Test Pro - Teste de QI Científico",
+    description: "Avalie sua inteligência com nosso teste científico profissional",
+    type: "website",
+    locale: "pt_BR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "IQ Test Pro - Teste de QI Científico",
+    description: "Avalie sua inteligência com precisão científica",
+  },
+  viewport: "width=device-width, initial-scale=1",
+  themeColor: "#3b82f6",
 }
 
 export default function RootLayout({
