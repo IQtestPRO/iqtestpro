@@ -221,12 +221,19 @@ const sampleQuestionsData: PreviewQuestion[] = [
 ]
 
 function checkPremiumAccess() {
-  // Lógica para verificar o acesso premium do usuário
-  // Pode verificar um token no localStorage, um cookie, etc.
-  const hasAccess = localStorage.getItem("premiumAccess") === "true"
-  const allUnlocked = localStorage.getItem("allTestsUnlocked") === "true"
+  // Check if we're in the browser environment
+  if (typeof window === "undefined") {
+    return { hasAccess: false, allUnlocked: false }
+  }
 
-  return { hasAccess, allUnlocked }
+  try {
+    const hasAccess = localStorage.getItem("premiumAccess") === "true"
+    const allUnlocked = localStorage.getItem("allTestsUnlocked") === "true"
+    return { hasAccess, allUnlocked }
+  } catch (error) {
+    console.warn("Error accessing localStorage:", error)
+    return { hasAccess: false, allUnlocked: false }
+  }
 }
 
 export default function ChooseTestLevelSection() {
@@ -269,8 +276,11 @@ export default function ChooseTestLevelSection() {
   }, [])
 
   useEffect(() => {
-    const accessInfo = checkPremiumAccess()
-    setPremiumAccess(accessInfo)
+    // Only run on client side
+    if (typeof window !== "undefined") {
+      const accessInfo = checkPremiumAccess()
+      setPremiumAccess(accessInfo)
+    }
   }, [])
 
   const handleViewDetailsClick = useCallback((question: PreviewQuestion) => {
