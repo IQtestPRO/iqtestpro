@@ -1,12 +1,12 @@
 // Route configuration to prevent conflicts
 export const ROUTE_CONFIG = {
-  // Mission-based quizzes (free tier)
+  // Mission-based quizzes (free tier) - using 'id' parameter
   MISSION_QUIZ: "/quiz/[id]",
   MISSION_RESULTS: "/quiz/[id]/results",
 
-  // Premium level-based quizzes
-  PREMIUM_QUIZ: "/premium-quiz/[level]",
-  PREMIUM_RESULTS: "/premium-quiz/[level]/results",
+  // Premium level-based quizzes - using 'id' parameter for consistency
+  PREMIUM_QUIZ: "/premium-quiz/[id]",
+  PREMIUM_RESULTS: "/premium-quiz/[id]/results",
 
   // Other routes
   PREMIUM: "/premium",
@@ -21,5 +21,5 @@ export type RouteValue = (typeof ROUTE_CONFIG)[RouteKey]
 // Helper functions for route generation
 export const generateMissionRoute = (id: number) => `/quiz/${id}`
 export const generateMissionResultsRoute = (id: number) => `/quiz/${id}/results`
-export const generatePremiumRoute = (level: string) => `/premium-quiz/${level}`
-export const generatePremiumResultsRoute = (level: string) => `/premium-quiz/${level}/results`
+export const generatePremiumRoute = (id: string) => `/premium-quiz/${id}`
+export const generatePremiumResultsRoute = (id: string) => `/premium-quiz/${id}/results`
