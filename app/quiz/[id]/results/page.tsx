@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRouter, useParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import {
   Trophy,
@@ -163,218 +162,238 @@ export default function QuizResultsPage() {
             <div className="text-8xl mb-4 animate-bounce">
               {results.score >= 80 ? "🏆" : results.score >= 60 ? "🎯" : "💪"}
             </div>
-            <h1 className="text-4xl font-bold mb-4 text-white">Missão Concluída!</h1>
-            <p className="text-xl text-slate-300 mb-6">{results.missionTitle}</p>
+            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              Missão Concluída!
+            </h1>
+            <p className="text-xl text-purple-200 mb-6">{results.missionTitle}</p>
 
-            <div
-              className={`inline-flex items-center px-6 py-3 rounded-full ${performance.bgColor} border border-current/30`}
-            >
-              <Trophy className={`w-5 h-5 mr-2 ${performance.color}`} />
-              <span className={`font-bold text-lg ${performance.color}`}>{performance.level}</span>
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-purple-500/30 to-blue-500/30 backdrop-blur-sm border border-purple-400/50">
+              <Trophy className="w-5 h-5 mr-2 text-cyan-400" />
+              <span className="font-bold text-lg text-cyan-300">{performance.level}</span>
             </div>
           </div>
 
-          {/* Estatísticas Principais */}
+          {/* Estatísticas Principais - Como Popups */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
-              <CardContent className="p-6 text-center">
-                <div className="text-4xl font-black text-blue-400 mb-2">{results.score}%</div>
-                <p className="text-slate-300 font-medium">Pontuação Final</p>
-                <Progress value={results.score} className="mt-3 h-2" />
-              </CardContent>
-            </Card>
+            <div className="group cursor-pointer transform hover:scale-105 transition-all duration-300">
+              <div className="bg-gradient-to-br from-purple-900/80 to-blue-900/80 backdrop-blur-xl border border-purple-500/30 rounded-2xl p-6 text-center shadow-2xl hover:shadow-purple-500/25">
+                <div className="text-4xl font-black bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent mb-2">
+                  {results.score}%
+                </div>
+                <p className="text-purple-200 font-medium">Pontuação Final</p>
+                <Progress value={results.score} className="mt-3 h-2 bg-purple-900/50" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </div>
 
-            <Card className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
-              <CardContent className="p-6 text-center">
-                <div className="text-4xl font-black text-emerald-400 mb-2">{iqEstimate}</div>
-                <p className="text-slate-300 font-medium">QI Estimado</p>
+            <div className="group cursor-pointer transform hover:scale-105 transition-all duration-300">
+              <div className="bg-gradient-to-br from-blue-900/80 to-cyan-900/80 backdrop-blur-xl border border-blue-500/30 rounded-2xl p-6 text-center shadow-2xl hover:shadow-blue-500/25">
+                <div className="text-4xl font-black bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent mb-2">
+                  {iqEstimate}
+                </div>
+                <p className="text-blue-200 font-medium">QI Estimado</p>
                 <div className="flex justify-center mt-3">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
                       className={`w-4 h-4 ${
-                        i < Math.floor(iqEstimate / 30) ? "text-yellow-400 fill-yellow-400" : "text-gray-600"
+                        i < Math.floor(iqEstimate / 30) ? "text-cyan-400 fill-cyan-400" : "text-gray-600"
                       }`}
                     />
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </div>
 
-            <Card className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
-              <CardContent className="p-6 text-center">
-                <div className="text-4xl font-black text-purple-400 mb-2">{formatTime(results.timeSpent)}</div>
-                <p className="text-slate-300 font-medium">Tempo Total</p>
-                <div className="flex items-center justify-center mt-3 text-slate-400">
+            <div className="group cursor-pointer transform hover:scale-105 transition-all duration-300">
+              <div className="bg-gradient-to-br from-indigo-900/80 to-purple-900/80 backdrop-blur-xl border border-indigo-500/30 rounded-2xl p-6 text-center shadow-2xl hover:shadow-indigo-500/25">
+                <div className="text-4xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent mb-2">
+                  {formatTime(results.timeSpent)}
+                </div>
+                <p className="text-indigo-200 font-medium">Tempo Total</p>
+                <div className="flex items-center justify-center mt-3 text-indigo-300">
                   <Clock className="w-4 h-4 mr-1" />
                   <span className="text-sm">Eficiência Excelente</span>
                 </div>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </div>
           </div>
 
-          {/* Análise Detalhada */}
+          {/* Análise Detalhada - Como Popups */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <Card className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center">
-                  <Target className="w-5 h-5 mr-2" />
-                  Desempenho por Questão
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-300">Questões Corretas</span>
-                    <div className="flex items-center">
-                      <CheckCircle className="w-4 h-4 text-emerald-400 mr-2" />
-                      <span className="text-emerald-400 font-bold">{results.correctCount}</span>
+            <div className="group cursor-pointer transform hover:scale-102 transition-all duration-300">
+              <div className="bg-gradient-to-br from-purple-900/70 to-blue-900/70 backdrop-blur-xl border border-purple-400/30 rounded-2xl shadow-2xl hover:shadow-purple-500/20 overflow-hidden">
+                <div className="p-6">
+                  <h3 className="text-xl font-bold bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent flex items-center mb-4">
+                    <Target className="w-5 h-5 mr-2 text-cyan-400" />
+                    Desempenho por Questão
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-emerald-500/20 to-green-500/20 border border-emerald-400/30">
+                      <span className="text-purple-200">Questões Corretas</span>
+                      <div className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-emerald-400 mr-2" />
+                        <span className="text-emerald-300 font-bold">{results.correctCount}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-300">Questões Incorretas</span>
-                    <div className="flex items-center">
-                      <XCircle className="w-4 h-4 text-red-400 mr-2" />
-                      <span className="text-red-400 font-bold">{results.totalQuestions - results.correctCount}</span>
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-red-500/20 to-pink-500/20 border border-red-400/30">
+                      <span className="text-purple-200">Questões Incorretas</span>
+                      <div className="flex items-center">
+                        <XCircle className="w-4 h-4 text-red-400 mr-2" />
+                        <span className="text-red-300 font-bold">{results.totalQuestions - results.correctCount}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-slate-300">Total de Questões</span>
-                    <div className="flex items-center">
-                      <Brain className="w-4 h-4 text-blue-400 mr-2" />
-                      <span className="text-blue-400 font-bold">{results.totalQuestions}</span>
+                    <div className="flex items-center justify-between p-3 rounded-lg bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-400/30">
+                      <span className="text-purple-200">Total de Questões</span>
+                      <div className="flex items-center">
+                        <Brain className="w-4 h-4 text-cyan-400 mr-2" />
+                        <span className="text-cyan-300 font-bold">{results.totalQuestions}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </div>
 
-            <Card className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
-              <CardHeader>
-                <CardTitle className="text-white flex items-center">
-                  <Award className="w-5 h-5 mr-2" />
-                  Conquistas Desbloqueadas
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {results.score >= 80 && (
-                    <div className="flex items-center">
-                      <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
-                        🏆 Mestre da Missão
-                      </Badge>
-                    </div>
-                  )}
-                  {results.timeSpent < results.totalQuestions * 60 && (
-                    <div className="flex items-center">
-                      <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">⚡ Velocidade da Luz</Badge>
-                    </div>
-                  )}
-                  {results.correctCount === results.totalQuestions && (
-                    <div className="flex items-center">
-                      <Badge className="bg-emerald-500/20 text-emerald-400 border-emerald-500/30">
-                        💎 Perfeição Absoluta
-                      </Badge>
-                    </div>
-                  )}
-                  {results.score >= 60 && (
-                    <div className="flex items-center">
-                      <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30">
-                        🎯 Missão Cumprida
-                      </Badge>
-                    </div>
-                  )}
+            <div className="group cursor-pointer transform hover:scale-102 transition-all duration-300">
+              <div className="bg-gradient-to-br from-indigo-900/70 to-purple-900/70 backdrop-blur-xl border border-indigo-400/30 rounded-2xl shadow-2xl hover:shadow-indigo-500/20 overflow-hidden">
+                <div className="p-6">
+                  <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent flex items-center mb-4">
+                    <Award className="w-5 h-5 mr-2 text-yellow-400" />
+                    Conquistas Desbloqueadas
+                  </h3>
+                  <div className="space-y-3">
+                    {results.score >= 80 && (
+                      <div className="p-3 rounded-lg bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-400/30">
+                        <span className="text-yellow-300 font-semibold">🏆 Mestre da Missão</span>
+                      </div>
+                    )}
+                    {results.timeSpent < results.totalQuestions * 60 && (
+                      <div className="p-3 rounded-lg bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-400/30">
+                        <span className="text-blue-300 font-semibold">⚡ Velocidade da Luz</span>
+                      </div>
+                    )}
+                    {results.correctCount === results.totalQuestions && (
+                      <div className="p-3 rounded-lg bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-400/30">
+                        <span className="text-emerald-300 font-semibold">💎 Perfeição Absoluta</span>
+                      </div>
+                    )}
+                    {results.score >= 60 && (
+                      <div className="p-3 rounded-lg bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/30">
+                        <span className="text-purple-300 font-semibold">🎯 Missão Cumprida</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </div>
           </div>
 
-          {/* Ações */}
+          {/* Ações - Como Botões Popup */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <Button
               onClick={handleDownloadCertificate}
-              className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700"
+              className="group relative overflow-hidden bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 border-0 shadow-lg hover:shadow-emerald-500/25 transform hover:scale-105 transition-all duration-300"
             >
-              <Download className="w-4 h-4 mr-2" />
-              Certificado
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <Download className="w-4 h-4 mr-2 relative z-10" />
+              <span className="relative z-10">Certificado</span>
             </Button>
 
             <Button
               onClick={handleShareResults}
-              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+              className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-0 shadow-lg hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300"
             >
-              <Share2 className="w-4 h-4 mr-2" />
-              Compartilhar
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <Share2 className="w-4 h-4 mr-2 relative z-10" />
+              <span className="relative z-10">Compartilhar</span>
             </Button>
 
             <Button
               onClick={handleRetakeQuiz}
-              variant="outline"
-              className="border-slate-600 text-slate-300 hover:bg-slate-700/50"
+              className="group relative overflow-hidden bg-gradient-to-r from-indigo-600/80 to-purple-600/80 hover:from-indigo-500 hover:to-purple-500 border border-indigo-400/30 shadow-lg hover:shadow-indigo-500/25 transform hover:scale-105 transition-all duration-300"
             >
-              <RotateCcw className="w-4 h-4 mr-2" />
-              Refazer
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/20 to-purple-400/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <RotateCcw className="w-4 h-4 mr-2 relative z-10" />
+              <span className="relative z-10">Refazer</span>
             </Button>
 
             <Button
               onClick={() => router.push("/")}
-              variant="outline"
-              className="border-slate-600 text-slate-300 hover:bg-slate-700/50"
+              className="group relative overflow-hidden bg-gradient-to-r from-slate-600/80 to-gray-600/80 hover:from-slate-500 hover:to-gray-500 border border-slate-400/30 shadow-lg hover:shadow-slate-500/25 transform hover:scale-105 transition-all duration-300"
             >
-              <Home className="w-4 h-4 mr-2" />
-              Início
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-400/20 to-gray-400/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <Home className="w-4 h-4 mr-2 relative z-10" />
+              <span className="relative z-10">Início</span>
             </Button>
           </div>
 
-          {/* Recomendações */}
-          <Card className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/50">
-            <CardHeader>
-              <CardTitle className="text-white">Próximos Passos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-slate-200">Recomendações:</h4>
-                  <ul className="space-y-1 text-sm text-slate-300">
-                    {results.score >= 80 ? (
-                      <>
-                        <li>• Experimente uma missão de nível superior</li>
-                        <li>• Compartilhe seus resultados com amigos</li>
-                        <li>• Explore outras áreas de inteligência</li>
-                      </>
-                    ) : (
-                      <>
-                        <li>• Pratique mais exercícios similares</li>
-                        <li>• Revise os conceitos fundamentais</li>
-                        <li>• Tente novamente quando se sentir preparado</li>
-                      </>
-                    )}
-                  </ul>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-slate-200">Outras Missões:</h4>
-                  <div className="space-y-2">
-                    {[1, 2, 3, 4]
-                      .filter((id) => id !== results.missionId)
-                      .map((id) => (
-                        <Button
-                          key={id}
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => router.push(`/quiz/${id}`)}
-                          className="w-full justify-start text-slate-300 hover:text-white"
-                        >
-                          {id === 1 && "🧩 Raciocínio Espacial"}
-                          {id === 2 && "🧠 Raciocínio Lógico"}
-                          {id === 3 && "🎯 Inteligência Fluida"}
-                          {id === 4 && "👑 Avaliação Completa"}
-                        </Button>
-                      ))}
+          {/* Recomendações - Como Popup */}
+          <div className="group cursor-pointer transform hover:scale-102 transition-all duration-300">
+            <div className="bg-gradient-to-br from-slate-900/80 to-purple-900/80 backdrop-blur-xl border border-purple-400/30 rounded-2xl shadow-2xl hover:shadow-purple-500/20 overflow-hidden">
+              <div className="p-6">
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-300 to-blue-300 bg-clip-text text-transparent mb-6">
+                  Próximos Passos
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-purple-200 text-lg">Recomendações:</h4>
+                    <div className="space-y-2">
+                      {results.score >= 80 ? (
+                        <>
+                          <div className="p-3 rounded-lg bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-400/30">
+                            <span className="text-purple-200">• Experimente uma missão de nível superior</span>
+                          </div>
+                          <div className="p-3 rounded-lg bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-400/30">
+                            <span className="text-blue-200">• Compartilhe seus resultados com amigos</span>
+                          </div>
+                          <div className="p-3 rounded-lg bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border border-indigo-400/30">
+                            <span className="text-indigo-200">• Explore outras áreas de inteligência</span>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="p-3 rounded-lg bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-400/30">
+                            <span className="text-orange-200">• Pratique mais exercícios similares</span>
+                          </div>
+                          <div className="p-3 rounded-lg bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-400/30">
+                            <span className="text-yellow-200">• Revise os conceitos fundamentais</span>
+                          </div>
+                          <div className="p-3 rounded-lg bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-400/30">
+                            <span className="text-green-200">• Tente novamente quando se sentir preparado</span>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-purple-200 text-lg">Outras Missões:</h4>
+                    <div className="space-y-2">
+                      {[1, 2, 3, 4]
+                        .filter((id) => id !== results.missionId)
+                        .map((id) => (
+                          <Button
+                            key={id}
+                            onClick={() => router.push(`/quiz/${id}`)}
+                            className="w-full justify-start bg-gradient-to-r from-purple-600/30 to-blue-600/30 hover:from-purple-500/40 hover:to-blue-500/40 border border-purple-400/30 text-purple-200 hover:text-white transform hover:scale-105 transition-all duration-300"
+                          >
+                            {id === 1 && "🧩 Raciocínio Espacial"}
+                            {id === 2 && "🧠 Raciocínio Lógico"}
+                            {id === 3 && "🎯 Inteligência Fluida"}
+                            {id === 4 && "👑 Avaliação Completa"}
+                          </Button>
+                        ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
