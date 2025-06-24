@@ -4,38 +4,16 @@ import type React from "react"
 
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Linkedin, Copyright, Info, BookOpen, FileText } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Modal } from "@/components/ui/modal"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
 
 export default function Footer() {
-  const pathname = usePathname()
-  const [shouldRender, setShouldRender] = useState(true)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [modalData, setModalData] = useState<PopupContentType | null>(null)
-
   const currentYear = new Date().getFullYear()
 
-  useEffect(() => {
-    // Verifica se já existe um footer na página
-    const existingFooters = document.querySelectorAll("footer:not([data-footer-revamp])")
-
-    // Lista de páginas que já têm footer próprio
-    const pagesWithCustomFooter = ["/login", "/dashboard", "/payment", "/checkout"]
-
-    // Não renderiza se já existe footer ou se é uma página com footer customizado
-    if (existingFooters.length > 0 || pagesWithCustomFooter.includes(pathname)) {
-      setShouldRender(false)
-    } else {
-      setShouldRender(true)
-    }
-  }, [pathname])
-
-  if (!shouldRender) {
-    return null
-  }
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalData, setModalData] = useState<PopupContentType | null>(null)
 
   const openModalWithContent = (data: PopupContentType) => {
     setModalData(data)
@@ -118,7 +96,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="border-t border-slate-700/50 bg-slate-900/90 backdrop-blur-xl" data-footer-revamp>
+      <footer className="border-t border-slate-700/50 bg-slate-900/90 backdrop-blur-xl">
         <div className="container mx-auto max-w-screen-2xl px-4 py-8 sm:py-12">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
             {/* Logo e Descrição */}

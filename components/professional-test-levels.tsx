@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Brain, Clock, FileText, Award, Users, BarChart3, Shield, CheckCircle, Star, Target, Crown } from "lucide-react"
-import { useRouter } from "next/navigation"
 
 interface TestLevel {
   id: string
@@ -19,7 +18,7 @@ interface TestLevel {
   price: number
   originalPrice?: number
   features: string[]
-  difficulty: "Básico" | "Intermediário" | "Avançado" | "Expert"
+  difficulty: "Básico" | "Intermediário" | "Avançado"
   icon: React.ReactNode
   popular?: boolean
   recommended?: boolean
@@ -27,11 +26,10 @@ interface TestLevel {
 
 export default function ProfessionalTestLevels() {
   const [selectedTest, setSelectedTest] = useState<string | null>(null)
-  const router = useRouter()
 
   const testLevels: TestLevel[] = [
     {
-      id: "spatial",
+      id: "basic",
       title: "Avaliação Básica",
       subtitle: "Introdução à Avaliação Cognitiva",
       description: "Uma avaliação inicial que oferece uma visão geral das suas habilidades cognitivas principais.",
@@ -48,7 +46,7 @@ export default function ProfessionalTestLevels() {
       icon: <Target className="w-6 h-6" />,
     },
     {
-      id: "logical",
+      id: "standard",
       title: "Avaliação Padrão",
       subtitle: "Análise Cognitiva Completa",
       description: "Avaliação abrangente que mede múltiplas dimensões da inteligência com análise detalhada.",
@@ -68,7 +66,7 @@ export default function ProfessionalTestLevels() {
       popular: true,
     },
     {
-      id: "abstract",
+      id: "professional",
       title: "Avaliação Profissional",
       subtitle: "Análise Psicométrica Avançada",
       description: "Avaliação completa com análise psicométrica profissional, ideal para uso acadêmico e corporativo.",
@@ -101,11 +99,6 @@ export default function ProfessionalTestLevels() {
       default:
         return "bg-gray-100 text-gray-800 border-gray-200"
     }
-  }
-
-  const handleStartTest = (testId: string) => {
-    // Redirect to premium quiz structure
-    router.push(`/quiz/premium/${testId}`)
   }
 
   return (
@@ -215,7 +208,7 @@ export default function ProfessionalTestLevels() {
                         ? "bg-purple-600 hover:bg-purple-700"
                         : "bg-slate-600 hover:bg-slate-700"
                   } text-white font-semibold py-3 rounded-lg transition-colors duration-200`}
-                  onClick={() => handleStartTest(test.id)}
+                  onClick={() => setSelectedTest(test.id)}
                 >
                   {test.price === 0 ? "Começar Teste Gratuito" : "Adquirir Avaliação"}
                 </Button>

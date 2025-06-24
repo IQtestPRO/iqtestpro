@@ -280,11 +280,6 @@ export default function PremiumPage() {
     }
   }
 
-  const handleStartPremiumQuiz = (level: string) => {
-    // Redirect to the new premium quiz structure
-    router.push(`/quiz/premium/${level}`)
-  }
-
   return (
     <div className="min-h-screen relative overflow-x-hidden">
       <div className="fixed inset-0 z-0">
@@ -328,10 +323,15 @@ export default function PremiumPage() {
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 animate-glow"
-                  onClick={() => handleStartPremiumQuiz("spatial")}
+                  onClick={() => {
+                    const plansSection = document.querySelector('[data-section="plans"]')
+                    if (plansSection) {
+                      plansSection.scrollIntoView({ behavior: "smooth", block: "start" })
+                    }
+                  }}
                 >
                   <Crown className="w-6 h-6 mr-2" />
-                  Começar Teste Premium
+                  Começar Teste
                 </Button>
 
                 <div className="flex items-center space-x-2 text-sm text-slate-400">
@@ -344,74 +344,6 @@ export default function PremiumPage() {
         </section>
 
         <div className="container relative mx-auto px-4 py-16 z-10">
-          {/* Premium Quiz Levels */}
-          <section className="mb-20">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4 text-white">Quizzes Premium Disponíveis</h2>
-              <p className="text-xl text-slate-400 mb-8">
-                Escolha o nível que melhor se adapta ao seu perfil cognitivo
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-12">
-              <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-105">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">🧩</div>
-                  <h3 className="text-xl font-bold text-white mb-2">Raciocínio Espacial</h3>
-                  <p className="text-slate-400 text-sm mb-4">Teste sua capacidade de visualização espacial</p>
-                  <Button
-                    onClick={() => handleStartPremiumQuiz("spatial")}
-                    className="w-full bg-blue-600 hover:bg-blue-700"
-                  >
-                    Iniciar Quiz
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:border-purple-500/50 transition-all duration-300 hover:scale-105">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">🧠</div>
-                  <h3 className="text-xl font-bold text-white mb-2">Raciocínio Lógico</h3>
-                  <p className="text-slate-400 text-sm mb-4">Desenvolva seu pensamento crítico</p>
-                  <Button
-                    onClick={() => handleStartPremiumQuiz("logical")}
-                    className="w-full bg-purple-600 hover:bg-purple-700"
-                  >
-                    Iniciar Quiz
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:border-amber-500/50 transition-all duration-300 hover:scale-105">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">🎯</div>
-                  <h3 className="text-xl font-bold text-white mb-2">Inteligência Fluida</h3>
-                  <p className="text-slate-400 text-sm mb-4">Teste sua capacidade de raciocínio abstrato</p>
-                  <Button
-                    onClick={() => handleStartPremiumQuiz("abstract")}
-                    className="w-full bg-amber-600 hover:bg-amber-700"
-                  >
-                    Iniciar Quiz
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-slate-800/50 backdrop-blur-sm border-slate-700/50 hover:border-emerald-500/50 transition-all duration-300 hover:scale-105">
-                <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">👑</div>
-                  <h3 className="text-xl font-bold text-white mb-2">Avaliação Completa</h3>
-                  <p className="text-slate-400 text-sm mb-4">Teste multidimensional completo</p>
-                  <Button
-                    onClick={() => handleStartPremiumQuiz("expert")}
-                    className="w-full bg-emerald-600 hover:bg-emerald-700"
-                  >
-                    Iniciar Quiz
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
-          </section>
-
           {/* Comparação de Planos */}
           <section className="mb-20" data-section="plans">
             <div className="text-center mb-12">

@@ -242,6 +242,7 @@ export default function ChooseTestLevelSection() {
   const paymentContext = usePayment()
   const { openPaymentModal } = paymentContext || { openPaymentModal: () => {} }
   const [premiumAccess, setPremiumAccess] = useState(checkPremiumAccess())
+  const [showEvaluationSummary, setShowEvaluationSummary] = useState(false)
 
   const isUserPremium = () => {
     return false // Mock: user is NOT premium
@@ -557,14 +558,143 @@ export default function ChooseTestLevelSection() {
         {/* Premium Plans Button */}
         <div className="text-center mb-3 sm:mb-4 md:mb-6">
           <Button
-            onClick={() => setShowPremiumPlansModal(true)}
+            onClick={() => setShowEvaluationSummary(!showEvaluationSummary)}
             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-2.5 lg:px-8 lg:py-3 text-xs sm:text-sm md:text-base rounded-md sm:rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-h-[36px] sm:min-h-[40px] md:min-h-[44px]"
           >
             <Crown className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-1 sm:mr-1.5 md:mr-2" />
-            <span className="hidden sm:inline">Ver Todas as Avaliações</span>
-            <span className="sm:hidden">Avaliações</span>
+            <span className="hidden sm:inline">Ver Resumo das Avaliações</span>
+            <span className="sm:hidden">Resumo</span>
           </Button>
         </div>
+
+        {/* Evaluation Summary Section */}
+        {showEvaluationSummary && (
+          <div className="mb-6 sm:mb-8 md:mb-12 animate-fade-in-up">
+            <div className="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl md:rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 p-4 sm:p-6 md:p-8">
+              <div className="text-center mb-4 sm:mb-6">
+                <h3 className="font-display text-lg sm:text-xl md:text-2xl font-bold mb-2 text-slate-900 dark:text-slate-100">
+                  📊 Resumo das Avaliações Cognitivas
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+                  Análise detalhada dos nossos testes de inteligência validados cientificamente
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-6">
+                {/* Statistics */}
+                <div className="space-y-4">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center">
+                    <BarChart3 className="w-5 h-5 mr-2 text-blue-500" />
+                    Estatísticas Gerais
+                  </h4>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+                      <span className="text-sm text-slate-600 dark:text-slate-300">Total de Avaliações Realizadas</span>
+                      <span className="font-bold text-blue-600 dark:text-blue-400">+47.892</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+                      <span className="text-sm text-slate-600 dark:text-slate-300">Taxa de Satisfação</span>
+                      <span className="font-bold text-green-600 dark:text-green-400">97.3%</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+                      <span className="text-sm text-slate-600 dark:text-slate-300">Precisão Psicométrica</span>
+                      <span className="font-bold text-purple-600 dark:text-purple-400">99.1%</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Test Breakdown */}
+                <div className="space-y-4">
+                  <h4 className="font-bold text-slate-900 dark:text-slate-100 flex items-center">
+                    <Target className="w-5 h-5 mr-2 text-green-500" />
+                    Distribuição por Nível
+                  </h4>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
+                      <span className="text-sm text-slate-600 dark:text-slate-300">Raciocínio Espacial (Básico)</span>
+                      <span className="font-bold text-blue-600 dark:text-blue-400">18.4k usuários</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-purple-50 dark:bg-purple-950/30 rounded-lg">
+                      <span className="text-sm text-slate-600 dark:text-slate-300">Raciocínio Lógico (Intermediário)</span>
+                      <span className="font-bold text-purple-600 dark:text-purple-400">15.2k usuários</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-amber-50 dark:bg-amber-950/30 rounded-lg">
+                      <span className="text-sm text-slate-600 dark:text-slate-300">Inteligência Fluida (Avançado)</span>
+                      <span className="font-bold text-amber-600 dark:text-amber-400">9.8k usuários</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg">
+                      <span className="text-sm text-slate-600 dark:text-slate-300">Avaliação Completa (Expert)</span>
+                      <span className="font-bold text-emerald-600 dark:text-emerald-400">4.4k usuários</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recent Feedback */}
+              <div className="border-t border-slate-200 dark:border-slate-700 pt-6">
+                <h4 className="font-bold text-slate-900 dark:text-slate-100 mb-4 flex items-center">
+                  <Star className="w-5 h-5 mr-2 text-yellow-500" />
+                  Avaliações Recentes
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                    <div className="flex items-center mb-2">
+                      <div className="flex text-yellow-400">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-current" />
+                        ))}
+                      </div>
+                      <span className="ml-2 text-sm text-slate-500 dark:text-slate-400">há 2 horas</span>
+                    </div>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">
+                      "Teste muito preciso! Me ajudou a entender melhor minhas habilidades cognitivas."
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">- Maria S., Psicóloga</p>
+                  </div>
+                  <div className="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                    <div className="flex items-center mb-2">
+                      <div className="flex text-yellow-400">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-current" />
+                        ))}
+                      </div>
+                      <span className="ml-2 text-sm text-slate-500 dark:text-slate-400">há 5 horas</span>
+                    </div>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">
+                      "Excelente ferramenta para seleção de candidatos. Resultados muito confiáveis."
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">- João R., RH</p>
+                  </div>
+                  <div className="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-lg">
+                    <div className="flex items-center mb-2">
+                      <div className="flex text-yellow-400">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-current" />
+                        ))}
+                      </div>
+                      <span className="ml-2 text-sm text-slate-500 dark:text-slate-400">há 1 dia</span>
+                    </div>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">
+                      "Interface intuitiva e relatórios detalhados. Recomendo para profissionais da área."
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">- Ana L., Neuropsicóloga</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Close button */}
+              <div className="text-center mt-6">
+                <Button
+                  onClick={() => setShowEvaluationSummary(false)}
+                  variant="outline"
+                  className="text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100"
+                >
+                  Fechar Resumo
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Enhanced Gaming-style cards grid */}
         <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
@@ -1092,5 +1222,4 @@ export default function ChooseTestLevelSection() {
       {showPremiumPlansModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-3 md:p-4">
           <div className="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl md:rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-3 sm:p-4 md:p-6 border-b border-slate-200 dark:border-slate-700
-\`\`\`
+            <div className="p-3 sm:p-4 md:p-6 border-b border-slate-200 dark:border-slate-700\
