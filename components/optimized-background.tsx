@@ -9,6 +9,12 @@ export function OptimizedBackground() {
 
   useEffect(() => {
     setMounted(true)
+
+    // Ensure document can scroll
+    if (typeof window !== "undefined") {
+      document.body.style.overflow = "auto"
+      document.documentElement.style.overflow = "auto"
+    }
   }, [])
 
   if (!mounted) {
@@ -16,7 +22,7 @@ export function OptimizedBackground() {
   }
 
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none" style={{ willChange: "auto" }}>
       {/* Dark gradient background - consistent throughout */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
 

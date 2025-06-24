@@ -278,7 +278,23 @@ export default function OptimizedLandingPage() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    // Reset scroll position and ensure body can scroll
+    window.scrollTo(0, 0)
+    document.body.style.overflow = "auto"
+    document.documentElement.style.overflow = "auto"
+
+    // Cleanup any potential scroll locks
+    return () => {
+      document.body.style.overflow = "auto"
+      document.documentElement.style.overflow = "auto"
+    }
+  }, [])
+
+  useEffect(() => {
     setMounted(true)
+    // Ensure scroll is enabled
+    document.body.style.overflow = "auto"
+    document.documentElement.style.overflow = "auto"
   }, [])
 
   if (!mounted) {
@@ -290,7 +306,7 @@ export default function OptimizedLandingPage() {
   }
 
   return (
-    <>
+    <div className="relative min-h-screen">
       <OptimizedHeroSection />
       <OptimizedHowItWorksSection />
       <ChooseTestLevelSection />
@@ -305,6 +321,6 @@ export default function OptimizedLandingPage() {
           }}
         />
       )}
-    </>
+    </div>
   )
 }

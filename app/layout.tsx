@@ -40,7 +40,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#3b82f6" />
       </head>
-      <body className="font-sans antialiased overflow-x-hidden">
+      <body className="font-sans antialiased" style={{ scrollBehavior: "smooth" }}>
         <OptimizedBackground />
         <ErrorBoundary>
           <Suspense
