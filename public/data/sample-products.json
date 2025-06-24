@@ -1,0 +1,44 @@
+[
+  {
+    "id": "basic-iq-test",
+    "title": "Basic IQ Test",
+    "description": "A comprehensive 40-question IQ test that measures your cognitive abilities across multiple domains including logical reasoning, pattern recognition, and verbal comprehension.",
+    "image": "/placeholder.svg?height=200&width=400&text=Basic+IQ+Test",
+    "price": 9.99,
+    "category": "IQ Tests",
+    "featured": false,
+    "metadata": {
+      "questions": 40,
+      "duration": "45 minutes",
+      "difficulty": "Beginner to Intermediate"
+    }
+  },
+  {
+    "id": "premium-iq-assessment",
+    "title": "Premium IQ Assessment",
+    "description": "Our most comprehensive IQ assessment with 60 questions, detailed analysis, and personalized recommendations for cognitive improvement.",
+    "image": "/placeholder.svg?height=200&width=400&text=Premium+IQ+Assessment",
+    "price": 19.99,
+    "category": "Premium Tests",
+    "featured": true,
+    "metadata": {
+      "questions": 60,
+      "duration": "75 minutes",
+      "difficulty": "All Levels"
+    }
+  },
+  {
+    "id": "professional-cognitive-evaluation",
+    "title": "Professional Cognitive Evaluation",
+    "description": "A professional-grade cognitive evaluation used by psychologists and educators. Includes detailed report and cognitive profile analysis.",
+    "image": "/placeholder.svg?height=200&width=400&text=Professional+Evaluation",
+    "price": 39.99,
+    "category": "Professional",
+    "featured": true,
+    "metadata": {
+      "questions": 80,
+      "duration": "90 minutes",
+      "difficulty": "Advanced"
+    }
+  }
+]

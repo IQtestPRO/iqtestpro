@@ -19,7 +19,7 @@ export function DynamicBackground() {
   const isDark = currentTheme === "dark"
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 -z-50 overflow-hidden pointer-events-none">
       {/* Base gradient background */}
       <div
         className={`absolute inset-0 transition-opacity duration-1000 ${

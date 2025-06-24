@@ -13,6 +13,7 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
@@ -21,7 +22,7 @@ const nextConfig = {
   compress: true,
   swcMinify: true,
   reactStrictMode: false,
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, dev }) => {
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -30,10 +31,36 @@ const nextConfig = {
         tls: false,
       }
     }
+
+    // Optimize bundle splitting
+    if (!dev) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'all',
+            enforce: true,
+          },
+        },
+      }
+    }
+
     return config
   },
   output: 'standalone',
   trailingSlash: false,
+  // Performance optimizations
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
 }
 
 export default nextConfig

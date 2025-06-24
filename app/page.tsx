@@ -6,6 +6,8 @@ import { InteractivePreviewPopup, useInteractivePopups } from "@/components/inte
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { Badge } from "@/components/ui/badge"
+import { DynamicContentLoader } from "@/components/dynamic-content-loader"
+import { JSONDataManager } from "@/lib/json-data-manager"
 
 function HeroSection() {
   const router = useRouter()
@@ -385,6 +387,39 @@ function HowItWorksSection() {
   )
 }
 
+function DynamicPlansSection() {
+  return (
+    <section className="py-20 md:py-28 bg-background">
+      <div className="container mx-auto max-w-screen-xl px-4">
+        <div className="text-center mb-16">
+          <h2 className="font-inter text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-foreground tracking-tight">
+            Escolha Seu Plano Ideal
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg leading-relaxed font-inter">
+            Planos flexíveis para atender suas necessidades de avaliação cognitiva.
+          </p>
+        </div>
+
+        <DynamicContentLoader
+          endpoint="/data/sample-products.json"
+          type="plans"
+          limit={3}
+          className="animate-fade-in-up"
+          fallbackData={[
+            {
+              id: "basic",
+              title: "Plano Básico",
+              description: "Teste de QI básico com resultados essenciais",
+              price: 9.9,
+              category: "IQ Test",
+            },
+          ]}
+        />
+      </div>
+    </section>
+  )
+}
+
 export default function LandingPage() {
   const { activePopup, closePopup } = useInteractivePopups()
   const router = useRouter()
@@ -392,6 +427,12 @@ export default function LandingPage() {
 
   useEffect(() => {
     setMounted(true)
+
+    // Preload critical data
+    JSONDataManager.preloadData([
+      { endpoint: "/data/sample-products.json", cacheDuration: 600000 },
+      { endpoint: "/data/sample-posts.json", cacheDuration: 600000 },
+    ])
   }, [])
 
   if (!mounted) {
@@ -408,6 +449,7 @@ export default function LandingPage() {
     <>
       <HeroSection />
       <HowItWorksSection />
+      <DynamicPlansSection />
       <ChooseTestLevelSection />
       {activePopup && (
         <InteractivePreviewPopup

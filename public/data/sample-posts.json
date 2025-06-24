@@ -1,0 +1,41 @@
+[
+  {
+    "id": "understanding-iq",
+    "title": "Understanding IQ: What Your Score Really Means",
+    "description": "Dive deep into the science behind IQ testing and learn what your score reveals about your cognitive abilities and potential.",
+    "image": "/placeholder.svg?height=200&width=400&text=Understanding+IQ",
+    "category": "Education",
+    "featured": true,
+    "metadata": {
+      "author": "Dr. Sarah Johnson",
+      "read_time": "8 minutes",
+      "published": "2024-01-15"
+    }
+  },
+  {
+    "id": "improve-cognitive-function",
+    "title": "10 Science-Based Ways to Improve Your Cognitive Function",
+    "description": "Discover proven methods to enhance your mental performance, memory, and problem-solving abilities through lifestyle changes and exercises.",
+    "image": "/placeholder.svg?height=200&width=400&text=Cognitive+Function",
+    "category": "Health",
+    "featured": false,
+    "metadata": {
+      "author": "Dr. Michael Chen",
+      "read_time": "12 minutes",
+      "published": "2024-01-10"
+    }
+  },
+  {
+    "id": "history-of-iq-testing",
+    "title": "The History and Evolution of IQ Testing",
+    "description": "Explore the fascinating history of intelligence testing from its origins to modern applications in education and psychology.",
+    "image": "/placeholder.svg?height=200&width=400&text=History+of+IQ",
+    "category": "History",
+    "featured": false,
+    "metadata": {
+      "author": "Prof. Emily Rodriguez",
+      "read_time": "15 minutes",
+      "published": "2024-01-05"
+    }
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "basic-plan",
+    "title": "Basic IQ Test",
+    "description": "Complete IQ assessment with basic analysis and results. Perfect for getting started with understanding your cognitive abilities.",
+    "image": "/placeholder.svg?height=200&width=400&text=Basic+Plan",
+    "price": 9.9,
+    "category": "IQ Test",
+    "featured": false,
+    "metadata": {
+      "duration": "15 minutes",
+      "questions": 30,
+      "certificate": false
+    }
+  },
+  {
+    "id": "premium-plan",
+    "title": "Premium IQ Test",
+    "description": "Advanced IQ assessment with detailed analysis, personalized insights, and official certificate. Comprehensive cognitive evaluation.",
+    "image": "/placeholder.svg?height=200&width=400&text=Premium+Plan",
+    "price": 19.9,
+    "category": "IQ Test",
+    "featured": true,
+    "metadata": {
+      "duration": "25 minutes",
+      "questions": 50,
+      "certificate": true,
+      "detailed_analysis": true
+    }
+  },
+  {
+    "id": "professional-plan",
+    "title": "Professional IQ Assessment",
+    "description": "Complete professional-grade IQ assessment with expert analysis, detailed report, and career guidance recommendations.",
+    "image": "/placeholder.svg?height=200&width=400&text=Professional+Plan",
+    "price": 39.9,
+    "category": "IQ Test",
+    "featured": true,
+    "metadata": {
+      "duration": "45 minutes",
+      "questions": 80,
+      "certificate": true,
+      "expert_analysis": true,
+      "career_guidance": true
+    }
+  }
+]
