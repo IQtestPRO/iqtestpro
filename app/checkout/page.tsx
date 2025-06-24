@@ -41,8 +41,38 @@ export default function CheckoutPage() {
     // Simular processamento de pagamento
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
-    // Redirecionar para página de sucesso
-    router.push("/checkout/success")
+    // Recuperar dados da missão selecionada
+    const selectedMission = localStorage.getItem("selectedMission")
+
+    if (selectedMission) {
+      try {
+        const missionData = JSON.parse(selectedMission)
+
+        // Salvar dados do pagamento confirmado
+        const purchaseData = {
+          ...missionData,
+          paymentConfirmed: true,
+          purchaseDate: new Date().toISOString(),
+          paymentMethod: selectedMethod,
+          quizAccess: true,
+        }
+
+        localStorage.setItem("purchasedTest", JSON.stringify(purchaseData))
+        localStorage.setItem("testPaid", "true")
+        localStorage.setItem("allQuizzesUnlocked", "true")
+        localStorage.setItem("premiumAccess", "true")
+
+        // Redirecionar diretamente para o quiz da missão
+        router.push(`/quiz/${missionData.id}`)
+      } catch (error) {
+        console.error("Error processing mission data:", error)
+        // Fallback para página de sucesso em caso de erro
+        router.push("/checkout/success")
+      }
+    } else {
+      // Fallback se não houver dados da missão
+      router.push("/checkout/success")
+    }
   }
 
   const paymentMethods = [

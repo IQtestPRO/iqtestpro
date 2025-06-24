@@ -113,7 +113,7 @@ export default function PremiumQuizPage() {
     )
 
     setIsCompleted(true)
-    router.push(`/quiz/${level}/results`)
+    router.push(`/quiz/premium/${level}/results`)
   }
 
   const formatTime = (seconds: number) => {
@@ -275,7 +275,7 @@ export default function PremiumQuizPage() {
                     {currentQuestion.category}
                   </Badge>
                   <Badge className="px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                    {currentQuestion.points} pontos
+                    {currentQuestion.points}
                   </Badge>
                 </div>
                 <h2 className="text-xl font-semibold mb-6 text-white">{currentQuestion.question}</h2>
