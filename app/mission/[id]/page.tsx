@@ -948,7 +948,7 @@ export default function QuizPage() {
 
     localStorage.setItem("quizResults", JSON.stringify(results))
     setIsCompleted(true)
-    router.push(`/quiz/${missionId}/results`)
+    router.push(`/mission/${missionId}/results`)
   }
 
   const formatTime = (seconds: number) => {
