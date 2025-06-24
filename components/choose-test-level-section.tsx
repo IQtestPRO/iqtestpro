@@ -147,7 +147,7 @@ const sampleQuestionsData: PreviewQuestion[] = [
     backgroundPattern: (
       <div className="absolute inset-0 opacity-10">
         <div className="flex items-center justify-center h-full">
-          <Layers className="w-10 h-10 sm:w-14 sm:h-14 md:w-18 md:h-18 lg:w-20 lg:h-20 xl:w-28 xl:h-28 text-white transform rotate-12" />
+          <Layers className="w-10 h-10 sm:w-14 sm:h-14 md:w-18 md:h-18 lg:w-20 lg:w-20 xl:w-28 xl:h-28 text-white transform rotate-12" />
           <Cpu className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 xl:w-20 xl:h-20 text-white transform -rotate-12 -ml-3 sm:-ml-4 md:-ml-5 lg:-ml-6 xl:-ml-8" />
         </div>
       </div>
@@ -572,8 +572,8 @@ export default function ChooseTestLevelSection() {
             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-2.5 lg:px-8 lg:py-3 text-xs sm:text-sm md:text-base rounded-md sm:rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-h-[36px] sm:min-h-[40px] md:min-h-[44px]"
           >
             <Crown className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-1 sm:mr-1.5 md:mr-2" />
-            <span className="hidden sm:inline">Ver Todos os Planos Premium</span>
-            <span className="sm:hidden">Planos Premium</span>
+            <span className="hidden sm:inline">Ver Todas as Avaliações</span>
+            <span className="sm:hidden">Avaliações</span>
           </Button>
         </div>
 
