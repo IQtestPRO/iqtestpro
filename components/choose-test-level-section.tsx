@@ -896,7 +896,7 @@ export default function ChooseTestLevelSection() {
                 </div>
 
                 {/* Botões de ação */}
-                <div className="flex flex-col sm:flex-row space-y-1.5 sm:space-y-0 sm:space-x-2 md:space-x-3 pt-2 sm:pt-2.5 md:pt-3 relative">
+                <div className="flex flex-col sm:flex-row space-y-1.5 sm:space-y-0 sm:space-x-2 md:space-x-3 pt-2 sm:pt-2.5 md:pt-3 relative justify-center">
                   <div className="relative flex-1">
                     <Button
                       variant="outline"
