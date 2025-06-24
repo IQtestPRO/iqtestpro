@@ -1,0 +1,124 @@
+{
+  "regularQuizzes": {
+    "1": {
+      "id": 1,
+      "title": "Teste de QI Básico",
+      "subtitle": "Avaliação Cognitiva Inicial",
+      "category": "Teste Básico",
+      "difficulty": "Básico",
+      "questions": 30,
+      "timeLimit": 20,
+      "description": "Uma avaliação abrangente das suas habilidades cognitivas básicas",
+      "price": 0,
+      "isFree": true,
+      "cognitiveAreas": ["logical_reasoning", "pattern_recognition", "basic_math"],
+      "questionTypes": [
+        {
+          "type": "pattern_completion",
+          "count": 10,
+          "difficulty": "basic"
+        },
+        {
+          "type": "logical_sequence",
+          "count": 10,
+          "difficulty": "basic"
+        },
+        {
+          "type": "numerical_reasoning",
+          "count": 10,
+          "difficulty": "basic"
+        }
+      ]
+    },
+    "2": {
+      "id": 2,
+      "title": "Teste de QI Intermediário",
+      "subtitle": "Avaliação Cognitiva Avançada",
+      "category": "Teste Intermediário",
+      "difficulty": "Intermediário",
+      "questions": 40,
+      "timeLimit": 30,
+      "description": "Teste mais desafiador para avaliar habilidades cognitivas intermediárias",
+      "price": 0,
+      "isFree": true,
+      "cognitiveAreas": ["abstract_reasoning", "spatial_intelligence", "verbal_comprehension"],
+      "questionTypes": [
+        {
+          "type": "abstract_patterns",
+          "count": 15,
+          "difficulty": "intermediate"
+        },
+        {
+          "type": "spatial_rotation",
+          "count": 15,
+          "difficulty": "intermediate"
+        },
+        {
+          "type": "verbal_analogies",
+          "count": 10,
+          "difficulty": "intermediate"
+        }
+      ]
+    },
+    "3": {
+      "id": 3,
+      "title": "Teste de QI Avançado",
+      "subtitle": "Avaliação Cognitiva Superior",
+      "category": "Teste Avançado",
+      "difficulty": "Avançado",
+      "questions": 50,
+      "timeLimit": 40,
+      "description": "Desafio cognitivo avançado para mentes excepcionais",
+      "price": 0,
+      "isFree": true,
+      "cognitiveAreas": ["fluid_intelligence", "working_memory", "processing_speed"],
+      "questionTypes": [
+        {
+          "type": "complex_matrices",
+          "count": 20,
+          "difficulty": "advanced"
+        },
+        {
+          "type": "working_memory_tasks",
+          "count": 15,
+          "difficulty": "advanced"
+        },
+        {
+          "type": "speed_processing",
+          "count": 15,
+          "difficulty": "advanced"
+        }
+      ]
+    },
+    "4": {
+      "id": 4,
+      "title": "Teste de QI Expert",
+      "subtitle": "Avaliação Cognitiva Máxima",
+      "category": "Teste Expert",
+      "difficulty": "Expert",
+      "questions": 60,
+      "timeLimit": 50,
+      "description": "O teste mais desafiador para identificar genialidade cognitiva",
+      "price": 0,
+      "isFree": true,
+      "cognitiveAreas": ["all_cognitive_areas"],
+      "questionTypes": [
+        {
+          "type": "expert_matrices",
+          "count": 20,
+          "difficulty": "expert"
+        },
+        {
+          "type": "complex_reasoning",
+          "count": 20,
+          "difficulty": "expert"
+        },
+        {
+          "type": "cognitive_integration",
+          "count": 20,
+          "difficulty": "expert"
+        }
+      ]
+    }
+  }
+}
