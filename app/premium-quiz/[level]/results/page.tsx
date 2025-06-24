@@ -13,7 +13,6 @@ import {
   RotateCcw,
   Home,
   Star,
-  Award,
   TrendingUp,
   Brain,
   Clock,
@@ -26,7 +25,7 @@ import {
 } from "lucide-react"
 import { PREMIUM_QUIZ_LEVELS } from "@/lib/premium-quiz-system"
 
-export default function QuizResultsPage() {
+export default function PremiumQuizResultsPage() {
   const router = useRouter()
   const params = useParams()
   const level = params.level as string
@@ -35,7 +34,7 @@ export default function QuizResultsPage() {
   const [showCelebration, setShowCelebration] = useState(false)
 
   useEffect(() => {
-    const savedResults = localStorage.getItem("quizResults")
+    const savedResults = localStorage.getItem("premiumQuizResults")
     if (savedResults) {
       try {
         const parsedResults = JSON.parse(savedResults)
@@ -297,50 +296,6 @@ export default function QuizResultsPage() {
           </Card>
         </div>
 
-        {/* Achievements */}
-        <Card
-          className={`mb-8 border-0 shadow-xl bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 dark:from-yellow-900/20 dark:via-orange-900/20 dark:to-red-900/20 transition-all duration-1000 delay-500 ${showCelebration ? "animate-slide-in-right" : "opacity-0"}`}
-        >
-          <CardContent className="p-8">
-            <div className="flex items-center mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center mr-3">
-                <Award className="w-5 h-5 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-800 dark:text-white">Conquistas Desbloqueadas</h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="p-4 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-yellow-200/50 dark:border-yellow-700/30 text-center">
-                <Trophy className="w-8 h-8 text-yellow-500 mx-auto mb-2" />
-                <div className="text-sm font-semibold text-slate-700 dark:text-slate-300">Teste Completado</div>
-              </div>
-
-              {results.score >= 80 && (
-                <div className="p-4 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-emerald-200/50 dark:border-emerald-700/30 text-center">
-                  <Star className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
-                  <div className="text-sm font-semibold text-slate-700 dark:text-slate-300">Pontuação Excelente</div>
-                </div>
-              )}
-
-              {results.percentile >= 90 && (
-                <div className="p-4 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-purple-200/50 dark:border-purple-700/30 text-center">
-                  <Crown className="w-8 h-8 text-purple-500 mx-auto mb-2" />
-                  <div className="text-sm font-semibold text-slate-700 dark:text-slate-300">Top 10% Mundial</div>
-                </div>
-              )}
-
-              {results.timeSpent < quizLevel.duration * 60 * 0.7 && (
-                <div className="p-4 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-blue-200/50 dark:border-blue-700/30 text-center">
-                  <Zap className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                  <div className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Velocidade Impressionante
-                  </div>
-                </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Action Buttons */}
         <div
           className={`grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 transition-all duration-1000 delay-700 ${showCelebration ? "animate-fade-in-up" : "opacity-0"}`}
@@ -364,7 +319,7 @@ export default function QuizResultsPage() {
           </Button>
 
           <Button
-            onClick={() => router.push(`/quiz/${level}`)}
+            onClick={() => router.push(`/premium-quiz/${level}`)}
             variant="outline"
             className="group border-2 border-slate-300 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm transform hover:scale-105 transition-all duration-300"
           >

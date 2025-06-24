@@ -104,7 +104,7 @@ export default function PremiumQuizPage() {
 
     // Salvar resultados
     localStorage.setItem(
-      "quizResults",
+      "premiumQuizResults",
       JSON.stringify({
         ...results,
         completedAt: new Date().toISOString(),
@@ -113,7 +113,7 @@ export default function PremiumQuizPage() {
     )
 
     setIsCompleted(true)
-    router.push(`/quiz/${level}/results`)
+    router.push(`/premium-quiz/${level}/results`)
   }
 
   const formatTime = (seconds: number) => {
