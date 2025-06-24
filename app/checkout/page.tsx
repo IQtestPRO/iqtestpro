@@ -19,6 +19,31 @@ export default function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [formValid, setFormValid] = useState(false)
 
+  // Verificar se usuário já pagou - se sim, redirecionar para quiz
+  useEffect(() => {
+    const testPaid = localStorage.getItem("testPaid")
+    const premiumAccess = localStorage.getItem("premiumAccess")
+    const allQuizzesUnlocked = localStorage.getItem("allQuizzesUnlocked")
+
+    if (testPaid === "true" || premiumAccess === "true" || allQuizzesUnlocked === "true") {
+      // Usuário já pagou - redirecionar para quiz
+      const savedMission = localStorage.getItem("selectedMission")
+
+      if (savedMission) {
+        try {
+          const missionData = JSON.parse(savedMission)
+          router.push(`/quiz/${missionData.id}`)
+          return
+        } catch (error) {
+          console.error("Error loading saved mission:", error)
+        }
+      }
+
+      // Fallback para quiz básico se não houver dados salvos
+      router.push("/quiz/1")
+    }
+  }, [router])
+
   // Simular dados do produto (normalmente viria de props ou context)
   const product = {
     name: "Padrões Visuais",
@@ -123,6 +148,24 @@ export default function CheckoutPage() {
       setFormValid(true)
     }
   }, [selectedMethod])
+
+  // Verificar novamente antes de renderizar
+  const testPaid = localStorage.getItem("testPaid")
+  const premiumAccess = localStorage.getItem("premiumAccess")
+  const allQuizzesUnlocked = localStorage.getItem("allQuizzesUnlocked")
+
+  // Se já pagou, mostrar loading enquanto redireciona
+  if (testPaid === "true" || premiumAccess === "true" || allQuizzesUnlocked === "true") {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-lg font-medium">Redirecionando para seu teste...</p>
+          <p className="text-sm text-muted-foreground">Você já tem acesso premium ativo</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
