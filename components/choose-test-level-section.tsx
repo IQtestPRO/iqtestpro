@@ -299,14 +299,25 @@ export default function ChooseTestLevelSection() {
 
         localStorage.setItem("selectedMission", JSON.stringify(missionData))
 
+        // Configurar redirecionamento pós-pagamento para o quiz específico
+        const postPaymentConfig = {
+          redirectTo: `/quiz/${question.id}`,
+          missionId: question.id,
+          questions: question.questions,
+          timeLimit: question.timeLimit,
+          autoStart: true,
+        }
+
+        localStorage.setItem("postPaymentRedirect", JSON.stringify(postPaymentConfig))
+
         // Redirecionar sempre para a página de checkout
         router.push(
-          `/checkout?missionId=${question.id}&questions=${question.questions}&timeLimit=${question.timeLimit}`,
+          `/checkout?missionId=${question.id}&questions=${question.questions}&timeLimit=${question.timeLimit}&redirect=quiz`,
         )
       } catch (error) {
         console.error("Error starting mission:", error)
         // Fallback para página de checkout mesmo em caso de erro
-        router.push(`/checkout?missionId=${question.id}`)
+        router.push(`/checkout?missionId=${question.id}&redirect=quiz`)
       }
     },
     [router],
