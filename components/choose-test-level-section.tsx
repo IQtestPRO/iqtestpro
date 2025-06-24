@@ -550,9 +550,9 @@ export default function ChooseTestLevelSection() {
 
   return (
     <section className="py-6 sm:py-8 md:py-12 lg:py-16 xl:py-24 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-blue-950/30">
-      <div className="container mx-auto max-w-4xl px-2 sm:px-3 md:px-4 lg:px-6 relative z-10">
+      <div className="container mx-auto max-w-3xl px-1 sm:px-2 md:px-3 lg:px-4 relative z-10">
         {/* Header */}
-        <div className="text-center mb-6 sm:mb-8 md:mb-12 lg:mb-16">
+        <div className="text-center mb-4 sm:mb-6 md:mb-8 lg:mb-12">
           <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg sm:rounded-xl md:rounded-2xl mb-3 sm:mb-4 md:mb-6">
             <Brain className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-white" />
           </div>
@@ -566,7 +566,7 @@ export default function ChooseTestLevelSection() {
         </div>
 
         {/* Premium Plans Button */}
-        <div className="text-center mb-4 sm:mb-6 md:mb-8">
+        <div className="text-center mb-3 sm:mb-4 md:mb-6">
           <Button
             onClick={() => setShowPremiumPlansModal(true)}
             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-2.5 lg:px-8 lg:py-3 text-xs sm:text-sm md:text-base rounded-md sm:rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 min-h-[36px] sm:min-h-[40px] md:min-h-[44px]"
@@ -578,7 +578,7 @@ export default function ChooseTestLevelSection() {
         </div>
 
         {/* Enhanced Gaming-style cards grid */}
-        <div className="grid grid-cols-1 gap-3 sm:gap-4 md:gap-6 lg:grid-cols-2 lg:gap-8 xl:gap-10">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
           {sampleQuestionsData.map((question, index) => (
             <div
               key={question.id}
@@ -1027,7 +1027,7 @@ export default function ChooseTestLevelSection() {
         </div>
 
         {/* Credibility section */}
-        <div className="mt-8 sm:mt-12 md:mt-16 text-center">
+        <div className="mt-6 sm:mt-8 md:mt-12 text-center">
           <div className="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl md:rounded-2xl shadow-lg px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-6 lg:px-8 lg:py-8 border border-slate-200/50 dark:border-slate-700/50 flex flex-col items-center space-y-3 sm:space-y-4 md:space-y-6">
             {/* Credibility items */}
             <div className="flex flex-col space-y-2 sm:space-y-3 md:space-y-4 lg:flex-row lg:space-y-0 lg:items-center lg:justify-center lg:space-x-4 xl:space-x-6">
