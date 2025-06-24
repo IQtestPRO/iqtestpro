@@ -3,10 +3,11 @@
 import type React from "react"
 
 import Link from "next/link"
-import { Brain, Facebook, Twitter, Instagram, Linkedin, Copyright, Info, BookOpen, FileText } from "lucide-react"
+import { Facebook, Twitter, Instagram, Linkedin, Copyright, Info, BookOpen, FileText } from "lucide-react"
 import { useState } from "react"
 import { Modal } from "@/components/ui/modal"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -73,7 +74,7 @@ export default function Footer() {
       title: "Legal",
       icon: <FileText className="w-4 h-4 mr-2" />,
       links: [
-        { label: "Termos de Serviço", href: "/terms" }, // Sem popup para links legais
+        { label: "Termos de Serviço", href: "/terms" },
         { label: "Política de Privacidade", href: "/privacy" },
         { label: "Política de Cookies", href: "/cookies" },
         { label: "Contato", href: "/contact" },
@@ -95,20 +96,29 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="border-t border-border/40 bg-background">
+      <footer className="border-t border-slate-700/50 bg-slate-900/90 backdrop-blur-xl">
         <div className="container mx-auto max-w-screen-2xl px-4 py-8 sm:py-12">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
             {/* Logo e Descrição */}
             <div className="col-span-1 md:col-span-2 xl:col-span-2">
-              <Link href="/" className="flex items-center space-x-2.5 mb-4">
-                <div className="w-9 h-9 bg-gradient-to-br from-primary to-blue-400 dark:from-primary dark:to-blue-600 rounded-lg flex items-center justify-center shadow-soft">
-                  <Brain className="w-5 h-5 text-white" />
+              <Link href="/" className="flex items-center space-x-3 mb-4 group">
+                <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl group-hover:shadow-purple-500/30 transition-all duration-300">
+                  <Image
+                    src="/logo-brain.png"
+                    alt="IQ Test Pro Logo"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <span className="font-display text-2xl font-bold text-foreground">
-                  IQ Test <span className="text-primary">Pro</span>
+                <span className="font-bold text-2xl text-white group-hover:text-blue-300 transition-colors duration-300">
+                  IQ Test{" "}
+                  <span className="text-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text">
+                    Pro
+                  </span>
                 </span>
               </Link>
-              <p className="text-muted-foreground text-sm max-w-md leading-relaxed">
+              <p className="text-slate-400 text-sm max-w-md leading-relaxed">
                 Descubra seu potencial intelectual com nossa plataforma de testes de QI validada cientificamente.
                 Resultados precisos, análises detalhadas e uma experiência premium.
               </p>
@@ -117,7 +127,7 @@ export default function Footer() {
             {/* Links Rápidos */}
             {footerLinks.map((section) => (
               <div key={section.title}>
-                <h3 className="font-display font-semibold text-foreground mb-3 sm:mb-4 flex items-center text-base">
+                <h3 className="font-semibold text-white mb-3 sm:mb-4 flex items-center text-base">
                   {section.icon}
                   {section.title}
                 </h3>
@@ -126,10 +136,10 @@ export default function Footer() {
                     <li key={link.label}>
                       <Link
                         href={section.title === "Legal" ? link.href : "/faq"}
-                        className="text-xs sm:text-sm text-muted-foreground hover:text-primary smooth-hover group relative overflow-hidden inline-block"
+                        className="text-xs sm:text-sm text-slate-400 hover:text-blue-300 transition-colors duration-200 group relative overflow-hidden inline-block"
                       >
                         <span className="relative z-10">{link.label}</span>
-                        <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-blue-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded"></div>
                       </Link>
                     </li>
                   ))}
@@ -138,8 +148,8 @@ export default function Footer() {
             ))}
           </div>
 
-          <div className="mt-12 border-t border-border/40 pt-8 flex flex-col md:flex-row items-center justify-between">
-            <p className="text-[0.7rem] sm:text-xs text-muted-foreground flex items-center">
+          <div className="mt-12 border-t border-slate-700/50 pt-8 flex flex-col md:flex-row items-center justify-between">
+            <p className="text-[0.7rem] sm:text-xs text-slate-500 flex items-center">
               <Copyright className="w-3.5 h-3.5 mr-1.5" />
               {currentYear} IQ Test Pro. Todos os direitos reservados.
             </p>
@@ -149,7 +159,7 @@ export default function Footer() {
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
-                  className="text-muted-foreground hover:text-primary smooth-hover p-1.5 rounded-md hover:bg-secondary"
+                  className="text-slate-400 hover:text-blue-300 transition-colors duration-200 p-1.5 rounded-md hover:bg-white/10"
                 >
                   {social.icon}
                 </Link>
@@ -168,12 +178,12 @@ export default function Footer() {
         >
           <div className="p-1">
             {modalData.content}
-            <div className="mt-6 flex justify-end space-x-3 pt-4 border-t border-border/20">
+            <div className="mt-6 flex justify-end space-x-3 pt-4 border-t border-slate-700/20">
               <Button variant="outline" onClick={closeModal}>
                 Fechar
               </Button>
               <Link href="/faq">
-                <Button className="bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90">
+                <Button className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500">
                   Ver FAQ Completa
                 </Button>
               </Link>

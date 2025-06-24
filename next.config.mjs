@@ -21,7 +21,7 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   swcMinify: true,
-  reactStrictMode: false,
+  reactStrictMode: true,
   webpack: (config, { isServer, dev }) => {
     if (!isServer) {
       config.resolve.fallback = {
