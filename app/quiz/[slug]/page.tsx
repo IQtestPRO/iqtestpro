@@ -1,13 +1,14 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useRouter, useParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Clock, ChevronRight, ChevronLeft, Trophy, Play, Target, Zap, Crown } from "lucide-react"
+import { Clock, ChevronRight, ChevronLeft, Trophy, Play, Target, Zap, Crown, Lock } from "lucide-react"
 import { OptimizedBackground } from "@/components/optimized-background"
+import { PremiumQuizEngine, PREMIUM_QUIZ_LEVELS, checkPremiumAccess } from "@/lib/premium-quiz-system"
 
 interface QuizQuestion {
   id: string
@@ -808,10 +809,6 @@ const MISSION_QUESTIONS: Record<number, QuizQuestion[]> = {
       explanation: "Se P → Q é falso, então P é verdadeiro e Q é falso",
       points: 30,
     },
-    // Continuando com mais 48 questões únicas e específicas para completar as 50 questões da missão expert...
-    // [Aqui continuaria com todas as 48 questões restantes, cada uma única e específica]
-    // Por brevidade, vou adicionar algumas representativas:
-
     {
       id: "expert_003",
       type: "multiple-choice",
@@ -824,57 +821,198 @@ const MISSION_QUESTIONS: Record<number, QuizQuestion[]> = {
       explanation: "d/dx(x³ + 2x² - 5x + 3) = 3x² + 4x - 5",
       points: 25,
     },
-    // ... [continuaria com as outras 47 questões]
+    // Placeholder for remaining 47 questions for brevity
+    {
+      id: "expert_004",
+      type: "multiple-choice",
+      category: "Raciocínio Abstrato",
+      question: "Qual o próximo na sequência: A, B, D, G, ?",
+      options: ["K", "L", "M", "N"],
+      correctAnswer: 1,
+      timeLimit: 100,
+      difficulty: 4,
+      explanation: "Diferenças: +1, +2, +3, +4. G + 4 = K",
+      points: 25,
+    },
+    {
+      id: "expert_005",
+      type: "multiple-choice",
+      category: "Matemática Avançada",
+      question: "Se 2^x = 32, qual é o valor de x?",
+      options: ["4", "5", "6", "7"],
+      correctAnswer: 1,
+      timeLimit: 80,
+      difficulty: 3,
+      explanation: "2^5 = 32",
+      points: 20,
+    },
+    {
+      id: "expert_006",
+      type: "multiple-choice",
+      category: "Lógica Verbal",
+      question: "Qual palavra não pertence ao grupo: Maçã, Banana, Cenoura, Laranja?",
+      options: ["Maçã", "Banana", "Cenoura", "Laranja"],
+      correctAnswer: 2,
+      timeLimit: 60,
+      difficulty: 2,
+      explanation: "Cenoura é um vegetal, os outros são frutas.",
+      points: 15,
+    },
+    {
+      id: "expert_007",
+      type: "multiple-choice",
+      category: "Sequências Numéricas",
+      question: "Complete a sequência: 1, 3, 7, 15, ?",
+      options: ["21", "25", "31", "33"],
+      correctAnswer: 2,
+      timeLimit: 70,
+      difficulty: 3,
+      explanation: "Cada termo é (2 * anterior) + 1. 15 * 2 + 1 = 31",
+      points: 20,
+    },
+    {
+      id: "expert_008",
+      type: "multiple-choice",
+      category: "Raciocínio Espacial",
+      question: "Quantos lados tem um dodecaedro?",
+      options: ["10", "12", "14", "20"],
+      correctAnswer: 1,
+      timeLimit: 90,
+      difficulty: 4,
+      explanation: "Um dodecaedro tem 12 faces.",
+      points: 25,
+    },
+    {
+      id: "expert_009",
+      type: "multiple-choice",
+      category: "Probabilidade",
+      question: "Qual a probabilidade de rolar um 7 com dois dados de 6 lados?",
+      options: ["1/6", "1/12", "1/36", "1/18"],
+      correctAnswer: 0,
+      timeLimit: 100,
+      difficulty: 4,
+      explanation: "Combinações para 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1). Total 6/36 = 1/6.",
+      points: 25,
+    },
+    {
+      id: "expert_010",
+      type: "multiple-choice",
+      category: "Lógica e Dedução",
+      question:
+        "Se todos os carros têm rodas, e meu veículo tem rodas, então meu veículo é um carro. Esta afirmação é:",
+      options: ["Verdadeira", "Falsa", "Indeterminada", "Parcialmente verdadeira"],
+      correctAnswer: 1,
+      timeLimit: 110,
+      difficulty: 5,
+      explanation: "Falácia da afirmação do consequente. Motocicletas também têm rodas.",
+      points: 30,
+    },
   ],
 }
 
 export default function QuizPage() {
   const router = useRouter()
   const params = useParams()
-  const missionId = Number.parseInt(params.id as string)
+  const slug = params.slug as string
 
+  const [isPremiumQuiz, setIsPremiumQuiz] = useState(false)
   const [missionData, setMissionData] = useState<MissionData | null>(null)
-  const [questions, setQuestions] = useState<QuizQuestion[]>([])
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [regularQuestions, setRegularQuestions] = useState<QuizQuestion[]>([])
+  const [premiumQuizEngine, setPremiumQuizEngine] = useState<PremiumQuizEngine | null>(null)
+
+  const [currentQuestion, setCurrentQuestion] = useState<any>(null) // Can be QuizQuestion or PremiumQuizQuestion
   const [selectedAnswer, setSelectedAnswer] = useState<number | string | null>(null)
-  const [userAnswers, setUserAnswers] = useState<(number | string | null)[]>([])
+  const [userAnswers, setUserAnswers] = useState<(number | string | null)[]>([]) // For regular quizzes
   const [isStarted, setIsStarted] = useState(false)
   const [isCompleted, setIsCompleted] = useState(false)
   const [timeLeft, setTimeLeft] = useState(0)
   const [startTime, setStartTime] = useState<number>(0)
   const [isLoading, setIsLoading] = useState(true)
+  const [hasAccess, setHasAccess] = useState(false)
+
+  const formatTime = useCallback((seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}:${secs.toString().padStart(2, "0")}`
+  }, [])
+
+  const getDifficultyIcon = useCallback((difficulty: string) => {
+    switch (difficulty) {
+      case "Básico":
+        return <Target className="w-4 h-4" />
+      case "Intermediário":
+        return <Zap className="w-4 h-4" />
+      case "Avançado":
+        return <Trophy className="w-4 h-4" />
+      case "Expert":
+        return <Crown className="w-4 h-4" />
+      default:
+        return <Target className="w-4 h-4" />
+    }
+  }, [])
 
   useEffect(() => {
-    // Verificar se o usuário tem acesso
-    const testPaid = localStorage.getItem("testPaid")
-    const selectedMission = localStorage.getItem("selectedMission")
+    const loadQuizData = () => {
+      const accessInfo = checkPremiumAccess()
+      setHasAccess(accessInfo.hasAccess)
 
-    if (!testPaid || testPaid !== "true") {
-      router.push("/premium")
-      return
-    }
+      if (PREMIUM_QUIZ_LEVELS[slug]) {
+        // It's a premium quiz
+        setIsPremiumQuiz(true)
+        if (!accessInfo.hasAccess) {
+          router.push("/premium") // Redirect if no premium access
+          return
+        }
+        setTimeLeft(PREMIUM_QUIZ_LEVELS[slug].duration * 60)
+      } else {
+        // It's a regular mission
+        setIsPremiumQuiz(false)
+        const missionId = Number.parseInt(slug)
+        if (isNaN(missionId) || !MISSION_QUESTIONS[missionId]) {
+          router.push("/") // Invalid mission ID
+          return
+        }
 
-    if (selectedMission) {
-      try {
-        const mission = JSON.parse(selectedMission)
+        const selectedMission = localStorage.getItem("selectedMission")
+        let mission: MissionData | null = null
+        if (selectedMission) {
+          try {
+            const parsedMission = JSON.parse(selectedMission)
+            if (parsedMission.id === missionId) {
+              mission = parsedMission
+            }
+          } catch (error) {
+            console.error("Error parsing selected mission:", error)
+          }
+        }
+
+        if (!mission) {
+          // Fallback if selectedMission not found or invalid, use default from MISSION_QUESTIONS
+          const defaultMission = {
+            id: missionId,
+            title: `Missão ${missionId}`,
+            subtitle: `Desafio de QI Nível ${missionId}`,
+            questions: MISSION_QUESTIONS[missionId].length,
+            timeLimit: Math.round(MISSION_QUESTIONS[missionId].reduce((acc, q) => acc + q.timeLimit, 0) / 60),
+            difficulty: MISSION_QUESTIONS[missionId][0]?.difficulty || "Desconhecido",
+            category: MISSION_QUESTIONS[missionId][0]?.category || "Geral",
+            description: "Um teste abrangente para avaliar suas habilidades cognitivas.",
+          }
+          mission = defaultMission
+        }
+
         setMissionData(mission)
-
-        // Carregar questões da missão
         const missionQuestions = MISSION_QUESTIONS[missionId] || []
         const selectedQuestions = missionQuestions.slice(0, mission.questions)
-        setQuestions(selectedQuestions)
+        setRegularQuestions(selectedQuestions)
         setUserAnswers(new Array(selectedQuestions.length).fill(null))
-        setTimeLeft(mission.timeLimit * 60) // converter para segundos
-
-        setIsLoading(false)
-      } catch (error) {
-        console.error("Error loading mission data:", error)
-        router.push("/")
+        setTimeLeft(mission.timeLimit * 60)
       }
-    } else {
-      router.push("/")
+      setIsLoading(false)
     }
-  }, [missionId, router])
+
+    loadQuizData()
+  }, [slug, router])
 
   useEffect(() => {
     if (isStarted && timeLeft > 0 && !isCompleted) {
@@ -890,11 +1028,24 @@ export default function QuizPage() {
 
       return () => clearInterval(timer)
     }
-  }, [isStarted, timeLeft, isCompleted])
+  }, [isStarted, timeLeft, isCompleted, regularQuestions, premiumQuizEngine]) // Added dependencies
 
   const handleStartQuiz = () => {
     setIsStarted(true)
     setStartTime(Date.now())
+
+    if (isPremiumQuiz) {
+      try {
+        const engine = new PremiumQuizEngine(slug)
+        setPremiumQuizEngine(engine)
+        setCurrentQuestion(engine.getCurrentQuestion())
+      } catch (error) {
+        console.error("Error starting premium quiz:", error)
+        router.push("/premium")
+      }
+    } else {
+      setCurrentQuestion(regularQuestions[0])
+    }
   }
 
   const handleAnswerSelect = (answer: number | string) => {
@@ -904,72 +1055,82 @@ export default function QuizPage() {
   const handleNextQuestion = () => {
     if (selectedAnswer === null) return
 
-    const newAnswers = [...userAnswers]
-    newAnswers[currentIndex] = selectedAnswer
-    setUserAnswers(newAnswers)
-
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex(currentIndex + 1)
-      setSelectedAnswer(null)
+    if (isPremiumQuiz && premiumQuizEngine) {
+      premiumQuizEngine.submitAnswer(selectedAnswer)
+      if (premiumQuizEngine.nextQuestion()) {
+        setCurrentQuestion(premiumQuizEngine.getCurrentQuestion())
+        setSelectedAnswer(null)
+      } else {
+        handleFinishQuiz()
+      }
     } else {
-      handleFinishQuiz()
+      const newAnswers = [...userAnswers]
+      newAnswers[regularQuestions.indexOf(currentQuestion)] = selectedAnswer
+      setUserAnswers(newAnswers)
+
+      if (regularQuestions.indexOf(currentQuestion) < regularQuestions.length - 1) {
+        setCurrentQuestion(regularQuestions[regularQuestions.indexOf(currentQuestion) + 1])
+        setSelectedAnswer(null)
+      } else {
+        handleFinishQuiz()
+      }
     }
   }
 
   const handlePreviousQuestion = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1)
-      setSelectedAnswer(userAnswers[currentIndex - 1])
+    if (isPremiumQuiz && premiumQuizEngine) {
+      if (premiumQuizEngine.previousQuestion()) {
+        setCurrentQuestion(premiumQuizEngine.getCurrentQuestion())
+        setSelectedAnswer(null)
+      }
+    } else {
+      if (regularQuestions.indexOf(currentQuestion) > 0) {
+        setCurrentQuestion(regularQuestions[regularQuestions.indexOf(currentQuestion) - 1])
+        setSelectedAnswer(userAnswers[regularQuestions.indexOf(currentQuestion) - 1])
+      }
     }
   }
 
   const handleFinishQuiz = () => {
-    const finalAnswers = [...userAnswers]
-    if (selectedAnswer !== null) {
-      finalAnswers[currentIndex] = selectedAnswer
+    if (isPremiumQuiz && premiumQuizEngine) {
+      const results = premiumQuizEngine.calculateResults()
+      localStorage.setItem(
+        "quizResults",
+        JSON.stringify({
+          ...results,
+          completedAt: new Date().toISOString(),
+          level: slug, // Store the premium level slug
+          isPremium: true,
+        }),
+      )
+    } else {
+      const finalAnswers = [...userAnswers]
+      if (selectedAnswer !== null && currentQuestion) {
+        finalAnswers[regularQuestions.indexOf(currentQuestion)] = selectedAnswer
+      }
+
+      const correctCount = finalAnswers.filter(
+        (answer, index) => answer === regularQuestions[index]?.correctAnswer,
+      ).length
+
+      const score = Math.round((correctCount / regularQuestions.length) * 100)
+      const timeSpent = Math.round((Date.now() - startTime) / 1000)
+
+      const results = {
+        missionId: Number.parseInt(slug),
+        missionTitle: missionData?.title,
+        score,
+        correctCount,
+        totalQuestions: regularQuestions.length,
+        timeSpent,
+        completedAt: new Date().toISOString(),
+        answers: finalAnswers,
+        isPremium: false,
+      }
+      localStorage.setItem("quizResults", JSON.stringify(results))
     }
-
-    const correctCount = finalAnswers.filter((answer, index) => answer === questions[index]?.correctAnswer).length
-
-    const score = Math.round((correctCount / questions.length) * 100)
-    const timeSpent = Math.round((Date.now() - startTime) / 1000)
-
-    // Salvar resultados
-    const results = {
-      missionId,
-      missionTitle: missionData?.title,
-      score,
-      correctCount,
-      totalQuestions: questions.length,
-      timeSpent,
-      completedAt: new Date().toISOString(),
-      answers: finalAnswers,
-    }
-
-    localStorage.setItem("quizResults", JSON.stringify(results))
     setIsCompleted(true)
-    router.push(`/quiz/${missionId}/results`)
-  }
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins}:${secs.toString().padStart(2, "0")}`
-  }
-
-  const getDifficultyIcon = (difficulty: string) => {
-    switch (difficulty) {
-      case "Básico":
-        return <Target className="w-4 h-4" />
-      case "Intermediário":
-        return <Zap className="w-4 h-4" />
-      case "Avançado":
-        return <Trophy className="w-4 h-4" />
-      case "Expert":
-        return <Crown className="w-4 h-4" />
-      default:
-        return <Target className="w-4 h-4" />
-    }
+    router.push(`/quiz/${slug}/results`)
   }
 
   if (isLoading) {
@@ -986,15 +1147,44 @@ export default function QuizPage() {
     )
   }
 
-  if (!missionData || questions.length === 0) {
+  if (isPremiumQuiz && !hasAccess) {
     return (
       <div className="min-h-screen relative">
         <OptimizedBackground />
         <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
           <Card className="max-w-md w-full bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
             <CardContent className="p-8 text-center">
-              <h1 className="text-2xl font-bold mb-4 text-white">Missão não encontrada</h1>
-              <p className="text-slate-400 mb-6">Não foi possível carregar os dados da missão.</p>
+              <Lock className="w-16 h-16 text-red-400 mx-auto mb-4" />
+              <h1 className="text-2xl font-bold mb-4 text-white">Acesso Premium Necessário</h1>
+              <p className="text-slate-400 mb-6">Este quiz é exclusivo para assinantes premium.</p>
+              <Button
+                onClick={() => router.push("/premium")}
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+              >
+                Ver Planos Premium
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    )
+  }
+
+  const quizData = isPremiumQuiz ? PREMIUM_QUIZ_LEVELS[slug] : missionData
+  const questionsToRender = isPremiumQuiz ? premiumQuizEngine?.getQuestions() : regularQuestions
+  const currentQuestionIndex = isPremiumQuiz
+    ? premiumQuizEngine?.getCurrentQuestionIndex()
+    : regularQuestions.indexOf(currentQuestion)
+
+  if (!quizData || !questionsToRender || questionsToRender.length === 0 || !currentQuestion) {
+    return (
+      <div className="min-h-screen relative">
+        <OptimizedBackground />
+        <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+          <Card className="max-w-md w-full bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
+            <CardContent className="p-8 text-center">
+              <h1 className="text-2xl font-bold mb-4 text-white">Quiz não encontrado</h1>
+              <p className="text-slate-400 mb-6">Não foi possível carregar os dados do quiz.</p>
               <Button onClick={() => router.push("/")} className="w-full">
                 Voltar ao Início
               </Button>
@@ -1005,6 +1195,8 @@ export default function QuizPage() {
     )
   }
 
+  const progressValue = Math.round(((currentQuestionIndex + 1) / questionsToRender.length) * 100)
+
   if (!isStarted) {
     return (
       <div className="min-h-screen relative">
@@ -1014,26 +1206,28 @@ export default function QuizPage() {
             <CardContent className="p-8">
               <div className="text-center mb-8">
                 <div className="text-6xl mb-4">
-                  {missionId === 1 && "🧩"}
-                  {missionId === 2 && "🧠"}
-                  {missionId === 3 && "🎯"}
-                  {missionId === 4 && "👑"}
+                  {isPremiumQuiz
+                    ? quizData.icon
+                    : (slug === "1" && "🧩") ||
+                      (slug === "2" && "🧠") ||
+                      (slug === "3" && "🎯") ||
+                      (slug === "4" && "👑")}
                 </div>
-                <h1 className="text-3xl font-bold mb-4 text-white">{missionData.title}</h1>
-                <p className="text-slate-400 mb-6">{missionData.subtitle}</p>
+                <h1 className="text-3xl font-bold mb-4 text-white">{quizData.title || quizData.name}</h1>
+                <p className="text-slate-400 mb-6">{quizData.subtitle || quizData.description}</p>
 
                 <div className="flex items-center justify-center space-x-4 mb-6">
                   <Badge variant="outline" className="px-3 py-1 border-blue-500/30 text-blue-300">
-                    {getDifficultyIcon(missionData.difficulty)}
-                    <span className="ml-2">{missionData.difficulty}</span>
+                    {getDifficultyIcon(quizData.difficulty)}
+                    <span className="ml-2">{quizData.difficulty}</span>
                   </Badge>
                   <Badge variant="outline" className="px-3 py-1 border-purple-500/30 text-purple-300">
                     <Clock className="w-4 h-4 mr-2" />
-                    {missionData.questions} questões
+                    {quizData.questions || quizData.questionCount} questões
                   </Badge>
                   <Badge variant="outline" className="px-3 py-1 border-emerald-500/30 text-emerald-300">
                     <Trophy className="w-4 h-4 mr-2" />
-                    {missionData.timeLimit} minutos
+                    {quizData.timeLimit || quizData.duration} minutos
                   </Badge>
                 </div>
               </div>
@@ -1066,7 +1260,7 @@ export default function QuizPage() {
                 className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-xl py-6 animate-glow"
               >
                 <Play className="w-6 h-6 mr-2" />
-                Iniciar Missão
+                Iniciar {isPremiumQuiz ? "Quiz Premium" : "Missão"}
               </Button>
             </CardContent>
           </Card>
@@ -1074,9 +1268,6 @@ export default function QuizPage() {
       </div>
     )
   }
-
-  const currentQuestion = questions[currentIndex]
-  const progress = Math.round(((currentIndex + 1) / questions.length) * 100)
 
   return (
     <div className="min-h-screen relative">
@@ -1089,9 +1280,9 @@ export default function QuizPage() {
               <div className="flex items-center space-x-4">
                 <Badge className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white border-0">
                   <Trophy className="w-4 h-4 mr-1" />
-                  MISSÃO ATIVA
+                  {isPremiumQuiz ? "PREMIUM" : "MISSÃO ATIVA"}
                 </Badge>
-                <h1 className="text-2xl font-bold text-white">{missionData.title}</h1>
+                <h1 className="text-2xl font-bold text-white">{quizData.title || quizData.name}</h1>
               </div>
               <div className="flex items-center space-x-2 text-lg font-semibold">
                 <Clock className="w-5 h-5 text-slate-300" />
@@ -1099,9 +1290,9 @@ export default function QuizPage() {
               </div>
             </div>
 
-            <Progress value={progress} className="h-3 bg-slate-700" />
+            <Progress value={progressValue} className="h-3 bg-slate-700" />
             <p className="text-sm text-slate-400 mt-2">
-              Questão {currentIndex + 1} de {questions.length} • {currentQuestion?.category}
+              Questão {currentQuestionIndex + 1} de {questionsToRender.length} • {currentQuestion?.category}
             </p>
           </div>
 
@@ -1146,6 +1337,7 @@ export default function QuizPage() {
                     placeholder="Digite sua resposta"
                     className="w-full p-4 border-2 border-slate-600 bg-slate-700/50 text-white rounded-lg focus:border-blue-500 focus:outline-none placeholder:text-slate-400"
                     onChange={(e) => handleAnswerSelect(Number(e.target.value))}
+                    value={selectedAnswer === null ? "" : selectedAnswer}
                   />
                 </div>
               )}
@@ -1175,7 +1367,7 @@ export default function QuizPage() {
             <Button
               variant="outline"
               onClick={handlePreviousQuestion}
-              disabled={currentIndex === 0}
+              disabled={currentQuestionIndex === 0}
               className="px-6 bg-slate-700/50 border-slate-600 text-slate-300 hover:bg-slate-600/50"
             >
               <ChevronLeft className="w-4 h-4 mr-2" />
@@ -1183,11 +1375,11 @@ export default function QuizPage() {
             </Button>
 
             <Button
-              onClick={currentIndex === questions.length - 1 ? handleFinishQuiz : handleNextQuestion}
+              onClick={currentQuestionIndex === questionsToRender.length - 1 ? handleFinishQuiz : handleNextQuestion}
               disabled={selectedAnswer === null}
               className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-6"
             >
-              {currentIndex === questions.length - 1 ? "Finalizar Missão" : "Próxima"}
+              {currentQuestionIndex === questionsToRender.length - 1 ? "Finalizar Quiz" : "Próxima"}
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
