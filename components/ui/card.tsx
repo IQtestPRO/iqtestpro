@@ -207,7 +207,7 @@ const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
           "[&_.score-display]:rounded-xl [&_.score-display]:border",
           "[&_.score-display]:border-emerald-200 [&_.score-display]:dark:border-emerald-800",
           // Category breakdown styling
-          "[&_.category-breakdown]:grid [&_.category-breakdown]:grid-cols-1",
+          "[&_.category-breakdown]:grid [&&_.category-breakdown]:grid-cols-1",
           "[&_.category-breakdown]:sm:grid-cols-2 [&_.category-breakdown]:lg:grid-cols-3",
           "[&_.category-breakdown]:gap-4 [&_.category-breakdown]:mt-6",
           "[&_.category-item]:p-4 [&_.category-item]:rounded-lg",
@@ -224,7 +224,143 @@ const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
           "[&_.button-group_.primary]:flex-1",
           className,
         )}
-        onClick={handlePremiumPlanClick}
+        onClick={(event) => {
+          const target = event.target as HTMLElement
+          const button = target.closest("button")
+
+          // Detectar se é um botão "Começar Teste" ou similar
+          if (
+            button &&
+            (button.textContent?.toLowerCase().includes("começar teste") ||
+              button.textContent?.toLowerCase().includes("iniciar teste") ||
+              button.textContent?.toLowerCase().includes("fazer teste") ||
+              button.textContent?.toLowerCase().includes("start test") ||
+              button.className.includes("test-button") ||
+              button.getAttribute("data-test-action"))
+          ) {
+            // Não processar se for plano grátis
+            if (
+              button.textContent?.toLowerCase().includes("grátis") ||
+              button.textContent?.toLowerCase().includes("free")
+            ) {
+              return
+            }
+
+            // Detectar dados do teste/plano baseado no contexto do card
+            const cardElement = button.closest("[data-test-type]") || button.closest(".card")
+
+            const testTitle =
+              cardElement?.querySelector('h3, h2, [class*="title"], .test-title')?.textContent || "Teste de QI"
+            const testPrice =
+              cardElement?.querySelector('[class*="price"], .price, [data-price]')?.textContent || "R$ 19,90"
+            const testFeatures = Array.from(cardElement?.querySelectorAll('li, [class*="feature"], .feature') || [])
+              .map((el) => el.textContent?.trim())
+              .filter(Boolean)
+
+            // Extrair valor numérico do preço
+            const priceMatch = testPrice.match(/[\d,]+/)
+            const numericPrice = priceMatch ? Number.parseFloat(priceMatch[0].replace(",", ".")) : 19.9
+
+            // Determinar configuração do teste baseado no contexto
+            let testId = 1
+            let questions = 15
+            let timeLimit = 15
+            let difficulty = "Básico"
+            let category = "Raciocínio Espacial"
+
+            // Lógica inteligente para determinar tipo de teste
+            const titleLower = testTitle.toLowerCase()
+
+            if (titleLower.includes("expert") || titleLower.includes("completo") || numericPrice >= 40) {
+              testId = 4
+              questions = 50
+              timeLimit = 60
+              difficulty = "Expert"
+              category = "Avaliação Completa"
+            } else if (titleLower.includes("avançado") || titleLower.includes("fluida") || numericPrice >= 25) {
+              testId = 3
+              questions = 25
+              timeLimit = 35
+              difficulty = "Avançado"
+              category = "Inteligência Fluida"
+            } else if (titleLower.includes("lógico") || titleLower.includes("intermediário") || numericPrice >= 15) {
+              testId = 2
+              questions = 20
+              timeLimit = 25
+              difficulty = "Intermediário"
+              category = "Raciocínio Lógico"
+            } else {
+              testId = 1
+              questions = 15
+              timeLimit = 15
+              difficulty = "Básico"
+              category = "Raciocínio Espacial"
+            }
+
+            // Dados completos da missão
+            const missionData = {
+              id: testId,
+              title: testTitle,
+              subtitle: `Teste ${difficulty}`,
+              price: numericPrice,
+              originalPrice: numericPrice * 2.5,
+              questions: questions,
+              timeLimit: timeLimit,
+              difficulty: difficulty,
+              category: category,
+              description: `Avaliação completa de ${category.toLowerCase()} com ${questions} questões especializadas`,
+              features:
+                testFeatures.length > 0
+                  ? testFeatures
+                  : [
+                      `${questions} questões especializadas`,
+                      "Feedback detalhado por questão",
+                      "Certificado digital personalizado",
+                      "Análise completa de performance",
+                      "Comparação com outros usuários",
+                      "Acesso vitalício ao conteúdo",
+                    ],
+              specializedMode: true,
+              detailedFeedback: true,
+              comprehensiveAssessment: true,
+              isTestButton: true,
+            }
+
+            try {
+              // Salvar dados da missão no localStorage
+              localStorage.setItem("selectedMission", JSON.stringify(missionData))
+
+              // Configurar redirecionamento pós-pagamento para o quiz específico
+              const postPaymentConfig = {
+                redirectTo: `/quiz/${testId}`,
+                missionId: testId,
+                questions: questions,
+                timeLimit: timeLimit,
+                autoStart: true,
+                testType: category,
+                difficulty: difficulty,
+              }
+
+              localStorage.setItem("postPaymentRedirect", JSON.stringify(postPaymentConfig))
+
+              // Redirecionar para checkout com parâmetros específicos
+              router.push(
+                `/checkout?testId=${testId}&questions=${questions}&timeLimit=${timeLimit}&price=${numericPrice}&category=${encodeURIComponent(category)}&redirect=quiz`,
+              )
+
+              // Prevenir comportamento padrão
+              event.preventDefault()
+              event.stopPropagation()
+            } catch (error) {
+              console.error("Error processing test button:", error)
+              // Fallback para checkout básico
+              router.push("/checkout?redirect=quiz")
+            }
+          }
+
+          // Manter funcionalidade existente para planos premium
+          handlePremiumPlanClick(event)
+        }}
         {...props}
       />
     )
