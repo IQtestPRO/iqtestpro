@@ -142,9 +142,9 @@ export default function Navigation() {
             </div>
             <div className="absolute inset-0 bg-gradient-to-br from-blue-400/15 to-purple-400/15 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[0.5px]" />
           </div>
-          <span className="font-bold text-lg sm:text-xl lg:text-2xl text-white group-hover:text-blue-300 transition-colors duration-300">
+          <span className="font-bold text-lg sm:text-xl lg:text-2xl bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent group-hover:from-purple-400 group-hover:via-blue-500 group-hover:to-purple-600 transition-all duration-300">
             IQ Test{" "}
-            <span className="text-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text">Pro</span>
+            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Pro</span>
           </span>
         </Link>
 
@@ -181,7 +181,7 @@ export default function Navigation() {
                 variant="outline"
                 size="sm"
                 onClick={() => handleNavigation("/login")}
-                className="group border-slate-600 text-slate-300 hover:text-white hover:border-blue-400 hover:bg-blue-400/10 min-h-[36px] lg:min-h-[40px] px-3 lg:px-4"
+                className="group border-purple-500/50 bg-gradient-to-r from-purple-500/10 to-blue-500/10 text-purple-300 hover:text-white hover:border-purple-400 hover:from-purple-500/20 hover:to-blue-500/20 hover:shadow-lg hover:shadow-purple-500/25 min-h-[36px] lg:min-h-[40px] px-3 lg:px-4 transition-all duration-300"
               >
                 <UserCircle className="w-4 h-4 lg:w-5 lg:h-5 mr-1.5 lg:mr-2 group-hover:scale-110 transition-transform duration-200" />
                 <span className="text-sm lg:text-base">Login</span>
@@ -261,7 +261,7 @@ export default function Navigation() {
               <div className="border-t border-slate-700/50 pt-4 mt-4 space-y-3">
                 <Button
                   variant="outline"
-                  className="w-full justify-start group min-h-[56px] text-base touch-manipulation active:scale-98 border-slate-600 text-slate-300 hover:text-white hover:border-blue-400 hover:bg-blue-400/10"
+                  className="w-full justify-start group min-h-[56px] text-base touch-manipulation active:scale-98 border-purple-500/50 bg-gradient-to-r from-purple-500/10 to-blue-500/10 text-purple-300 hover:text-white hover:border-purple-400 hover:from-purple-500/20 hover:to-blue-500/20"
                   onClick={() => handleNavigation("/login")}
                 >
                   <UserCircle className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform duration-200" />
