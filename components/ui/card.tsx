@@ -246,7 +246,50 @@ const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
               return
             }
 
-            // Detectar dados do teste/plano baseado no contexto do card
+            // VERIFICAR SE JÁ PAGOU - SE SIM, IR DIRETO PARA O QUIZ
+            const testPaid = localStorage.getItem("testPaid")
+            const premiumAccess = localStorage.getItem("premiumAccess")
+            const allQuizzesUnlocked = localStorage.getItem("allQuizzesUnlocked")
+
+            if (testPaid === "true" || premiumAccess === "true" || allQuizzesUnlocked === "true") {
+              // Usuário já pagou - ir direto para o quiz
+              const savedMission = localStorage.getItem("selectedMission")
+
+              if (savedMission) {
+                try {
+                  const missionData = JSON.parse(savedMission)
+                  router.push(`/quiz/${missionData.id}`)
+                  event.preventDefault()
+                  event.stopPropagation()
+                  return
+                } catch (error) {
+                  console.error("Error loading saved mission:", error)
+                }
+              }
+
+              // Fallback: detectar tipo de teste e ir para quiz apropriado
+              const cardElement = button.closest("[data-test-type]") || button.closest(".card")
+              const testTitle =
+                cardElement?.querySelector('h3, h2, [class*="title"], .test-title')?.textContent || "Teste de QI"
+
+              let testId = 1
+              const titleLower = testTitle.toLowerCase()
+
+              if (titleLower.includes("expert") || titleLower.includes("completo")) {
+                testId = 4
+              } else if (titleLower.includes("avançado") || titleLower.includes("fluida")) {
+                testId = 3
+              } else if (titleLower.includes("lógico") || titleLower.includes("intermediário")) {
+                testId = 2
+              }
+
+              router.push(`/quiz/${testId}`)
+              event.preventDefault()
+              event.stopPropagation()
+              return
+            }
+
+            // USUÁRIO NÃO PAGOU - CONTINUAR COM FLUXO DE CHECKOUT
             const cardElement = button.closest("[data-test-type]") || button.closest(".card")
 
             const testTitle =
