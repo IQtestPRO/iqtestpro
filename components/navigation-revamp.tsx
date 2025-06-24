@@ -181,9 +181,9 @@ export default function Navigation() {
                 variant="outline"
                 size="sm"
                 onClick={() => handleNavigation("/login")}
-                className="group border-blue-400/60 bg-gradient-to-r from-blue-500/15 to-purple-500/15 text-blue-300 hover:text-white hover:border-blue-300 hover:from-blue-500/25 hover:to-purple-500/25 hover:shadow-lg hover:shadow-blue-500/30 min-h-[36px] lg:min-h-[40px] px-3 lg:px-4 transition-all duration-300"
+                className="group bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 text-white border-0 shadow-lg hover:shadow-xl hover:shadow-blue-500/25 min-h-[36px] lg:min-h-[40px] px-3 lg:px-4 transition-all duration-300"
               >
-                <UserCircle className="w-4 h-4 lg:w-5 lg:h-5 mr-1.5 lg:mr-2 group-hover:scale-110 transition-transform duration-200 text-blue-400 group-hover:text-blue-300" />
+                <UserCircle className="w-4 h-4 lg:w-5 lg:h-5 mr-1.5 lg:mr-2 group-hover:scale-110 transition-transform duration-200" />
                 <span className="text-sm lg:text-base">Login</span>
               </Button>
 
@@ -261,10 +261,10 @@ export default function Navigation() {
               <div className="border-t border-slate-700/50 pt-4 mt-4 space-y-3">
                 <Button
                   variant="outline"
-                  className="w-full justify-start group min-h-[56px] text-base touch-manipulation active:scale-98 border-blue-400/60 bg-gradient-to-r from-blue-500/15 to-purple-500/15 text-blue-300 hover:text-white hover:border-blue-300 hover:from-blue-500/25 hover:to-purple-500/25"
+                  className="w-full justify-start group min-h-[56px] text-base touch-manipulation active:scale-98 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 text-white border-0 shadow-lg"
                   onClick={() => handleNavigation("/login")}
                 >
-                  <UserCircle className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform duration-200 text-blue-400 group-hover:text-blue-300" />
+                  <UserCircle className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform duration-200" />
                   Login
                 </Button>
 
