@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Clock, ChevronRight, ChevronLeft, Trophy, Lock, Play } from "lucide-react"
 import { PremiumQuizEngine, PREMIUM_QUIZ_LEVELS, checkPremiumAccess } from "@/lib/premium-quiz-system"
+import { OptimizedBackground } from "@/components/optimized-background"
 
 export default function PremiumQuizPage() {
   const router = useRouter()
@@ -123,10 +124,13 @@ export default function PremiumQuizPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-900/20 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p>Carregando quiz premium...</p>
+      <div className="min-h-screen relative">
+        <OptimizedBackground />
+        <div className="relative z-10 flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-slate-300">Carregando quiz premium...</p>
+          </div>
         </div>
       </div>
     )
@@ -134,17 +138,23 @@ export default function PremiumQuizPage() {
 
   if (!hasAccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-900/20 flex items-center justify-center p-4">
-        <Card className="max-w-md w-full">
-          <CardContent className="p-8 text-center">
-            <Lock className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold mb-4">Acesso Premium Necessário</h1>
-            <p className="text-slate-600 dark:text-slate-400 mb-6">Este quiz é exclusivo para assinantes premium.</p>
-            <Button onClick={() => router.push("/premium")} className="w-full">
-              Ver Planos Premium
-            </Button>
-          </CardContent>
-        </Card>
+      <div className="min-h-screen relative">
+        <OptimizedBackground />
+        <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+          <Card className="max-w-md w-full bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
+            <CardContent className="p-8 text-center">
+              <Lock className="w-16 h-16 text-red-400 mx-auto mb-4" />
+              <h1 className="text-2xl font-bold mb-4 text-white">Acesso Premium Necessário</h1>
+              <p className="text-slate-400 mb-6">Este quiz é exclusivo para assinantes premium.</p>
+              <Button
+                onClick={() => router.push("/premium")}
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+              >
+                Ver Planos Premium
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     )
   }
@@ -153,174 +163,195 @@ export default function PremiumQuizPage() {
 
   if (!isStarted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-900/20 flex items-center justify-center p-4">
-        <Card className="max-w-2xl w-full">
-          <CardContent className="p-8">
-            <div className="text-center mb-8">
-              <div className="text-6xl mb-4">{quizLevel.icon}</div>
-              <h1 className="text-3xl font-bold mb-4">{quizLevel.name}</h1>
-              <p className="text-slate-600 dark:text-slate-400 mb-6">{quizLevel.description}</p>
+      <div className="min-h-screen relative">
+        <OptimizedBackground />
+        <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+          <Card className="max-w-2xl w-full bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
+            <CardContent className="p-8">
+              <div className="text-center mb-8">
+                <div className="text-6xl mb-4">{quizLevel.icon}</div>
+                <h1 className="text-3xl font-bold mb-4 text-white">{quizLevel.name}</h1>
+                <p className="text-slate-400 mb-6">{quizLevel.description}</p>
 
-              <div className="flex items-center justify-center space-x-4 mb-6">
-                <Badge variant="outline" className="px-3 py-1">
-                  {quizLevel.difficulty}
-                </Badge>
-                <Badge variant="outline" className="px-3 py-1">
-                  {quizLevel.questionCount} questões
-                </Badge>
-                <Badge variant="outline" className="px-3 py-1">
-                  {quizLevel.duration} minutos
-                </Badge>
-              </div>
-            </div>
-
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-6 rounded-lg mb-8">
-              <h3 className="font-semibold mb-4">O que você vai encontrar:</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full" />
-                  <span className="text-sm">Questões validadas cientificamente</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full" />
-                  <span className="text-sm">Cronômetro em tempo real</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full" />
-                  <span className="text-sm">Cálculo preciso de QI</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full" />
-                  <span className="text-sm">Relatório detalhado</span>
+                <div className="flex items-center justify-center space-x-4 mb-6">
+                  <Badge variant="outline" className="px-3 py-1 border-blue-500/30 text-blue-300">
+                    {quizLevel.difficulty}
+                  </Badge>
+                  <Badge variant="outline" className="px-3 py-1 border-purple-500/30 text-purple-300">
+                    {quizLevel.questionCount} questões
+                  </Badge>
+                  <Badge variant="outline" className="px-3 py-1 border-emerald-500/30 text-emerald-300">
+                    {quizLevel.duration} minutos
+                  </Badge>
                 </div>
               </div>
-            </div>
 
-            <Button
-              onClick={handleStartQuiz}
-              size="lg"
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-xl py-6"
-            >
-              <Play className="w-6 h-6 mr-2" />
-              Iniciar Quiz Premium
-            </Button>
-          </CardContent>
-        </Card>
+              <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-blue-500/20 p-6 rounded-lg mb-8">
+                <h3 className="font-semibold mb-4 text-white">O que você vai encontrar:</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-emerald-400 rounded-full" />
+                    <span className="text-sm text-slate-300">Questões validadas cientificamente</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full" />
+                    <span className="text-sm text-slate-300">Cronômetro em tempo real</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-purple-400 rounded-full" />
+                    <span className="text-sm text-slate-300">Cálculo preciso de QI</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-orange-400 rounded-full" />
+                    <span className="text-sm text-slate-300">Relatório detalhado</span>
+                  </div>
+                </div>
+              </div>
+
+              <Button
+                onClick={handleStartQuiz}
+                size="lg"
+                className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 text-xl py-6 animate-glow"
+              >
+                <Play className="w-6 h-6 mr-2" />
+                Iniciar Quiz Premium
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     )
   }
 
   if (!quizEngine || !currentQuestion) {
-    return <div>Carregando...</div>
+    return (
+      <div className="min-h-screen relative">
+        <OptimizedBackground />
+        <div className="relative z-10 flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-slate-300">Carregando...</p>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   const progress = quizEngine.getProgress()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-900/20 p-4">
-      <div className="container mx-auto max-w-4xl pt-20">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4">
-              <Badge className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white">
-                <Trophy className="w-4 h-4 mr-1" />
-                PREMIUM
-              </Badge>
-              <h1 className="text-2xl font-bold">{quizLevel.name}</h1>
+    <div className="min-h-screen relative">
+      <OptimizedBackground />
+      <div className="relative z-10 p-4">
+        <div className="container mx-auto max-w-4xl pt-20">
+          {/* Header */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-4">
+                <Badge className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white border-0">
+                  <Trophy className="w-4 h-4 mr-1" />
+                  PREMIUM
+                </Badge>
+                <h1 className="text-2xl font-bold text-white">{quizLevel.name}</h1>
+              </div>
+              <div className="flex items-center space-x-2 text-lg font-semibold">
+                <Clock className="w-5 h-5 text-slate-300" />
+                <span className={timeLeft <= 60 ? "text-red-400" : "text-slate-300"}>{formatTime(timeLeft)}</span>
+              </div>
             </div>
-            <div className="flex items-center space-x-2 text-lg font-semibold">
-              <Clock className="w-5 h-5" />
-              <span className={timeLeft <= 60 ? "text-red-500" : "text-slate-600 dark:text-slate-400"}>
-                {formatTime(timeLeft)}
-              </span>
-            </div>
+
+            <Progress value={progress.percentage} className="h-3 bg-slate-700" />
+            <p className="text-sm text-slate-400 mt-2">
+              Questão {progress.current} de {progress.total} • {currentQuestion.category}
+            </p>
           </div>
 
-          <Progress value={progress.percentage} className="h-3" />
-          <p className="text-sm text-slate-500 mt-2">
-            Questão {progress.current} de {progress.total} • {currentQuestion.category}
-          </p>
-        </div>
-
-        {/* Question */}
-        <Card className="mb-8 border-2 border-blue-200 dark:border-blue-800">
-          <CardContent className="p-8">
-            <div className="mb-6">
-              <div className="flex items-center justify-between mb-4">
-                <Badge variant="outline" className="px-3 py-1">
-                  {currentQuestion.category}
-                </Badge>
-                <Badge className="px-3 py-1 bg-blue-100 text-blue-700">{currentQuestion.points} pontos</Badge>
+          {/* Question */}
+          <Card className="mb-8 bg-slate-800/50 backdrop-blur-sm border-2 border-blue-500/30">
+            <CardContent className="p-8">
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-4">
+                  <Badge variant="outline" className="px-3 py-1 border-blue-500/30 text-blue-300">
+                    {currentQuestion.category}
+                  </Badge>
+                  <Badge className="px-3 py-1 bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                    {currentQuestion.points} pontos
+                  </Badge>
+                </div>
+                <h2 className="text-xl font-semibold mb-6 text-white">{currentQuestion.question}</h2>
               </div>
-              <h2 className="text-xl font-semibold mb-6">{currentQuestion.question}</h2>
-            </div>
 
-            {currentQuestion.type === "multiple-choice" && currentQuestion.options && (
-              <div className="space-y-3">
-                {currentQuestion.options.map((option: string, index: number) => (
-                  <button
-                    key={index}
-                    onClick={() => handleAnswerSelect(index)}
-                    className={`w-full p-4 text-left rounded-lg border-2 transition-all ${
-                      selectedAnswer === index
-                        ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-md transform scale-[1.02]"
-                        : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                    }`}
-                  >
-                    <span className="font-medium mr-3 text-blue-600">{String.fromCharCode(65 + index)}.</span>
-                    {option}
-                  </button>
-                ))}
-              </div>
-            )}
+              {currentQuestion.type === "multiple-choice" && currentQuestion.options && (
+                <div className="space-y-3">
+                  {currentQuestion.options.map((option: string, index: number) => (
+                    <button
+                      key={index}
+                      onClick={() => handleAnswerSelect(index)}
+                      className={`w-full p-4 text-left rounded-lg border-2 transition-all ${
+                        selectedAnswer === index
+                          ? "border-blue-500 bg-blue-500/10 shadow-md transform scale-[1.02]"
+                          : "border-slate-600 hover:border-slate-500 hover:bg-slate-700/50"
+                      }`}
+                    >
+                      <span className="font-medium mr-3 text-blue-400">{String.fromCharCode(65 + index)}.</span>
+                      <span className="text-slate-200">{option}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
 
-            {currentQuestion.type === "numerical" && (
-              <div className="space-y-3">
-                <input
-                  type="number"
-                  placeholder="Digite sua resposta"
-                  className="w-full p-4 border-2 border-slate-200 dark:border-slate-700 rounded-lg focus:border-blue-500 focus:outline-none"
-                  onChange={(e) => handleAnswerSelect(Number(e.target.value))}
-                />
-              </div>
-            )}
+              {currentQuestion.type === "numerical" && (
+                <div className="space-y-3">
+                  <input
+                    type="number"
+                    placeholder="Digite sua resposta"
+                    className="w-full p-4 border-2 border-slate-600 bg-slate-700/50 text-white rounded-lg focus:border-blue-500 focus:outline-none placeholder:text-slate-400"
+                    onChange={(e) => handleAnswerSelect(Number(e.target.value))}
+                  />
+                </div>
+              )}
 
-            {currentQuestion.type === "true-false" && (
-              <div className="space-y-3">
-                {["Verdadeiro", "Falso"].map((option, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleAnswerSelect(index)}
-                    className={`w-full p-4 text-left rounded-lg border-2 transition-all ${
-                      selectedAnswer === index
-                        ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-md transform scale-[1.02]"
-                        : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800/50"
-                    }`}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+              {currentQuestion.type === "true-false" && (
+                <div className="space-y-3">
+                  {["Verdadeiro", "Falso"].map((option, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleAnswerSelect(index)}
+                      className={`w-full p-4 text-left rounded-lg border-2 transition-all ${
+                        selectedAnswer === index
+                          ? "border-blue-500 bg-blue-500/10 shadow-md transform scale-[1.02]"
+                          : "border-slate-600 hover:border-slate-500 hover:bg-slate-700/50"
+                      }`}
+                    >
+                      <span className="text-slate-200">{option}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
 
-        {/* Navigation */}
-        <div className="flex justify-between">
-          <Button variant="outline" onClick={handlePreviousQuestion} disabled={progress.current === 1} className="px-6">
-            <ChevronLeft className="w-4 h-4 mr-2" />
-            Anterior
-          </Button>
+          {/* Navigation */}
+          <div className="flex justify-between">
+            <Button
+              variant="outline"
+              onClick={handlePreviousQuestion}
+              disabled={progress.current === 1}
+              className="px-6 bg-slate-700/50 border-slate-600 text-slate-300 hover:bg-slate-600/50"
+            >
+              <ChevronLeft className="w-4 h-4 mr-2" />
+              Anterior
+            </Button>
 
-          <Button
-            onClick={progress.current === progress.total ? handleFinishQuiz : handleNextQuestion}
-            disabled={selectedAnswer === null}
-            className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 px-6"
-          >
-            {progress.current === progress.total ? "Finalizar Quiz" : "Próxima"}
-            <ChevronRight className="w-4 h-4 ml-2" />
-          </Button>
+            <Button
+              onClick={progress.current === progress.total ? handleFinishQuiz : handleNextQuestion}
+              disabled={selectedAnswer === null}
+              className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 px-6"
+            >
+              {progress.current === progress.total ? "Finalizar Quiz" : "Próxima"}
+              <ChevronRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
         </div>
       </div>
     </div>
