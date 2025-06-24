@@ -27,14 +27,14 @@ const ChooseTestLevelSection: React.FC = () => {
     if (question.price > 0) {
       setIsModalOpen(true)
     } else {
-      router.push(`/mission/${question.id}`)
+      router.push(`/quiz/${question.id}`)
     }
   }
 
   const handlePaymentSuccess = () => {
     setIsModalOpen(false)
     if (selectedQuestion) {
-      router.push(`/mission/${selectedQuestion.id}`)
+      router.push(`/quiz/${selectedQuestion.id}`)
     }
   }
 
