@@ -5,16 +5,12 @@
  * It focuses on generating quiz URLs and handling premium quiz logic.
  */
 
-/**
- * Generates the URL for a premium quiz based on the level.
- *
- * @param level The level of the premium quiz.
- * @returns The URL for the premium quiz.
- */
-export function generatePremiumQuizUrl(level: number): string {
-  // Use the new /quiz/premium/[level] path structure.
-  return `/quiz/premium/${level}`
-}
+// REMOVED: This function was causing a conflicting slug name during deployment.
+// The routing is now handled by a single dynamic route `app/quiz/[slug]/page.tsx`.
+// export function generatePremiumQuizUrl(level: number): string {
+//   // Use the new /quiz/[slug] path structure.
+//   return `/quiz/premium/${level}` // This was the problematic line
+// }
 
 /**
  * Placeholder function for fetching premium quiz data.
