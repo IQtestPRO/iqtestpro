@@ -9,7 +9,6 @@ import {
   Crown,
   Star,
   Trophy,
-  ChevronRight,
   CheckCircle,
   Zap,
   Award,
@@ -20,7 +19,6 @@ import {
   Cpu,
   Sparkles,
   Gift,
-  Lock,
 } from "lucide-react"
 import { QuestionTypeModal } from "@/components/question-type-modal"
 import { PremiumPaymentModal } from "@/components/premium-payment-modal"
@@ -897,7 +895,7 @@ export default function ChooseTestLevelSection() {
 
                 {/* Botões de ação */}
                 <div className="flex flex-col sm:flex-row space-y-1.5 sm:space-y-0 sm:space-x-2 md:space-x-3 pt-2 sm:pt-2.5 md:pt-3 relative justify-center">
-                  <div className="relative flex-1">
+                  <div className="relative">
                     <Button
                       variant="outline"
                       className="w-full bg-slate-800/50 border-slate-600 hover:border-slate-500 text-slate-200 hover:text-white font-bold uppercase tracking-wider text-xs sm:text-sm backdrop-blur-sm hover:bg-slate-700/50 transition-all duration-300 group-hover:scale-105 min-h-[32px] sm:min-h-[36px] md:min-h-[44px] touch-manipulation"
@@ -972,14 +970,13 @@ export default function ChooseTestLevelSection() {
                     </div>
                   )}
                   <Button
-                    className={`flex-1 relative overflow-hidden bg-gradient-to-r ${question.gradientClasses.accent} hover:scale-105 transition-all duration-300 text-white font-black uppercase tracking-wider text-xs sm:text-sm shadow-2xl hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] group-hover:animate-pulse min-h-[32px] sm:min-h-[36px] md:min-h-[44px] touch-manipulation`}
+                    className={`relative overflow-hidden bg-gradient-to-r ${question.gradientClasses.accent} hover:scale-105 transition-all duration-300 text-white font-black uppercase tracking-wider text-xs sm:text-sm shadow-2xl hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] group-hover:animate-pulse min-h-[32px] sm:min-h-[36px] md:min-h-[44px] touch-manipulation`}
                     onClick={() => handleStartTestClick(question)}
                   >
                     <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     <span className="relative flex items-center justify-center">
-                      <span className="hidden md:inline">INICIAR MISSÃO</span>
-                      <span className="md:hidden">INICIAR</span>
-                      <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 ml-1 sm:ml-2 animate-bounce" />
+                      <span className="hidden md:inline text-[0.7rem]">INICIAR MISSÃO</span>
+                      <span className="md:hidden text-xs">INICIAR</span>
                     </span>
                   </Button>
                 </div>
@@ -1095,205 +1092,5 @@ export default function ChooseTestLevelSection() {
       {showPremiumPlansModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-3 md:p-4">
           <div className="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl md:rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-3 sm:p-4 md:p-6 border-b border-slate-200 dark:border-slate-700">
-              <div className="flex items-center justify-between">
-                <h2 className="text-base sm:text-lg md:text-2xl font-bold text-slate-900 dark:text-white flex items-center">
-                  <Crown className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-1.5 sm:mr-2 text-purple-600" />
-                  Planos Premium
-                </h2>
-                <button
-                  onClick={() => setShowPremiumPlansModal(false)}
-                  className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors min-w-[36px] min-h-[36px] sm:min-w-[40px] sm:min-h-[40px] md:min-w-[44px] md:min-h-[44px] flex items-center justify-center"
-                >
-                  ✕
-                </button>
-              </div>
-            </div>
-
-            <div className="p-3 sm:p-4 md:p-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-                {sampleQuestionsData.map((plan) => (
-                  <div
-                    key={plan.id}
-                    className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800 rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 border border-slate-200 dark:border-slate-600 hover:shadow-lg transition-all duration-300"
-                  >
-                    <div className="text-center mb-3 sm:mb-4">
-                      <div
-                        className={`inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br ${plan.gradientClasses.bg} mb-2 sm:mb-3`}
-                      >
-                        {plan.icon}
-                      </div>
-                      <h3 className="font-bold text-sm sm:text-base md:text-lg text-slate-900 dark:text-white">
-                        {plan.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">{plan.subtitle}</p>
-                    </div>
-
-                    <div className="text-center mb-3 sm:mb-4">
-                      {plan.originalPrice && (
-                        <div className="text-xs sm:text-sm text-slate-500 line-through">
-                          R$ {plan.originalPrice.toFixed(2)}
-                        </div>
-                      )}
-                      <div className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 dark:text-white">
-                        R$ {plan.price.toFixed(2)}
-                      </div>
-                      <div className="text-xs text-slate-600 dark:text-slate-400">Pagamento único</div>
-                    </div>
-
-                    <div className="space-y-1 sm:space-y-1.5 md:space-y-2 mb-3 sm:mb-4 md:mb-6">
-                      <div className="flex items-center text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                        <CheckCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-emerald-500 mr-1 sm:mr-1.5 md:mr-2 flex-shrink-0" />
-                        {plan.questions} questões
-                      </div>
-                      <div className="flex items-center text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                        <CheckCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-emerald-500 mr-1 sm:mr-1.5 md:mr-2 flex-shrink-0" />
-                        {plan.timeLimit} minutos
-                      </div>
-                      <div className="flex items-center text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                        <CheckCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-emerald-500 mr-1 sm:mr-1.5 md:mr-2 flex-shrink-0" />
-                        Relatório detalhado
-                      </div>
-                      <div className="flex items-center text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-                        <CheckCircle className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-emerald-500 mr-1 sm:mr-1.5 md:mr-2 flex-shrink-0" />
-                        Certificado digital
-                      </div>
-                    </div>
-
-                    <Button
-                      onClick={() => {
-                        setShowPremiumPlansModal(false)
-                        handleStartTestClick(plan)
-                      }}
-                      className={`w-full bg-gradient-to-r ${plan.gradientClasses.accent} text-white font-bold py-1.5 sm:py-2 md:py-2 px-2 sm:px-3 md:px-4 rounded-md sm:rounded-lg hover:scale-105 transition-all duration-300 text-xs sm:text-sm min-h-[32px] sm:min-h-[36px] md:min-h-[44px]`}
-                    >
-                      Escolher Plano
-                    </Button>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-4 sm:mt-6 md:mt-8 text-center">
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-2 sm:mb-3 md:mb-4">
-                  Todos os planos incluem garantia de 7 dias e suporte 24/7
-                </p>
-                <div className="flex items-center justify-center space-x-3 sm:space-x-4 md:space-x-6 text-xs text-slate-500 dark:text-slate-400">
-                  <div className="flex items-center">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-400 rounded-full mr-1"></div>
-                    Pagamento Seguro
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-400 rounded-full mr-1"></div>
-                    SSL Criptografado
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-purple-400 rounded-full mr-1"></div>
-                    Suporte Premium
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Go To Premium Popup */}
-      {showGoToPremiumPopup && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-[60] flex items-center justify-center p-3 sm:p-4 animate-fade-in-up">
-          <div className="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl md:rounded-2xl shadow-2xl max-w-md w-full transform transition-all duration-300 scale-100 opacity-100">
-            <div className="p-3 sm:p-4 md:p-6 border-b border-slate-200 dark:border-slate-700">
-              <div className="flex items-center justify-between">
-                <h2 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 dark:text-white flex items-center">
-                  <Gift className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-1.5 sm:mr-2 md:mr-3 text-yellow-500" />
-                  Acesso Premium Exclusivo
-                </h2>
-                <button
-                  onClick={() => setShowGoToPremiumPopup(false)}
-                  className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors min-w-[36px] min-h-[36px] sm:min-w-[40px] sm:min-h-[40px] md:min-w-[44px] md:min-h-[44px] flex items-center justify-center"
-                  aria-label="Fechar popup"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div className="p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4 md:space-y-5">
-              <p className="text-slate-600 dark:text-slate-300 text-center text-xs sm:text-sm md:text-base leading-relaxed">
-                Descubra todos os benefícios e recursos avançados disponíveis em nossos planos premium. Eleve sua
-                experiência e desbloqueie seu potencial máximo!
-              </p>
-              <Button
-                onClick={() => {
-                  router.push("/premium")
-                  setShowGoToPremiumPopup(false)
-                }}
-                className="w-full bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 hover:from-yellow-600 hover:via-orange-600 hover:to-red-600 text-white font-bold py-2 sm:py-2.5 md:py-3 px-3 sm:px-4 rounded-md sm:rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-xs sm:text-sm md:text-base min-h-[36px] sm:min-h-[40px] md:min-h-[44px]"
-              >
-                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-1 sm:mr-1.5 md:mr-2" />
-                Ver Planos Premium Agora
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Premium Lock Popup for Bonus Actions */}
-      {showPremiumLockPopup && lockedActionMessage && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-[70] flex items-center justify-center p-3 sm:p-4 animate-fade-in-up">
-          <div className="bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl md:rounded-2xl shadow-2xl max-w-md w-full transform transition-all duration-300 scale-100 opacity-100">
-            <div className="p-3 sm:p-4 md:p-6 border-b border-slate-200 dark:border-slate-700">
-              <div className="flex items-center justify-between">
-                <h2 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 dark:text-white flex items-center">
-                  <Lock className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 mr-1.5 sm:mr-2 md:mr-3 text-amber-500" />
-                  Acesso Restrito
-                </h2>
-                <button
-                  onClick={() => setShowPremiumLockPopup(false)}
-                  className="text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors min-w-[36px] min-h-[36px] sm:min-w-[40px] sm:min-h-[40px] md:min-w-[44px] md:min-h-[44px] flex items-center justify-center"
-                  aria-label="Fechar popup"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div className="p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4 md:space-y-5">
-              <p className="text-slate-600 dark:text-slate-300 text-center text-xs sm:text-sm md:text-base leading-relaxed">
-                {lockedActionMessage}
-              </p>
-              <p className="text-slate-500 dark:text-slate-400 text-center text-xs sm:text-sm">
-                Faça upgrade para um plano Premium para desbloquear esta e muitas outras vantagens exclusivas!
-              </p>
-              <Button
-                onClick={() => {
-                  router.push("/premium")
-                  setShowPremiumLockPopup(false)
-                }}
-                className="w-full bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 hover:from-purple-700 hover:via-pink-600 hover:to-red-600 text-white font-bold py-2 sm:py-2.5 md:py-3 px-3 sm:px-4 rounded-md sm:rounded-lg md:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-xs sm:text-sm md:text-base min-h-[36px] sm:min-h-[40px] md:min-h-[44px]"
-              >
-                <Crown className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 mr-1 sm:mr-1.5 md:mr-2" />
-                Ver Planos Premium
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-    </section>
-  )
-}
+            <div className="p-3 sm:p-4 md:p-6 border-b border-slate-200 dark:border-slate-700
+\`\`\`
