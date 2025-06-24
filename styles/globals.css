@@ -10,48 +10,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ensure proper stacking context */
-.page-transition {
-  position: relative;
-  z-index: 1;
-  animation: page-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes page-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Fix background interference */
-.main-content {
-  position: relative;
-  z-index: 10;
-  background: transparent;
-}
-
-/* Ensure buttons and interactive elements are visible */
-button,
-.btn,
-[role="button"] {
-  position: relative;
-  z-index: 20;
-}
-
-/* Modal and overlay z-index management */
-.modal-overlay {
-  z-index: 1000;
-}
-
-.toast-container {
-  z-index: 1100;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -96,9 +54,9 @@ button,
   }
 
   .animate-fade-in-up {
-    animation: fade-in-up 0.6s ease-out forwards;
+    animation: fade-in-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
   }
 
   .animate-scale-in {
@@ -118,128 +76,6 @@ button,
     opacity: 0;
     transform: translateX(24px);
   }
-
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  .animate-spin-slow {
-    animation: spin-slow 20s linear infinite;
-  }
-
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient-shift 3s ease infinite;
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-
-  .gradient-text {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .gradient-border {
-    position: relative;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 12px;
-    padding: 2px;
-  }
-
-  .gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: 2px;
-    background: white;
-    border-radius: 10px;
-    z-index: -1;
-  }
-
-  .glass {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .glass-dark {
-    background: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .hover-lift {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .hover-lift:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
-
-  .focus-ring {
-    transition: all 0.2s ease;
-  }
-
-  .focus-ring:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-  }
-
-  .btn-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    background-size: 200% 200%;
-    transition: all 0.3s ease;
-  }
-
-  .btn-gradient:hover {
-    background-position: right center;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-  }
-
-  .content-layer {
-    position: relative;
-    z-index: 10;
-  }
-
-  .modal-layer {
-    position: relative;
-    z-index: 50;
-  }
-
-  .interactive-element {
-    position: relative;
-    z-index: 20;
-  }
-
-  .shadow-mobile {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .shadow-mobile-lg {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  }
-
-  .mobile-padding {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .mobile-text-sm {
-    font-size: 0.875rem;
-  }
-
-  .mobile-text-base {
-    font-size: 1rem;
-  }
-
-  .mobile-text-lg {
-    font-size: 1.125rem;
-  }
 }
 
 @layer base {
@@ -258,14 +94,28 @@ button,
     --secondary-foreground: 222.2 84% 4.9%;
     --muted: 210 40% 96%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
+    --accent: 43 74% 66%;
     --accent-foreground: 222.2 84% 4.9%;
+    --accent-hover: 43 74% 60%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
     --radius: 0.75rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
@@ -277,18 +127,33 @@ button,
     --popover-foreground: 210 40% 98%;
     --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 222.2 84% 4.9%;
-    --primary-subtle: 217.2 32.6% 17.5%;
+    --primary-subtle: 215 28% 17%;
+    --primary-hover: 217.2 91.2% 65%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 43 74% 66%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --accent-hover: 43 74% 72%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 94.1%;
+    --ring: 217.2 91.2% 59.8%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -296,6 +161,7 @@ button,
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
@@ -326,10 +192,6 @@ button,
 }
 
 @keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
   to {
     opacity: 1;
     transform: translateY(0);
@@ -384,54 +246,6 @@ button,
   }
   90% {
     transform: translate3d(0, -2px, 0);
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes gradient-shift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
   }
 }
 
@@ -522,7 +336,7 @@ button,
 
 .card-hover:hover {
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.15);
 }
 
 /* Enhanced form inputs */
@@ -540,9 +354,19 @@ button,
   animation: page-fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Mobile Responsive Fixes */
+@keyframes page-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Optimized mobile touch targets */
 @media (max-width: 768px) {
-  /* Ensure touch targets are large enough */
   button,
   a,
   input,
@@ -550,59 +374,6 @@ button,
   textarea {
     min-height: 44px;
     min-width: 44px;
-  }
-
-  /* Fix text sizing on mobile */
-  h1 {
-    font-size: clamp(2rem, 8vw, 3rem);
-  }
-
-  h2 {
-    font-size: clamp(1.5rem, 6vw, 2rem);
-  }
-
-  /* Ensure proper spacing on mobile */
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  /* Fix button sizing on mobile */
-  .btn-mobile {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-  }
-
-  .mobile-optimized {
-    padding: 1rem;
-  }
-
-  .mobile-text {
-    font-size: clamp(0.875rem, 2.5vw, 1rem);
-  }
-
-  .mobile-button {
-    min-height: 44px;
-    padding: 0.75rem 1rem;
-  }
-}
-
-/* Desktop Responsive Fixes */
-@media (min-width: 1200px) {
-  /* Ensure content doesn't get too wide on large screens */
-  .container {
-    max-width: 1200px;
-  }
-
-  /* Proper spacing for large screens */
-  .hero-section {
-    padding: 4rem 0;
-  }
-
-  .desktop-optimized {
-    max-width: 1200px;
-    margin: 0 auto;
   }
 }
 
@@ -628,16 +399,6 @@ button,
   .dark {
     --border: 0 0% 80%;
     --ring: 217.2 91.2% 70%;
-  }
-
-  .gradient-text {
-    background: none;
-    -webkit-text-fill-color: initial;
-    color: #000;
-  }
-
-  .dark .gradient-text {
-    color: #fff;
   }
 }
 
@@ -856,6 +617,17 @@ button,
   scroll-behavior: smooth;
 }
 
+/* Mobile-optimized shadows */
+@media (max-width: 768px) {
+  .shadow-mobile {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .shadow-mobile-lg {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+
 /* Safe area support for notched devices */
 .safe-area-mobile {
   padding-top: max(1rem, env(safe-area-inset-top));
@@ -896,28 +668,4 @@ button,
     transform: scale(0.98);
     transition: transform 0.1s ease;
   }
-}
-
-/* Ensure all interactive elements are visible and accessible */
-.interactive-element {
-  position: relative;
-  z-index: 20;
-}
-
-/* Fix for overlapping backgrounds */
-.background-fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Ensure content is always visible */
-.page-content {
-  position: relative;
-  z-index: 10;
-  min-height: 100vh;
 }

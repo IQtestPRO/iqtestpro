@@ -14,15 +14,6 @@ export interface PremiumAccessInfo {
 }
 
 export function checkPremiumAccess(): PremiumAccessInfo {
-  // Only run on client side
-  if (typeof window === "undefined") {
-    return {
-      hasAccess: false,
-      purchasedLevels: [],
-      allUnlocked: false,
-    }
-  }
-
   try {
     // Verificar se tem acesso geral
     const testPaid = localStorage.getItem("testPaid")
@@ -81,46 +72,28 @@ export function checkPremiumAccess(): PremiumAccessInfo {
 }
 
 export function unlockAllQuizzes(): void {
-  // Only run on client side
-  if (typeof window === "undefined") {
-    return
-  }
+  localStorage.setItem("testPaid", "true")
+  localStorage.setItem("allQuizzesUnlocked", "true")
+  localStorage.setItem("unlockedAt", new Date().toISOString())
 
-  try {
-    localStorage.setItem("testPaid", "true")
-    localStorage.setItem("allQuizzesUnlocked", "true")
-    localStorage.setItem("unlockedAt", new Date().toISOString())
-
-    // Disparar evento customizado para atualizar componentes
-    window.dispatchEvent(
-      new CustomEvent("premiumUnlocked", {
-        detail: { unlockedAt: new Date().toISOString() },
-      }),
-    )
-  } catch (error) {
-    console.error("Error unlocking quizzes:", error)
-  }
+  // Disparar evento customizado para atualizar componentes
+  window.dispatchEvent(
+    new CustomEvent("premiumUnlocked", {
+      detail: { unlockedAt: new Date().toISOString() },
+    }),
+  )
 }
 
 export function resetPremiumAccess(): void {
-  // Only run on client side
-  if (typeof window === "undefined") {
-    return
-  }
+  localStorage.removeItem("testPaid")
+  localStorage.removeItem("allQuizzesUnlocked")
+  localStorage.removeItem("purchasedTest")
+  localStorage.removeItem("paymentDate")
+  localStorage.removeItem("paymentMethod")
+  localStorage.removeItem("unlockedAt")
+  localStorage.removeItem("purchasedLevelId")
 
-  try {
-    localStorage.removeItem("testPaid")
-    localStorage.removeItem("allQuizzesUnlocked")
-    localStorage.removeItem("purchasedTest")
-    localStorage.removeItem("paymentDate")
-    localStorage.removeItem("paymentMethod")
-    localStorage.removeItem("unlockedAt")
-    localStorage.removeItem("purchasedLevelId")
-
-    window.dispatchEvent(new CustomEvent("premiumReset"))
-  } catch (error) {
-    console.error("Error resetting premium access:", error)
-  }
+  window.dispatchEvent(new CustomEvent("premiumReset"))
 }
 
 // Hook para usar o sistema de acesso premium
