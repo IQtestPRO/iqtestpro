@@ -279,57 +279,37 @@ export default function ChooseTestLevelSection() {
   const handleStartTestClick = useCallback(
     (question: PreviewQuestion) => {
       try {
-        const accessInfo = checkPremiumAccess()
-
-        if (accessInfo.hasAccess) {
-          localStorage.setItem(
-            "selectedQuizConfig",
-            JSON.stringify({
-              id: question.id,
-              title: question.title,
-              questions: question.questions,
-              timeLimit: question.timeLimit,
-              features: question.features,
-              difficulty: question.difficulty,
-              specializedMode: true,
-              detailedFeedback: true,
-              comprehensiveAssessment: true,
-            }),
-          )
-
-          router.push(`/quiz/${question.id}`)
-          return
-        }
-
-        if (!openPaymentModal) {
-          console.error("Payment context not available")
-          router.push(
-            `/payment?testId=${question.id}&questions=${question.questions}&feedback=detailed&assessment=comprehensive`,
-          )
-          return
-        }
-
-        const levelData = {
+        // Salvar dados da missão selecionada no localStorage para usar no checkout
+        const missionData = {
           id: question.id,
           title: question.title,
+          subtitle: question.subtitle,
           price: question.price,
           originalPrice: question.originalPrice,
           questions: question.questions,
           timeLimit: question.timeLimit,
           features: question.features,
-          specializedQuestions: true,
+          difficulty: question.difficulty,
+          category: question.category,
+          description: question.description,
+          specializedMode: true,
           detailedFeedback: true,
           comprehensiveAssessment: true,
-          postPaymentRedirect: `/quiz/${question.id}`,
         }
 
-        openPaymentModal(`Começar ${question.title}`, `test-level-${question.id}`, levelData)
+        localStorage.setItem("selectedMission", JSON.stringify(missionData))
+
+        // Redirecionar sempre para a página de checkout
+        router.push(
+          `/checkout?missionId=${question.id}&questions=${question.questions}&timeLimit=${question.timeLimit}`,
+        )
       } catch (error) {
-        console.error("Error starting test:", error)
-        router.push(`/payment?testId=${question.id}&questions=${question.questions}&specialized=true&feedback=detailed`)
+        console.error("Error starting mission:", error)
+        // Fallback para página de checkout mesmo em caso de erro
+        router.push(`/checkout?missionId=${question.id}`)
       }
     },
-    [router, openPaymentModal],
+    [router],
   )
 
   const handleActualPurchase = useCallback(
@@ -554,7 +534,7 @@ export default function ChooseTestLevelSection() {
         {/* Header */}
         <div className="text-center mb-4 sm:mb-6 md:mb-8 lg:mb-12">
           <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg sm:rounded-xl md:rounded-2xl mb-3 sm:mb-4 md:mb-6">
-            <Brain className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-white" />
+            <Brain className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-10 xl:h-10 text-white" />
           </div>
           <h2 className="font-display text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 sm:mb-3 md:mb-4 bg-gradient-to-r from-slate-900 to-slate-700 dark:from-slate-100 dark:to-slate-300 bg-clip-text text-transparent px-2">
             Avaliação Cognitiva Científica
