@@ -128,21 +128,21 @@ export default function Navigation() {
     >
       <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="flex items-center space-x-3 group">
+        <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
           <div className="relative">
-            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl group-hover:shadow-blue-400/20 transition-all duration-500 group-hover:scale-105 ring-1 ring-slate-700/50 group-hover:ring-blue-400/30">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl group-hover:shadow-blue-400/20 transition-all duration-500 group-hover:scale-105 ring-1 ring-slate-700/50 group-hover:ring-blue-400/30">
               <Image
                 src="/logo-brain.png"
                 alt="IQ Test Pro Logo"
-                width={40}
-                height={40}
+                width={48}
+                height={48}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/15 to-purple-400/15 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[0.5px]" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/15 to-purple-400/15 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[0.5px]" />
           </div>
-          <span className="font-bold text-xl sm:text-2xl text-white group-hover:text-blue-300 transition-colors duration-300">
+          <span className="font-bold text-lg sm:text-xl lg:text-2xl text-white group-hover:text-blue-300 transition-colors duration-300">
             IQ Test{" "}
             <span className="text-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text">Pro</span>
           </span>
@@ -160,7 +160,7 @@ export default function Navigation() {
                 className="relative px-3 py-2 text-xs sm:text-sm md:px-4 text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 rounded-lg group"
               >
                 <span className="flex items-center space-x-2">
-                  <IconComponent className="w-4 h-4" />
+                  <IconComponent className="w-4 h-4 lg:w-5 lg:h-5" />
                   <span>{item.label}</span>
                 </span>
                 <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 rounded-full" />
@@ -183,7 +183,7 @@ export default function Navigation() {
                 onClick={() => handleNavigation("/login")}
                 className="group border-slate-600 text-slate-300 hover:text-white hover:border-blue-400 hover:bg-blue-400/10"
               >
-                <UserCircle className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" />
+                <UserCircle className="w-4 h-4 lg:w-5 lg:h-5 mr-2 group-hover:scale-110 transition-transform duration-200" />
                 Login
               </Button>
 
@@ -193,7 +193,7 @@ export default function Navigation() {
                 onClick={() => handleNavigation("/test")}
                 className="group bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 text-white border-0 shadow-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300"
               >
-                <Brain className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-200" />
+                <Brain className="w-4 h-4 lg:w-5 lg:h-5 mr-2 group-hover:scale-110 transition-transform duration-200" />
                 Começar Teste
               </Button>
             </>
@@ -247,13 +247,13 @@ export default function Navigation() {
                     key={item.href}
                     variant="ghost"
                     onClick={() => handleNavigation(item.href)}
-                    className="flex items-center space-x-4 py-4 px-4 text-base font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200 group text-left w-full justify-start min-h-[56px] touch-manipulation active:scale-98"
+                    className="flex items-center space-x-3 sm:space-x-4 py-3 sm:py-4 px-3 sm:px-4 text-base font-medium text-slate-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-200 group text-left w-full justify-start min-h-[52px] sm:min-h-[56px] touch-manipulation active:scale-98"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
                     <div className="group-hover:scale-110 transition-transform duration-200 flex-shrink-0">
-                      <IconComponent className="w-6 h-6" />
+                      <IconComponent className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
-                    <span className="text-left text-lg">{item.label}</span>
+                    <span className="text-left text-base sm:text-lg">{item.label}</span>
                   </Button>
                 )
               })}
@@ -261,19 +261,19 @@ export default function Navigation() {
               <div className="border-t border-slate-700/50 pt-4 mt-4 space-y-3">
                 <Button
                   variant="outline"
-                  className="w-full justify-start group min-h-[56px] text-base touch-manipulation active:scale-98 border-slate-600 text-slate-300 hover:text-white hover:border-blue-400 hover:bg-blue-400/10"
+                  className="w-full justify-start group min-h-[52px] sm:min-h-[56px] text-base touch-manipulation active:scale-98 border-slate-600 text-slate-300 hover:text-white hover:border-blue-400 hover:bg-blue-400/10"
                   onClick={() => handleNavigation("/login")}
                 >
-                  <UserCircle className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform duration-200" />
+                  <UserCircle className="w-5 h-5 sm:w-6 sm:h-6 mr-3 group-hover:scale-110 transition-transform duration-200" />
                   Login
                 </Button>
 
                 <Button
                   variant="default"
-                  className="w-full justify-start group bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 min-h-[56px] text-base touch-manipulation active:scale-98 shadow-lg"
+                  className="w-full justify-start group bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 min-h-[52px] sm:min-h-[56px] text-base touch-manipulation active:scale-98 shadow-lg"
                   onClick={() => handleNavigation("/test")}
                 >
-                  <Brain className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform duration-200" />
+                  <Brain className="w-5 h-5 sm:w-6 sm:h-6 mr-3 group-hover:scale-110 transition-transform duration-200" />
                   Começar Teste
                 </Button>
               </div>

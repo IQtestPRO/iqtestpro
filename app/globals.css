@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./responsive-scaling.css";
+
 /* CSS Variables - Updated for dark theme */
 @layer base {
   :root {
@@ -186,6 +188,92 @@
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
+  }
+
+  /* Responsive icon scaling system */
+  .icon-xs {
+    @apply w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5;
+  }
+  .icon-sm {
+    @apply w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6;
+  }
+  .icon-md {
+    @apply w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8;
+  }
+  .icon-lg {
+    @apply w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10;
+  }
+  .icon-xl {
+    @apply w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12;
+  }
+
+  /* Responsive spacing system */
+  .spacing-xs {
+    @apply p-2 sm:p-3 lg:p-4;
+  }
+  .spacing-sm {
+    @apply p-3 sm:p-4 lg:p-6;
+  }
+  .spacing-md {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+  .spacing-lg {
+    @apply p-6 sm:p-8 lg:p-10;
+  }
+
+  /* Responsive text scaling */
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm lg:text-base;
+  }
+  .text-responsive-sm {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+  .text-responsive-md {
+    @apply text-base sm:text-lg lg:text-xl;
+  }
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+
+  /* Touch-friendly targets */
+  .touch-target-sm {
+    @apply min-h-[44px] min-w-[44px] sm:min-h-[48px] sm:min-w-[48px];
+  }
+  .touch-target-md {
+    @apply min-h-[48px] min-w-[48px] sm:min-h-[52px] sm:min-w-[52px];
+  }
+  .touch-target-lg {
+    @apply min-h-[52px] min-w-[52px] sm:min-h-[56px] sm:min-w-[56px];
+  }
+
+  /* Responsive hover effects */
+  .hover-scale-sm {
+    @apply transition-transform duration-200 hover:scale-105 active:scale-95;
+  }
+  .hover-scale-md {
+    @apply transition-transform duration-300 hover:scale-110 active:scale-95;
+  }
+  .hover-scale-lg {
+    @apply transition-transform duration-300 hover:scale-125 active:scale-95;
+  }
+
+  /* Responsive card effects */
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] sm:hover:-translate-y-4 sm:hover:scale-[1.02];
+  }
+
+  /* Responsive grid gaps */
+  .gap-responsive {
+    @apply gap-3 sm:gap-4 md:gap-6 lg:gap-8;
+  }
+  .gap-responsive-sm {
+    @apply gap-2 sm:gap-3 md:gap-4 lg:gap-6;
+  }
+  .gap-responsive-lg {
+    @apply gap-4 sm:gap-6 md:gap-8 lg:gap-10;
   }
 }
 

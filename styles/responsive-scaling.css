@@ -1,0 +1,357 @@
+/* Responsive Scaling System */
+
+/* Base responsive breakpoints */
+@media (max-width: 640px) {
+  /* Mobile devices */
+  .responsive-icon-xs {
+    @apply w-3 h-3;
+  }
+  .responsive-icon-sm {
+    @apply w-4 h-4;
+  }
+  .responsive-icon-md {
+    @apply w-5 h-5;
+  }
+  .responsive-icon-lg {
+    @apply w-6 h-6;
+  }
+  .responsive-icon-xl {
+    @apply w-7 h-7;
+  }
+
+  .responsive-text-xs {
+    @apply text-xs;
+  }
+  .responsive-text-sm {
+    @apply text-sm;
+  }
+  .responsive-text-base {
+    @apply text-base;
+  }
+  .responsive-text-lg {
+    @apply text-lg;
+  }
+
+  .responsive-spacing-xs {
+    @apply p-2;
+  }
+  .responsive-spacing-sm {
+    @apply p-3;
+  }
+  .responsive-spacing-md {
+    @apply p-4;
+  }
+
+  .responsive-touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  /* Tablet devices */
+  .responsive-icon-xs {
+    @apply w-4 h-4;
+  }
+  .responsive-icon-sm {
+    @apply w-5 h-5;
+  }
+  .responsive-icon-md {
+    @apply w-6 h-6;
+  }
+  .responsive-icon-lg {
+    @apply w-7 h-7;
+  }
+  .responsive-icon-xl {
+    @apply w-8 h-8;
+  }
+
+  .responsive-text-xs {
+    @apply text-sm;
+  }
+  .responsive-text-sm {
+    @apply text-base;
+  }
+  .responsive-text-base {
+    @apply text-lg;
+  }
+  .responsive-text-lg {
+    @apply text-xl;
+  }
+
+  .responsive-spacing-xs {
+    @apply p-3;
+  }
+  .responsive-spacing-sm {
+    @apply p-4;
+  }
+  .responsive-spacing-md {
+    @apply p-5;
+  }
+
+  .responsive-touch-target {
+    @apply min-h-[48px] min-w-[48px];
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Small laptops/notebooks */
+  .responsive-icon-xs {
+    @apply w-4 h-4;
+  }
+  .responsive-icon-sm {
+    @apply w-5 h-5;
+  }
+  .responsive-icon-md {
+    @apply w-6 h-6;
+  }
+  .responsive-icon-lg {
+    @apply w-8 h-8;
+  }
+  .responsive-icon-xl {
+    @apply w-10 h-10;
+  }
+
+  .responsive-text-xs {
+    @apply text-sm;
+  }
+  .responsive-text-sm {
+    @apply text-base;
+  }
+  .responsive-text-base {
+    @apply text-lg;
+  }
+  .responsive-text-lg {
+    @apply text-xl;
+  }
+
+  .responsive-spacing-xs {
+    @apply p-3;
+  }
+  .responsive-spacing-sm {
+    @apply p-4;
+  }
+  .responsive-spacing-md {
+    @apply p-6;
+  }
+
+  .responsive-touch-target {
+    @apply min-h-[48px] min-w-[48px];
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  /* Large laptops/desktops */
+  .responsive-icon-xs {
+    @apply w-5 h-5;
+  }
+  .responsive-icon-sm {
+    @apply w-6 h-6;
+  }
+  .responsive-icon-md {
+    @apply w-8 h-8;
+  }
+  .responsive-icon-lg {
+    @apply w-10 h-10;
+  }
+  .responsive-icon-xl {
+    @apply w-12 h-12;
+  }
+
+  .responsive-text-xs {
+    @apply text-sm;
+  }
+  .responsive-text-sm {
+    @apply text-base;
+  }
+  .responsive-text-base {
+    @apply text-lg;
+  }
+  .responsive-text-lg {
+    @apply text-2xl;
+  }
+
+  .responsive-spacing-xs {
+    @apply p-4;
+  }
+  .responsive-spacing-sm {
+    @apply p-6;
+  }
+  .responsive-spacing-md {
+    @apply p-8;
+  }
+
+  .responsive-touch-target {
+    @apply min-h-[52px] min-w-[52px];
+  }
+}
+
+@media (min-width: 1441px) {
+  /* Extra large screens */
+  .responsive-icon-xs {
+    @apply w-6 h-6;
+  }
+  .responsive-icon-sm {
+    @apply w-8 h-8;
+  }
+  .responsive-icon-md {
+    @apply w-10 h-10;
+  }
+  .responsive-icon-lg {
+    @apply w-12 h-12;
+  }
+  .responsive-icon-xl {
+    @apply w-16 h-16;
+  }
+
+  .responsive-text-xs {
+    @apply text-base;
+  }
+  .responsive-text-sm {
+    @apply text-lg;
+  }
+  .responsive-text-base {
+    @apply text-xl;
+  }
+  .responsive-text-lg {
+    @apply text-3xl;
+  }
+
+  .responsive-spacing-xs {
+    @apply p-6;
+  }
+  .responsive-spacing-sm {
+    @apply p-8;
+  }
+  .responsive-spacing-md {
+    @apply p-10;
+  }
+
+  .responsive-touch-target {
+    @apply min-h-[56px] min-w-[56px];
+  }
+}
+
+/* Interactive element scaling */
+.interactive-scale {
+  transition: transform 0.2s ease-in-out;
+}
+
+.interactive-scale:hover {
+  transform: scale(1.05);
+}
+
+.interactive-scale:active {
+  transform: scale(0.98);
+}
+
+/* Logo scaling animation */
+.logo-scale {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-scale:hover {
+  transform: scale(1.1);
+}
+
+/* Card hover effects with responsive scaling */
+.card-hover-effect {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+@media (max-width: 640px) {
+  .card-hover-effect:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+/* Responsive grid adjustments */
+.responsive-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .responsive-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .responsive-grid {
+    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid {
+    gap: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .responsive-grid {
+    gap: 3rem;
+  }
+}
+
+/* Responsive typography scaling */
+.responsive-heading {
+  font-size: clamp(1.25rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+.responsive-subheading {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  line-height: 1.4;
+}
+
+.responsive-body {
+  font-size: clamp(0.875rem, 2.5vw, 1.125rem);
+  line-height: 1.6;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition-property: transform, opacity, background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Focus states for accessibility */
+.focus-visible:focus-visible {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+  border-radius: 0.375rem;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .responsive-icon-xs,
+  .responsive-icon-sm,
+  .responsive-icon-md,
+  .responsive-icon-lg,
+  .responsive-icon-xl {
+    filter: contrast(1.5);
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .interactive-scale,
+  .logo-scale,
+  .card-hover-effect {
+    transition: none;
+  }
+
+  .interactive-scale:hover,
+  .logo-scale:hover,
+  .card-hover-effect:hover {
+    transform: none;
+  }
+}
