@@ -638,7 +638,7 @@ export default function ChooseTestLevelSection() {
 
               {/* Header com gradiente gaming e padrão de fundo */}
               <div
-                className={`relative h-20 sm:h-24 md:h-32 lg:h-40 bg-gradient-to-br ${question.gradientClasses.bg} overflow-hidden`}
+                className={`relative h-16 sm:h-18 md:h-20 lg:h-24 bg-gradient-to-br ${question.gradientClasses.bg} overflow-hidden`}
               >
                 {/* Padrão de grade gaming */}
                 <div className="absolute inset-0 opacity-20">
@@ -731,7 +731,7 @@ export default function ChooseTestLevelSection() {
               </div>
 
               {/* Conteúdo */}
-              <div className="p-2.5 sm:p-3 md:p-4 lg:p-6 space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-5 relative z-10">
+              <div className="p-2 sm:p-2.5 md:p-3 lg:p-4 space-y-1.5 sm:space-y-2 md:space-y-2.5 lg:space-y-3 relative z-10">
                 {/* Título */}
                 <div>
                   <div className="flex items-center justify-between mb-1.5 sm:mb-2 md:mb-3">
@@ -802,7 +802,7 @@ export default function ChooseTestLevelSection() {
                 </div>
 
                 {/* Grade de estatísticas */}
-                <div className="grid grid-cols-3 gap-1.5 sm:gap-2 md:gap-4 py-2 sm:py-3 md:py-4 border-t border-b border-slate-700/50">
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2 md:gap-3 py-1.5 sm:py-2 md:py-2.5 border-t border-b border-slate-700/50">
                   <div className="text-center group/stat">
                     <div className="flex items-center justify-center mb-1 sm:mb-2 p-1 sm:p-2 rounded-lg bg-slate-800/50 group-hover/stat:bg-slate-700/50 transition-colors">
                       <Clock className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-cyan-400" />
@@ -905,7 +905,7 @@ export default function ChooseTestLevelSection() {
                 </div>
 
                 {/* Botões de ação */}
-                <div className="flex flex-col sm:flex-row space-y-1.5 sm:space-y-0 sm:space-x-2 md:space-x-3 pt-3 sm:pt-4 md:pt-6 relative">
+                <div className="flex flex-col sm:flex-row space-y-1.5 sm:space-y-0 sm:space-x-2 md:space-x-3 pt-2 sm:pt-2.5 md:pt-3 relative">
                   <div className="relative flex-1">
                     <Button
                       variant="outline"
@@ -994,7 +994,7 @@ export default function ChooseTestLevelSection() {
                 </div>
 
                 {/* Indicadores de confiança gaming */}
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 pt-2 sm:pt-3 md:pt-4 border-t border-slate-700/30">
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 pt-1.5 sm:pt-2 md:pt-2.5 border-t border-slate-700/30">
                   <div className="flex items-center justify-center space-x-2 sm:space-x-3 md:space-x-4 text-xs text-slate-400">
                     <div className="flex items-center">
                       <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 bg-green-400 rounded-full mr-1 animate-pulse"></div>
