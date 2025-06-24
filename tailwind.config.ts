@@ -146,30 +146,6 @@ const config = {
             backgroundPosition: "200% 0",
           },
         },
-        "responsive-bounce": {
-          "0%, 20%, 53%, 80%, 100%": {
-            transform: "translate3d(0, 0, 0) scale(1)",
-          },
-          "40%, 43%": {
-            transform: "translate3d(0, -8px, 0) scale(1.05)",
-          },
-          "70%": {
-            transform: "translate3d(0, -4px, 0) scale(1.02)",
-          },
-          "90%": {
-            transform: "translate3d(0, -2px, 0) scale(1.01)",
-          },
-        },
-        "responsive-pulse": {
-          "0%, 100%": {
-            opacity: "1",
-            transform: "scale(1)",
-          },
-          "50%": {
-            opacity: "0.8",
-            transform: "scale(1.05)",
-          },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -181,8 +157,6 @@ const config = {
         "subtle-pulse": "subtle-pulse 3s infinite",
         "gentle-bounce": "gentle-bounce 2s infinite",
         shimmer: "shimmer 1.5s infinite",
-        "responsive-bounce": "responsive-bounce 2s infinite",
-        "responsive-pulse": "responsive-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       fontSize: {
         xs: ["0.75rem", { lineHeight: "1.5", letterSpacing: "-0.01em" }],
@@ -196,14 +170,6 @@ const config = {
         "5xl": ["3rem", { lineHeight: "1.1", letterSpacing: "-0.04em" }],
         "6xl": ["3.75rem", { lineHeight: "1", letterSpacing: "-0.045em" }],
         "7xl": ["4.5rem", { lineHeight: "1", letterSpacing: "-0.05em" }],
-        "responsive-xs": ["clamp(0.75rem, 2vw, 0.875rem)", { lineHeight: "1.5", letterSpacing: "-0.01em" }],
-        "responsive-sm": ["clamp(0.875rem, 2.5vw, 1rem)", { lineHeight: "1.5", letterSpacing: "-0.01em" }],
-        "responsive-base": ["clamp(1rem, 3vw, 1.125rem)", { lineHeight: "1.6", letterSpacing: "-0.01em" }],
-        "responsive-lg": ["clamp(1.125rem, 3.5vw, 1.25rem)", { lineHeight: "1.6", letterSpacing: "-0.015em" }],
-        "responsive-xl": ["clamp(1.25rem, 4vw, 1.5rem)", { lineHeight: "1.5", letterSpacing: "-0.02em" }],
-        "responsive-2xl": ["clamp(1.5rem, 5vw, 2.25rem)", { lineHeight: "1.4", letterSpacing: "-0.025em" }],
-        "responsive-3xl": ["clamp(1.875rem, 6vw, 3rem)", { lineHeight: "1.3", letterSpacing: "-0.03em" }],
-        "responsive-4xl": ["clamp(2.25rem, 7vw, 4.5rem)", { lineHeight: "1.2", letterSpacing: "-0.035em" }],
       },
       boxShadow: {
         soft: "0 2px 8px -2px rgba(0, 0, 0, 0.08), 0 4px 16px -4px rgba(0, 0, 0, 0.04)",
@@ -216,11 +182,6 @@ const config = {
         88: "22rem",
         112: "28rem",
         128: "32rem",
-        "icon-xs": "clamp(0.75rem, 2vw, 1rem)",
-        "icon-sm": "clamp(1rem, 2.5vw, 1.25rem)",
-        "icon-md": "clamp(1.25rem, 3vw, 1.5rem)",
-        "icon-lg": "clamp(1.5rem, 4vw, 2rem)",
-        "icon-xl": "clamp(2rem, 5vw, 3rem)",
       },
       backdropBlur: {
         xs: "2px",
@@ -233,20 +194,6 @@ const config = {
       transitionDuration: {
         "400": "400ms",
         "600": "600ms",
-      },
-      screens: {
-        xs: "475px",
-        sm: "640px",
-        md: "768px",
-        lg: "1024px",
-        xl: "1280px",
-        "2xl": "1536px",
-        "3xl": "1920px",
-        // Device-specific breakpoints
-        mobile: { max: "640px" },
-        tablet: { min: "641px", max: "1024px" },
-        notebook: { min: "1025px", max: "1440px" },
-        desktop: { min: "1441px" },
       },
     },
   },
