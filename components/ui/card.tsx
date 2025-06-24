@@ -46,44 +46,7 @@ const CardContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDi
           !button.textContent?.toLowerCase().includes("grátis") &&
           !button.textContent?.toLowerCase().includes("free")
         ) {
-          // Verificar se é um botão "Iniciar Missão" (pós-pagamento)
-          const isStartMissionButton =
-            button.textContent?.toLowerCase().includes("iniciar") ||
-            button.textContent?.toLowerCase().includes("começar") ||
-            button.textContent?.toLowerCase().includes("start") ||
-            button.classList.contains("start-mission") ||
-            button.hasAttribute("data-start-mission")
-
-          if (isStartMissionButton) {
-            // Verificar se o pagamento foi realizado
-            const testPaid = localStorage.getItem("testPaid")
-            const premiumAccess = localStorage.getItem("premiumAccess")
-            const purchasedTest = localStorage.getItem("purchasedTest")
-
-            if (testPaid === "true" && premiumAccess === "true" && purchasedTest) {
-              try {
-                const purchaseData = JSON.parse(purchasedTest)
-
-                // Redirecionar diretamente para o quiz do plano comprado
-                router.push(`/quiz/${purchaseData.id || purchaseData.missionId || 1}`)
-
-                // Prevenir comportamento padrão
-                event.preventDefault()
-                event.stopPropagation()
-                return
-              } catch (error) {
-                console.error("Error accessing purchased test:", error)
-              }
-            }
-
-            // Se não tem acesso pago, redirecionar para premium
-            router.push("/premium")
-            event.preventDefault()
-            event.stopPropagation()
-            return
-          }
-
-          // Lógica original para botões de compra de plano
+          // Detectar dados do plano baseado no conteúdo do card
           const cardElement = button.closest("[data-plan-type]") || button.closest(".card")
           const planTitle = cardElement?.querySelector('h3, h2, [class*="title"]')?.textContent || "Plano Premium"
           const planPrice = cardElement?.querySelector('[class*="price"], .price')?.textContent || "R$ 29,90"
