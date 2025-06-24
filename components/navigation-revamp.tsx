@@ -140,10 +140,11 @@ export default function Navigation() {
                 priority
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/15 to-purple-400/15 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-[0.5px]" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg sm:rounded-xl opacity-0 group-hover:opacity-80 transition-all duration-500 mix-blend-overlay" />
           </div>
-          <span className="font-bold text-lg sm:text-xl lg:text-2xl bg-gradient-to-r from-blue-500 to-purple-600 group-hover:from-blue-400 group-hover:to-purple-500 text-white px-3 py-1 rounded-lg transition-all duration-300 shadow-lg group-hover:shadow-xl group-hover:shadow-blue-500/25">
-            IQ Test <span className="text-white">Pro</span>
+          <span className="font-bold text-lg sm:text-xl lg:text-2xl bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 bg-clip-text text-transparent group-hover:from-purple-400 group-hover:via-blue-500 group-hover:to-purple-600 transition-all duration-300">
+            IQ Test{" "}
+            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Pro</span>
           </span>
         </Link>
 
